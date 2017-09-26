@@ -328,7 +328,7 @@
 									<color>yellow</color>
 								</log>
 								<ports>
-									<port>3306:3306</port>
+									<port>3308:3306</port>
 								</ports>
 								<env>
 									<MYSQL_ROOT_PASSWORD>${mysql.root.password}</MYSQL_ROOT_PASSWORD>
