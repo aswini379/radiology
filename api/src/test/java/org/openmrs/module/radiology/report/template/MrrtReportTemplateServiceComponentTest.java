@@ -373,24 +373,6 @@ public class MrrtReportTemplateServiceComponentTest extends BaseModuleContextSen
     }
     
     /**
-     * @verifies not create an mrrt report template in the database and store the template as file if given template is invalid
-     * @see MrrtReportTemplateService#importMrrtReportTemplate(String)
-     */
-    @Test
-    public void
-            importMrrtReportTemplate_shouldNotCreateAnMrrtReportTemplateInTheDatabaseAndStoreTheTemplateAsFileIfGivenTemplateIsInvalid()
-                    throws Exception {
-        
-        setUpTemporaryFolder();
-        
-        String template = getFileContent(
-            "mrrttemplates/ihe/connectathon/2015/invalidMrrtReportTemplate-noMetaElementWithCharsetAttribute.html");
-        
-        expectedException.expect(APIException.class);
-        mrrtReportTemplateService.importMrrtReportTemplate(template);
-    }
-    
-    /**
     * @see MrrtReportTemplateService#getMrrtReportTemplates(MrrtReportTemplateSearchCriteria)
     * @verifies return all mrrt report templates that match given title search query if title is specified
     */
