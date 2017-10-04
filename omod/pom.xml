@@ -338,7 +338,7 @@
 								</env>
 								<wait>
 									<log>MySQL init process done. Ready for start up.</log>
-									<time>60000</time>
+									<time>300000</time>
 								</wait>
 							</run>
 						</image>
@@ -373,7 +373,7 @@
 								</env>
 								<wait>
 									<log>Server startup in</log>
-									<time>300000</time>
+									<time>1000000</time>
 								</wait>
 								<log>
 									<prefix>TC</prefix>
