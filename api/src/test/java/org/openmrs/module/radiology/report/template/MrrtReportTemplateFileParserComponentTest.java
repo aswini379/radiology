@@ -201,4 +201,12 @@ public class MrrtReportTemplateFileParserComponentTest extends BaseModuleContext
                 .contains(referenceTerm),
             is(true));
     }
+    
+    @Test
+    public void parse_shouldStoreTemplateHtmlInHtmlField() throws Exception {
+        String templateContent = getFileContent("mrrttemplates/ihe/connectathon/2015/CTChestAbdomen.html");
+        MrrtReportTemplate template = parser.parse(templateContent);
+        
+        assertThat(template.getHtml(), is(templateContent));
+    }
 }

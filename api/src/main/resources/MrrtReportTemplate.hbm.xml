@@ -53,5 +53,6 @@
 		<many-to-one name="changedBy" column="changed_by" class="org.openmrs.User" />
 		<property name="dateChanged" type="java.util.Date" column="date_changed" />
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
+		<property name="html" type="java.lang.String" column="html" length="65535"/>
 	</class>
 </hibernate-mapping>

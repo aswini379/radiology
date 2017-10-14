@@ -65,6 +65,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         FileUtils.writeStringToFile(destination, mrrtTemplate);
         
         template.setPath(destination.getAbsolutePath());
+        template.setHtml(mrrtTemplate);
         return saveMrrtReportTemplate(template);
     }
     
