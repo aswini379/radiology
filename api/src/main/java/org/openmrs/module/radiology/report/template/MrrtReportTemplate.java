@@ -28,6 +28,8 @@ public class MrrtReportTemplate extends BaseOpenmrsData {
     
     private String path;
     
+    private String html;
+    
     private String dcTermsTitle;
     
     private String dcTermsDescription;
@@ -170,5 +172,13 @@ public class MrrtReportTemplate extends BaseOpenmrsData {
     
     public void setTerms(Set<ConceptReferenceTerm> terms) {
         this.terms = terms;
+    }
+    
+    public String getHtml() {
+        return html;
+    }
+    
+    public void setHtml(String html) {
+        this.html = html;
     }
 }

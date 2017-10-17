@@ -77,6 +77,7 @@ class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParse
         final Document doc = Jsoup.parse(mrrtTemplate, "");
         final MrrtReportTemplate result = new MrrtReportTemplate();
         initializeTemplate(result, doc);
+        result.setHtml(mrrtTemplate);
         try {
             addTermsToTemplate(result, doc.getElementsByTag("script")
                     .get(0)

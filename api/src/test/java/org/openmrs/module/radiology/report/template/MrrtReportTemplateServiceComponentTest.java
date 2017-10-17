@@ -610,4 +610,16 @@ public class MrrtReportTemplateServiceComponentTest extends BaseModuleContextSen
                 .size(),
             is(1));
     }
+    
+    @Test
+    public void importMrrtReportTemplate_savedTemplateHtmlInHtmlProperty() throws Exception {
+        setUpTemporaryFolder();
+        
+        String sourcePath = "mrrttemplates/ihe/connectathon/2015/CTChestAbdomen.html";
+        String template = getFileContent(sourcePath);
+        
+        MrrtReportTemplate saved = mrrtReportTemplateService.importMrrtReportTemplate(template);
+        
+        assertThat(saved.getHtml(), is(template));
+    }
 }

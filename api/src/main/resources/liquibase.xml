@@ -568,4 +568,10 @@
 			<column name="uuid" value="d9015276-b7b1-45f1-ad72-323896e75a52" />
 		</insert>
 	</changeSet>
+	<changeSet id="radiology-46" author="ivange94">
+		<comment>Add html column to radiology_report_template table</comment>
+		<addColumn tableName="radiology_report_template">
+			<column name="html" type="text"/>
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>
