@@ -160,8 +160,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         if (mrrtReportTemplate == null) {
             throw new IllegalArgumentException("mrrtReportTemplate cannot be null");
         }
-        final File templateFile = new File(mrrtReportTemplate.getPath());
-        final Document doc = Jsoup.parse(templateFile, null);
+        final Document doc = Jsoup.parse(mrrtReportTemplate.getHtml());
         
         return doc.select("body")
                 .html();
