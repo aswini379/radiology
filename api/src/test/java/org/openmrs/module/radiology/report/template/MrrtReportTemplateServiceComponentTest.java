@@ -571,14 +571,14 @@ public class MrrtReportTemplateServiceComponentTest extends BaseModuleContextSen
     */
     @Test
     public void getMrrtReportTemplateHtmlBody_shouldReturnTheBodyContentOfTheMrrtReportTemplateFile() throws Exception {
-        File tmpTemplateFile = temporaryFolder.newFile();
-        FileUtils.writeStringToFile(tmpTemplateFile,
-            "<html>" + "<head><title>Sample Template</title></head>" + "<body><p>Sample Template</p></body>" + "</html>");
-        MrrtReportTemplate mockTemplate = mock(MrrtReportTemplate.class);
-        when(mockTemplate.getPath()).thenReturn(tmpTemplateFile.getAbsolutePath());
-        String bodyContentReturned = mrrtReportTemplateService.getMrrtReportTemplateHtmlBody(mockTemplate);
+        String templateString = getFileContent("mrrttemplates/ihe/connectathon/2015/CTChestAbdomen.html");
+        
+        MrrtReportTemplate template = parser.parse(templateString);
+        String bodyContentReturned = mrrtReportTemplateService.getMrrtReportTemplateHtmlBody(template);
         assertNotNull(bodyContentReturned);
-        assertThat(bodyContentReturned, is("<p>Sample Template</p>"));
+        assertThat(bodyContentReturned,
+            is("<section data-section-name=\"The Only Section\"> \n <header class=\"level1\">\n  Section Header\n "
+                    + "</header> \n <p> This is the CT Chest-Abdomen report template</p> \n</section>"));
     }
     
     /**
