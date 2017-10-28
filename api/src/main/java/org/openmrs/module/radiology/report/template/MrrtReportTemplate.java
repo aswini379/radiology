@@ -26,6 +26,7 @@ public class MrrtReportTemplate extends BaseOpenmrsData {
     
     private String charset;
     
+    @Deprecated
     private String path;
     
     private String html;
@@ -78,10 +79,22 @@ public class MrrtReportTemplate extends BaseOpenmrsData {
         this.charset = charset;
     }
     
+    /**
+     * @deprecated
+     * No longer needed after implementing
+     *{@link #getHtml()} and will be deleted in subsequent release.
+     */
+    @Deprecated
     public String getPath() {
         return path;
     }
     
+    /**
+     * @deprecated
+     * No longer needed after implementing
+     *{@link #setHtml(String)} and will be deleted in subsequent release.
+     */
+    @Deprecated
     public void setPath(String path) {
         this.path = path;
     }
