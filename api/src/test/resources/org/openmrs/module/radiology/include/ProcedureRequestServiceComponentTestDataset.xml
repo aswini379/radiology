@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+
+<dataset>
+
+    <location location_id="1" name="Radiology Department" creator="1" date_created="2017-01-01 00:00:00.0" retired="false" uuid="c36006e5-9fbb-4f20-866b-0ece245615a1"/>
+
+    <encounter_type encounter_type_id="1001" name="Procedure Request Encounter Type" description="Placing a request for a procedure" creator="1" date_created="2017-10-27 00:00:00.0" retired="false" uuid="19db8c0d-3520-48f2-babd-77f2d450e5c7"/>
+    <encounter_role encounter_role_id="1001" name="Procedure Request Provider Encounter Role " description="Provider requesting physiotherapy" creator="1" retired="false" date_created="2015-09-09 14:00:00.0" uuid="13fc9b4a-49ed-429c-9dde-ca005b387a3d" />
+
+    <!-- Provider for Procedure Requests -->
+    <provider provider_id="1" name="Radiology Technician" identifier="1" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="c2299800-cca9-11e0-9572-0800200c9a66" />
+    <provider provider_id="2" name="Radiology Technician 2" identifier="2" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="53f7a3ee-39e8-487d-ac02-3888ef2a6d62" />
+
+
+    <!-- concept name and concepts -->
+    <concept concept_id="250" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2004-01-01 00:00:00" changed_by="1" date_changed="2005-02-16 00:00:00" version="" uuid="1565b6e6-df81-11e4-98ec-08002798a7ad"/>
+    <concept_name concept_id="250" name="EVALUATION" locale="en" creator="1" date_created="2004-01-01 00:00:00" concept_name_id="260" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="15736c16-df81-11e4-98ec-08002798a7ad"/>
+
+    <concept concept_id="251" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2004-01-01 00:00:00" changed_by="1" date_changed="2005-02-16 00:00:00" version="" uuid="1565b6e6-df81-11e4-98ec-08002798a77a"/>
+    <concept_name concept_id="251" name="ASSESSMENT" locale="en" creator="1" date_created="2004-01-01 00:00:00" concept_name_id="261" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="15736c16-df81-11e4-98ec-08002798a77d"/>
+
+    <concept concept_id="252" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2004-01-01 00:00:00" changed_by="1" date_changed="2005-02-16 00:00:00" version="" uuid="1565b6e6-df81-11e4-98ec-08002798a7a7"/>
+    <concept_name concept_id="252" name="OSTEOARTHRITIS" locale="en" creator="1" date_created="2004-01-01 00:00:00" concept_name_id="262" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="15736c16-df81-11e4-98ec-080c2798a7ad"/>
+
+
+    <!-- patient with one  procedure request -->
+    <person person_id="70011" gender="F" birthdate="1975-06-07" dead="false" creator="1" date_created="2017-01-01 00:00:00.0" voided="false" uuid="d2c1adbf-d9fa-11e5-90c3-08002719a237" />
+    <person_name person_name_id="2" preferred="true" person_id="70011" given_name="John" family_name="Doe" creator="1" date_created="2017-01-01 00:00:00.0" voided="false" uuid="0f1f7d08-076b-4fc6-acac-4bb91515141e"/>
+    <patient patient_id="70011" creator="1" date_created="2015-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="1" patient_id="70011" identifier="1234" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2017-01-01 00:00:00.0" voided="false" uuid="1ac98ec8-e9d9-4626-998c-c795c2f0aa9f"/>
+    <encounter encounter_id="2001" encounter_type="1001" patient_id="70011" location_id="1" form_id="1" encounter_datetime="2017-10-27 12:24:10.0" creator="1" date_created="2017-10-27 12:24:10.0" voided="false" uuid="6849c394-2c58-49d9-b928-215a75a90959"/>
+    <procedure_request request_id="1" uuid="f689a577-eb63-4e6b-9941-13c7880f5590" identifier="12345" status="ACTIVE" intent="PROPOSAL" priority="ROUTINE" do_not_perform="false" category="250" code="251" subject="70011" context="2001" authored_on="2017-10-26 18:00:11" requester="1" reason_code="252" note="none"/>
+
+</dataset>
