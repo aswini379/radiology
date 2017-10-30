@@ -152,7 +152,7 @@
 						</nonFilteredFileExtensions>
 					</configuration>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
+				<!--This plugin's configuration is used to store Eclipse m2e settings
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -345,7 +345,7 @@
 						<!-- Image holding the artifact of this build -->
 						<image>
 							<alias>${radiology.image.alias}</alias>
-							<name>achabill/lh-radiology</name>
+							<name>achabill/lh-toolkit</name>
 							<build>
 								<dockerFile>Dockerfile</dockerFile>
 								<assembly>

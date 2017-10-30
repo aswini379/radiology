@@ -11,10 +11,10 @@ services:
       MYSQL_PASSWORD: &lh_db_password librehealth
       MYSQL_DATABASE: &lh_db librehealth
   lh:
-    image: achabill/lh-radiology
+    image: achabill/lh-toolkit
     ports:
       - "8080:8080"
-    container_name: lh-radiology
+    container_name: lh-toolkit
     depends_on:
       - db
     environment:
