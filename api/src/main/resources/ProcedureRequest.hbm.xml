@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.openmrs.module.radiology">
+    <class name="org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequest" table="procedure_request">
+        <id name="requestId" type="int" column="request_id" unsaved-value="0">
+            <generator class="native"/>
+        </id>
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
+        <property name="identifier" type="java.lang.String" column="identifier"/>
+        <property name="status" column="status" length="20">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequest$Status</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+        <property name="intent" column="intent" length="12">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequest$Intent</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+        <property name="priority" column="priority" length="9">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequest$Priority</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+        <property name="doNotPerform" type="java.lang.Boolean" column="do_not_perform"/>
+        <many-to-one name="category" column="category" class="org.openmrs.Concept"/>
+        <many-to-one name="code" column="code" class="org.openmrs.Concept"/>
+        <many-to-one name="subject" column="subject" class="org.openmrs.Person"/>
+        <many-to-one name="context" column="context" class="org.openmrs.Encounter"/>
+        <property name="authoredOn" type="java.util.Date" column="authored_on"/>
+        <many-to-one name="requester" column="requester" class="org.openmrs.Provider"/>
+        <many-to-one name="reasonCode" column="reason_code" class="org.openmrs.Concept"/>
+        <property name="note" type="java.lang.String" column="note"/>
+    </class>
+</hibernate-mapping>

@@ -574,4 +574,44 @@
 			<column name="html" type="text"/>
 		</addColumn>
 	</changeSet>
+		<changeSet id="radiology-47" author="lehone-hp">
+		<comment>Add table for procedure_request</comment>
+		<createTable tableName="procedure_request">
+			<column name="request_id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="uuid" type="char(38)" />
+			<column name="identifier" type="varchar(255)" />
+			<column name="status" type="varchar(20)" />
+			<column name="intent" type="varchar(12)" />
+			<column name="priority" type="varchar(9)" />
+			<column name="do_not_perform" type="boolean" />
+			<column name="category" type="int"/>
+			<column name="code" type="int" />
+			<column name="subject" type="int" />
+			<column name="context" type="int" />
+			<column name="authored_on" type="datetime" />
+			<column name="requester" type="int" />
+			<column name="reason_code" type="int" />
+			<column name="note" type="varchar(255)" />
+		</createTable>
+		<addForeignKeyConstraint constraintName="procedure_request_category_fk"
+								 baseTableName="procedure_request" baseColumnNames="category"
+								 referencedTableName="concept" referencedColumnNames="concept_id" />
+		<addForeignKeyConstraint constraintName="procedure_request_code_fk"
+								 baseTableName="procedure_request" baseColumnNames="code"
+								 referencedTableName="concept" referencedColumnNames="concept_id" />
+		<addForeignKeyConstraint constraintName="procedure_request_subject_fk"
+								 baseTableName="procedure_request" baseColumnNames="subject"
+								 referencedTableName="person" referencedColumnNames="person_id" />
+		<addForeignKeyConstraint constraintName="procedure_request_context_fk"
+								 baseTableName="procedure_request" baseColumnNames="context"
+								 referencedTableName="encounter" referencedColumnNames="encounter_id" />
+		<addForeignKeyConstraint constraintName="procedure_request_requester_fk"
+								 baseTableName="procedure_request" baseColumnNames="requester"
+								 referencedTableName="provider" referencedColumnNames="provider_id" />
+		<addForeignKeyConstraint constraintName="procedure_request_reason_code_fk"
+								 baseTableName="procedure_request" baseColumnNames="reason_code"
+								 referencedTableName="concept" referencedColumnNames="concept_id" />
+	</changeSet>
 </databaseChangeLog>
