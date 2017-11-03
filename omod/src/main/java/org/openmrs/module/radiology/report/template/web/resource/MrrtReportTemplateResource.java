@@ -54,6 +54,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             description.addProperty("dcTermsPublisher");
             description.addProperty("dcTermsCreator");
             description.addProperty("dcTermsRights");
+            description.addProperty("html");
             description.addProperty("terms", Representation.REF);
             description.addProperty("display");
             description.addSelfLink();
@@ -75,6 +76,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             description.addProperty("dcTermsRights");
             description.addProperty("dcTermsLicense");
             description.addProperty("dcTermsDate");
+            description.addProperty("html");
             description.addProperty("terms", Representation.REF);
             description.addProperty("display");
             description.addSelfLink();

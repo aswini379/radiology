@@ -70,6 +70,7 @@ public class MrrtReportTemplateResourceComponentTest
         assertPropPresent("dcTermsPublisher");
         assertPropPresent("dcTermsCreator");
         assertPropPresent("dcTermsRights");
+        assertPropPresent("html");
         assertPropPresent("terms");
         assertPropPresent("display");
     }
@@ -93,6 +94,7 @@ public class MrrtReportTemplateResourceComponentTest
         assertPropPresent("dcTermsRights");
         assertPropPresent("dcTermsLicense");
         assertPropPresent("dcTermsDate");
+        assertPropPresent("html");
         assertPropPresent("terms");
         assertPropPresent("display");
     }
