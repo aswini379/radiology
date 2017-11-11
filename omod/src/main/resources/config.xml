@@ -205,7 +205,7 @@
 	<!-- /Internationalization -->
 
 	<mappingFiles>RadiologyModality.hbm.xml RadiologyStudy.hbm.xml RadiologyOrder.hbm.xml
-		RadiologyReport.hbm.xml MrrtReportTemplate.hbm.xml
+		RadiologyReport.hbm.xml MrrtReportTemplate.hbm.xml ProcedureRequest.hbm.xml
 	</mappingFiles>
 
 	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name> -->
