@@ -10,9 +10,13 @@
 package org.openmrs.module.radiology.fhir.procedurerequest.web.controller;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequest;
+import org.openmrs.module.radiology.fhir.procedurerequest.ProcedureRequestService;
 import org.openmrs.module.webservices.rest.SimpleObject;
 import org.openmrs.module.webservices.rest.test.Util;
 import org.openmrs.module.webservices.rest.web.RestConstants;
@@ -21,8 +25,12 @@ import org.openmrs.module.webservices.rest.web.v1_0.controller.MainResourceContr
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class ProcedureRequestControllerTest extends MainResourceControllerTest {
     
@@ -91,5 +99,43 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
     @Test(expected = ResourceDoesNotSupportOperationException.class)
     public void shouldGetAll() throws Exception {
         super.shouldGetAll();
+    }
+
+    @Test
+    public void createProcedureRequest_shouldCreateNewProcedureRequest() throws Exception {
+        SimpleObject request = new SimpleObject();
+
+        request.add("identifier", new Date().toString());
+        request.add("doNotPerform", false);
+        request.add("requester", "53f7a3ee-39e8-487d-ac02-3888ef2a6d62");
+        request.add("subject", "d2c1adbf-d9fa-11e5-90c3-08002719a237");
+        request.add("priority", "ROUTINE");
+        request.add("intent", "ORDER");
+        request.add("status", "COMPLETED");
+
+
+        String json = new ObjectMapper().writeValueAsString(request);
+
+        MockHttpServletRequest req = request(RequestMethod.POST, getURI());
+        req.setContent(json.getBytes());
+
+        SimpleObject newRequest = deserialize(handle(req));
+
+        Util.log("Created Request", newRequest);
+        assertNotNull(PropertyUtils.getProperty(newRequest, "uuid"));
+
+        ProcedureRequest savedRequest = Context.getService(ProcedureRequestService.class).getProcedureRequestByUuid(newRequest.get("uuid"));
+        assertNotNull(savedRequest);
+        assertNotNull(savedRequest.getIdentifier());
+        assertNotNull(savedRequest.getIntent());
+        assertNotNull(savedRequest.getPriority());
+        assertNotNull(savedRequest.getStatus());
+        assertNotNull(savedRequest.getSubject());
+        assertNotNull(savedRequest.getRequester());
+
+       assertThat(savedRequest.getRequester().getUuid(), is("53f7a3ee-39e8-487d-ac02-3888ef2a6d62"));
+       assertThat(savedRequest.getRequester().getId(), is(2));
+       assertThat(savedRequest.getSubject().getUuid(), is("d2c1adbf-d9fa-11e5-90c3-08002719a237"));
+       assertThat(savedRequest.getSubject().getId(), is(70011));
     }
 }
