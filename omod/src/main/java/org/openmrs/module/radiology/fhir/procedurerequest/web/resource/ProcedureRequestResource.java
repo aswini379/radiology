@@ -102,17 +102,36 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
      * @should throw ResourceDoesNotSupportOperationException
      */
     @Override
-    public ProcedureRequest newDelegate() throws ResourceDoesNotSupportOperationException {
-        throw new ResourceDoesNotSupportOperationException();
+    public ProcedureRequest newDelegate()  {
+        return new ProcedureRequest();
     }
-    
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() {
+        final DelegatingResourceDescription description = new DelegatingResourceDescription();
+
+        description.addRequiredProperty("priority");
+        description.addRequiredProperty("intent");
+        description.addRequiredProperty("status");
+        description.addRequiredProperty("identifier");
+        description.addRequiredProperty("requester");
+        description.addRequiredProperty("subject");
+        description.addProperty("doNotPerform");
+        description.addProperty("note");
+        description.addProperty("reasonCode");
+        description.addProperty("code");
+        description.addProperty("category");
+
+        return description;
+    }
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceHandler#save(java.lang.Object)
      * @should throw ResourceDoesNotSupportOperationException
      */
     @Override
-    public ProcedureRequest save(ProcedureRequest procedureRequest) throws ResourceDoesNotSupportOperationException {
-        throw new ResourceDoesNotSupportOperationException();
+    public ProcedureRequest save(ProcedureRequest procedureRequest) {
+        return Context.getService(ProcedureRequestService.class).addProcedureRequest(procedureRequest);
     }
     
     /**
