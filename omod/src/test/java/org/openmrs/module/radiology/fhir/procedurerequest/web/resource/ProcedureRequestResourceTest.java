@@ -31,9 +31,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -130,20 +133,21 @@ public class ProcedureRequestResourceTest {
     
     /**
      * @see ProcedureRequestResource#newDelegate()
-     * @verifies throw ResourceDoesNotSupportOperationException
      */
-    @Test(expected = ResourceDoesNotSupportOperationException.class)
-    public void newDelegate_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
-        procedureRequestResource.newDelegate();
+    @Test
+    public void newDelegate_shouldReturnAnInstanceOfProcedureRequest() throws Exception {
+        ProcedureRequest procedureRequest = procedureRequestResource.newDelegate();
+        assertNotNull(procedureRequest);
+        assertThat(procedureRequest, instanceOf(ProcedureRequest.class));
     }
     
     /**
      * @see ProcedureRequestResource#save(ProcedureRequest)
-     * @verifies throw ResourceDoesNotSupportOperationException
      */
-    @Test(expected = ResourceDoesNotSupportOperationException.class)
-    public void save_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
+    @Test
+    public void save_shouldCallApiSaveMethod() throws Exception {
         procedureRequestResource.save(procedureRequest);
+        verify(procedureRequestService).addProcedureRequest(procedureRequest);
     }
     
     /**
