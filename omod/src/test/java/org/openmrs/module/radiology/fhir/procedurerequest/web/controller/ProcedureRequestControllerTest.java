@@ -100,11 +100,11 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
     public void shouldGetAll() throws Exception {
         super.shouldGetAll();
     }
-
+    
     @Test
     public void createProcedureRequest_shouldCreateNewProcedureRequest() throws Exception {
         SimpleObject request = new SimpleObject();
-
+        
         request.add("identifier", new Date().toString());
         request.add("doNotPerform", false);
         request.add("requester", "53f7a3ee-39e8-487d-ac02-3888ef2a6d62");
@@ -112,19 +112,19 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
         request.add("priority", "ROUTINE");
         request.add("intent", "ORDER");
         request.add("status", "COMPLETED");
-
-
+        
         String json = new ObjectMapper().writeValueAsString(request);
-
+        
         MockHttpServletRequest req = request(RequestMethod.POST, getURI());
         req.setContent(json.getBytes());
-
+        
         SimpleObject newRequest = deserialize(handle(req));
-
+        
         Util.log("Created Request", newRequest);
         assertNotNull(PropertyUtils.getProperty(newRequest, "uuid"));
-
-        ProcedureRequest savedRequest = Context.getService(ProcedureRequestService.class).getProcedureRequestByUuid(newRequest.get("uuid"));
+        
+        ProcedureRequest savedRequest = Context.getService(ProcedureRequestService.class)
+                .getProcedureRequestByUuid(newRequest.get("uuid"));
         assertNotNull(savedRequest);
         assertNotNull(savedRequest.getIdentifier());
         assertNotNull(savedRequest.getIntent());
@@ -132,10 +132,18 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
         assertNotNull(savedRequest.getStatus());
         assertNotNull(savedRequest.getSubject());
         assertNotNull(savedRequest.getRequester());
-
-       assertThat(savedRequest.getRequester().getUuid(), is("53f7a3ee-39e8-487d-ac02-3888ef2a6d62"));
-       assertThat(savedRequest.getRequester().getId(), is(2));
-       assertThat(savedRequest.getSubject().getUuid(), is("d2c1adbf-d9fa-11e5-90c3-08002719a237"));
-       assertThat(savedRequest.getSubject().getId(), is(70011));
+        
+        assertThat(savedRequest.getRequester()
+                .getUuid(),
+            is("53f7a3ee-39e8-487d-ac02-3888ef2a6d62"));
+        assertThat(savedRequest.getRequester()
+                .getId(),
+            is(2));
+        assertThat(savedRequest.getSubject()
+                .getUuid(),
+            is("d2c1adbf-d9fa-11e5-90c3-08002719a237"));
+        assertThat(savedRequest.getSubject()
+                .getId(),
+            is(70011));
     }
 }
