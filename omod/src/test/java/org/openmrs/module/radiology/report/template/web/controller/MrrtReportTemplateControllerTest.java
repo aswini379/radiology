@@ -71,11 +71,11 @@ public class MrrtReportTemplateControllerTest extends MainResourceControllerTest
         return 1;
     }
     
-    public static String getMrrtReportTemplateHtml() {
+    private static String getMrrtReportTemplateHtml() {
         return MRRT_REPORT_TEMPLATE_HTML;
     }
     
-    public static String getMrrtReportTemplateDctermsIdentifier() {
+    private static String getMrrtReportTemplateDctermsIdentifier() {
         return MRRT_REPORT_TEMPLATE_DCTERMS_IDENTIFIER;
     }
     
