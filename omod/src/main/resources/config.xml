@@ -53,6 +53,11 @@
 		<point>org.openmrs.gutter.tools</point>
 		<class>@MODULE_PACKAGE@.web.extension.html.GutterListExt</class>
 	</extension>
+        <extension>
+            <point>org.openmrs.gutter.tools</point>
+            <class>org.openmrs.module.radiology.web.extension.html.Radiology</class>
+        </extension>
+         
 
 	<!-- /Extensions -->
 
@@ -187,6 +192,13 @@
 			relative paths are valid.
 			Relative paths are appended to the application data directory; necessary
 			parent directories are created if they do not exist.
+		</description>
+	</globalProperty>
+        <globalProperty>
+		<property>@MODULE_ID@.ohifViewerUrl</property>
+		<defaultValue>/ohif</defaultValue>
+		<description>
+			The URL directs you to the OHIF viewer. OHIF is a radiology image viewer.
 		</description>
 	</globalProperty>
 	<!--Required Global Properties -->
