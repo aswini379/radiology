@@ -9,6 +9,10 @@ build_job:
   stage: build
   script:
     - mvn clean package --batch-mode
+    - curl -X DELETE -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/radiology-0.1.0-dev-SNAPSHOT.omod
+    - curl -T omod/target/radiology-0.1.0-dev-SNAPSHOT.omod -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/lh-radiology-devbuilds/latest/radiology-0.1.0-dev-SNAPSHOT.omod
+    - curl -X POST -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/lh-radiology-devbuilds/latest/publish
+
   only:
     - master
 
