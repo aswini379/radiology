@@ -55,7 +55,7 @@
 	</extension>
         <extension>
             <point>org.openmrs.gutter.tools</point>
-            <class>org.openmrs.module.radiology.web.extension.html.Radiology</class>
+            <class>org.openmrs.module.radiology.web.extension.html.RadiologyViewerExt</class>
         </extension>
          
 
@@ -196,7 +196,7 @@
 	</globalProperty>
         <globalProperty>
 		<property>@MODULE_ID@.ohifViewerUrl</property>
-		<defaultValue>/ohif</defaultValue>
+		<defaultValue>http://localhost:3000</defaultValue>
 		<description>
 			The URL directs you to the OHIF viewer. OHIF is a radiology image viewer.
 		</description>

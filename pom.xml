@@ -161,6 +161,7 @@
 							<exclude>bower_components/</exclude>
 							<exclude>node/</exclude>
 							<exclude>node_modules/</exclude>
+							<exclude>Viewers/**</exclude>
 						</excludes>
 					</configuration>
 					<executions>

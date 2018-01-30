@@ -39,5 +39,14 @@ The following resources will help with understanding the basic infrastructure be
 
 For full instructions visit the repository's [wiki page](https://gitlab.com/librehealth/lh-radiology/wikis/home). Java JDK 8 and Maven can be used for building the module. The easiest way to install and run the module is via a Docker Container. Demo data can also be configured.
 
+### 3.1 Build and deploy the OHIF Viewer Meteor app
+The /Viewers folder contains the code for the OHIF Viewer, which is a meteor app. The following needs to be done in steps
+* Please install meteor using the following instructions - https://www.meteor.com/install
+* cd Viewers/OHIFViewer
+* npm install
+* Linux: ./bin/orthancDICOMWeb.sh OR Windows: ./bin/orthancDICOMWeb.bat
+
+This will deploy OHIF Viewer on http://localhost:3000 and will be available from the Radiology header menu
+
 ## 4 License
 MPL v2.0
