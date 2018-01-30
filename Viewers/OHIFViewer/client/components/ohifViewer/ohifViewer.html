@@ -1,0 +1,19 @@
+<template name="ohifViewer">
+    {{#header}}
+        {{#section 'headerAfterBrand'}}
+            {{#if studyListToggleText}}
+                <a href="#" class="btn studyListLinkSection pull-left js-toggle-studyList">
+                    {{studyListToggleText}}
+                </a>
+            {{/if}}
+        {{/section}}
+        {{#section 'headerMenu'}}
+            <span class="header-options pull-left m-r-1">Options</span>
+            <div class="menu-toggle pull-right">
+                <span class="caret-down"></span>
+            </div>
+        {{/section}}
+    {{/header}}
+
+    {{>Template.dynamic template=(choose this.template 'studylist') data=this}}
+</template>
