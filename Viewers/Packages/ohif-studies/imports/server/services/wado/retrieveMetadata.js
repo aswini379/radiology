@@ -225,6 +225,7 @@ function resultDataToStudyMetadata(server, studyInstanceUid, resultData) {
         studyDate: DICOMWeb.getString(anInstance['00080020']),
         modalities: DICOMWeb.getString(anInstance['00080061']),
         studyDescription: DICOMWeb.getString(anInstance['00081030']),
+        studyRequestedProcedurePriority: DICOMWeb.getString(anInstance['00401003']),
         imageCount: DICOMWeb.getString(anInstance['00201208']),
         studyInstanceUid: DICOMWeb.getString(anInstance['0020000D']),
         institutionName: DICOMWeb.getString(anInstance['00080080'])
@@ -236,6 +237,7 @@ function resultDataToStudyMetadata(server, studyInstanceUid, resultData) {
         if (!series) {
             series = {
                 seriesDescription: DICOMWeb.getString(instance['0008103E']),
+                seriesRequestedProcedurePriority: DICOMWeb.getString(instance['00401003']),
                 modality: DICOMWeb.getString(instance['00080060']),
                 seriesInstanceUid: seriesInstanceUid,
                 seriesNumber: DICOMWeb.getNumber(instance['00200011']),

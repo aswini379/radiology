@@ -29,6 +29,7 @@ function dateToString(date) {
 function filterToQIDOURL(server, filter) {
     const commaSeparatedFields = [
         '00081030', // Study Description
+        '00401003', // Study Requested Procedure Priority
         '00080060' //Modality
         // Add more fields here if you want them in the result
     ].join(',');
@@ -38,6 +39,7 @@ function filterToQIDOURL(server, filter) {
         PatientID: filter.patientId,
         AccessionNumber: filter.accessionNumber,
         StudyDescription: filter.studyDescription,
+        '00401003': filter.studyRequestedProcedurePriority,
         ModalitiesInStudy: filter.modalitiesInStudy,
         limit: filter.limit,
         includefield: server.qidoSupportsIncludeField ? 'all' : commaSeparatedFields
@@ -88,6 +90,7 @@ function resultDataToStudies(resultData) {
         numberOfStudyRelatedSeries: DICOMWeb.getString(study['00201206']),
         numberOfStudyRelatedInstances: DICOMWeb.getString(study['00201208']),
         studyDescription: DICOMWeb.getString(study['00081030']),
+        studyRequestedProcedurePriority: DICOMWeb.getString(study['00401003']),
         // modality: DICOMWeb.getString(study['00080060']),
         // modalitiesInStudy: DICOMWeb.getString(study['00080061']),
         modalities: DICOMWeb.getString(DICOMWeb.getModalities(study['00080060'], study['00080061']))
@@ -98,7 +101,6 @@ function resultDataToStudies(resultData) {
 
 OHIF.studies.services.QIDO.Studies = (server, filter) => {
     const url = filterToQIDOURL(server, filter);
-
     try {
         const result = DICOMWeb.getJSON(url, server.requestOptions);
 

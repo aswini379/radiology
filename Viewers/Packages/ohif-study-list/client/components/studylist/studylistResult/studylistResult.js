@@ -142,6 +142,7 @@ function search() {
         patientId: getFilter($('input#patientId').val()),
         accessionNumber: getFilter($('input#accessionNumber').val()),
         studyDescription: getFilter($('input#studyDescription').val()),
+        studyRequestedProcedurePriority: getFilter($('select#studyRequestedProcedurePriority').val()),
         studyDateFrom,
         studyDateTo,
         modalitiesInStudy: $('input#modality').val() ? $('input#modality').val() : ''
@@ -243,6 +244,7 @@ Template.studylistResult.onCreated(() => {
             patientId: 0,
             accessionNumber: 0,
             studyDescription: 0,
+            studyRequestedProcedurePriority: 0,
             modality: 0
         });
     }
@@ -307,6 +309,11 @@ Template.studylistResult.events({
     },
 
     'onsearch input'() {
+        search();
+    },
+
+    'change #studyRequestedProcedurePriority'(event) {
+        let priority = $(event.currentTarget).val();
         search();
     },
 
