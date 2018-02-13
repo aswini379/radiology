@@ -1,5 +1,8 @@
 <template name="studylistStudy">
     <tr class="studylistStudy noselect {{#if this.selected}}active{{/if}}">
+        <td style="color:black">
+            <input type="button" value="Claim Study" onclick="findPatient('{{patientId}}', '{{patientBirthdate}}')" />
+        </td>
         <td class="patientName">
             {{formatPN patientName}}
         </td>
