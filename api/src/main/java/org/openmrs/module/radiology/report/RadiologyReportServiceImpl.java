@@ -9,16 +9,25 @@
  */
 package org.openmrs.module.radiology.report;
 
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.radiology.dicom.code.PerformedProcedureStepStatus;
 import org.openmrs.module.radiology.order.RadiologyOrder;
+import org.openmrs.module.radiology.order.RadiologyOrderService;
+import org.openmrs.module.radiology.study.RadiologyStudy;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+
+import static org.openmrs.module.radiology.RadiologyConstants.GP_RADIOLOGY_CARE_SETTING;
 
 @Transactional(readOnly = true)
 class RadiologyReportServiceImpl extends BaseOpenmrsService implements RadiologyReportService {
@@ -50,6 +59,42 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         }
         if (radiologyReportDAO.hasRadiologyOrderCompletedRadiologyReport(radiologyOrder)) {
             throw new APIException("radiology.RadiologyReport.cannot.create.already.completed");
+        }
+        final RadiologyReport radiologyReport = new RadiologyReport(radiologyOrder);
+        return radiologyReportDAO.saveRadiologyReport(radiologyReport);
+    }
+    
+    /**
+     * @see RadiologyReportService#createOrderlessRadiologyReport(Patient)
+     */
+    @Override
+    @Transactional
+    public synchronized RadiologyReport createOrderlessRadiologyReport(Patient patient) {
+        RadiologyOrder radiologyOrder;
+        if (patient == null) {
+            throw new IllegalArgumentException("radiologyOrder cannot be null");
+        } else {
+            User currentUser = Context.getAuthenticatedUser();
+            Provider orderer = Context.getProviderService()
+                    .getProvidersByPerson(currentUser.getPerson())
+                    .iterator()
+                    .next();
+            RadiologyOrder radOrder = new RadiologyOrder();
+            radOrder.setConcept(Context.getConceptService()
+                    .getConcept(161251));
+            radOrder.setOrderReasonNonCoded("UNKNOWN");
+            radOrder.setCareSetting(Context.getOrderService()
+                    .getCareSettingByUuid(Context.getAdministrationService()
+                            .getGlobalProperty(GP_RADIOLOGY_CARE_SETTING)));
+            radOrder.setPatient(patient);
+            RadiologyStudy radStudy = new RadiologyStudy();
+            radStudy.setPerformedStatus(PerformedProcedureStepStatus.COMPLETED);
+            radOrder.setStudy(radStudy);
+            radOrder.setOrderer(orderer);
+            radOrder.setUrgency(RadiologyOrder.Urgency.ROUTINE);
+            radOrder.setAction(RadiologyOrder.Action.NEW);
+            radiologyOrder = Context.getService(RadiologyOrderService.class)
+                    .placeRadiologyOrder(radOrder);
         }
         final RadiologyReport radiologyReport = new RadiologyReport(radiologyOrder);
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
