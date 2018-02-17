@@ -226,6 +226,13 @@ Template.toolbarSection.helpers({
             subTools: extraTools
         });
 
+        buttonData.push({
+            id: 'claimStudy',
+            title: 'Claim Study',
+            classes: 'rp-x-1 rm-l-3',
+            iconClasses: 'fa fa-user-md'
+        });
+
         return buttonData;
     },
 

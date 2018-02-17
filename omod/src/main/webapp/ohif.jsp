@@ -64,5 +64,4 @@
     <openmrs:globalProperty key="radiology.ohifViewerUrl" var="ohifViewerUrl"/>
     <iframe id="ohifViewer" src="${ohifViewerUrl}" frameborder="0"></iframe>
 </openmrs:hasPrivilege>
-
 <%@ include file="/WEB-INF/template/footer.jsp" %>
