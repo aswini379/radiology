@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/view/module/radiology/template/includeScripts.jsp"%>
 <openmrs:htmlInclude file="/moduleResources/radiology/vendor/tinymce/tinymce.min.js" />
 <openmrs:htmlInclude file="/moduleResources/radiology/vendor/font-awesome/css/font-awesome.min.css" />
+<openmrs:htmlInclude file="/moduleResources/radiology/js/html2pdf.bundle.min.js"/>
 
 <script type="text/javascript">
   var $j = jQuery.noConflict();
@@ -37,6 +38,26 @@
             "voidRadiologyReport").val('<spring:message code="general.void"/>');
     $j("#voidRadiologyReportForm").append(voidRadiologyReport);
     $j("#voidRadiologyReportForm").submit()
+  }
+
+  function exportPdf() {
+
+      $j('#radiologyOrderDetailsBoxId').slideToggle();
+      $j("#expandIconId").attr('class', 'fa fa-chevron-up');
+
+      var header = "<span class='boxHeader'><b>Order</b></span>"
+      var orderHtml = $j('#radiologyOrderDetailsBoxId').html();
+      var divider = "<span class='boxHeader'><b>Report</b></span>";
+      var reportHtml = ($j('#radiologyReportFormId').html()).replace($j('#mceu_13')[0].outerHTML,$j('#bodyId').text());
+      var fileName = $j('#patientHeaderPatientName a').text() + $j('#radiologyOrderDetailsBoxHeaderId b').text() + '.pdf';
+
+      html2pdf(header + orderHtml + divider + reportHtml, {
+          margin:       1,
+          filename:     fileName,
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { dpi: 192, letterRendering: true },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      });
   }
 
   $j(document).ready(function() {
@@ -87,6 +108,7 @@
 </c:if>
 <span class="boxHeader"> <b><spring:message code="radiology.report.form.boxheader" /></b>
 </span>
+<input type="button" value="Export PDF" style="float: right; font-size: medium; box-shadow: 2px 2px #888888;" onclick="exportPdf()" />
 <form:form id="radiologyReportFormId" modelAttribute="radiologyReport" method="post">
   <div class="box">
     <table>

@@ -11,6 +11,7 @@ package org.openmrs.module.radiology.report;
 
 import java.util.List;
 
+import org.openmrs.Patient;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
@@ -55,6 +56,24 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_REPORTS)
     public RadiologyReport createRadiologyReport(RadiologyOrder radiologyOrder);
+    
+    /**
+     * Saves a new {@code RadiologyReport} to the database for the patient without existing order.
+     *
+     * @param patient for whom the radiology report should be created
+     * @return the created radiology report
+     * @throws IllegalArgumentException if given null
+     * @throws APIException if RadiologyStudy of given radiologyOrder is not completed
+     * @throws APIException if given radiologyOrder has a claimed RadiologyReport
+     * @throws APIException if given radiologyOrder has a completed RadiologyReport
+     * @should create a radiology order with report status claimed given a completed radiology order
+     * @should throw illegal argument exception if given null
+     * @should throw api exception if given radiology order is not completed
+     * @should throw api exception if given order has a claimed radiology report
+     * @should throw api exception if given order has a completed radiology report
+     */
+    @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_REPORTS)
+    public RadiologyReport createOrderlessRadiologyReport(Patient patient);
     
     /**
      * Saves an existing {@code RadiologyReport} which is in a draft state to the database.

@@ -12,7 +12,9 @@ package org.openmrs.module.radiology.report.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.radiology.order.RadiologyOrder;
 import org.openmrs.module.radiology.report.RadiologyReport;
 import org.openmrs.module.radiology.report.RadiologyReportService;
@@ -71,6 +73,22 @@ public class RadiologyReportFormController {
     protected ModelAndView createRadiologyReport(@RequestParam("orderId") RadiologyOrder radiologyOrder) {
         
         final RadiologyReport radiologyReport = radiologyReportService.createRadiologyReport(radiologyOrder);
+        return new ModelAndView(
+                "redirect:" + RADIOLOGY_REPORT_FORM_REQUEST_MAPPING + "?reportId=" + radiologyReport.getId());
+    }
+    
+    /**
+     * Handles requests for creating a new {@code RadiologyReport} for a {@code RadiologyOrder}.
+     *
+     * @return the model and view redirecting to the newly created radiology report
+     * @should create a new radiology report for given radiology order and redirect to its radiology report form
+     */
+    @RequestMapping(method = RequestMethod.GET, params = "patient")
+    protected ModelAndView createOrderlessRadiologyReport(@RequestParam("patient") String patientUuid) {
+        Patient patient = Context.getPatientService()
+                .getPatientByUuid(patientUuid);
+        
+        final RadiologyReport radiologyReport = radiologyReportService.createOrderlessRadiologyReport(patient);
         return new ModelAndView(
                 "redirect:" + RADIOLOGY_REPORT_FORM_REQUEST_MAPPING + "?reportId=" + radiologyReport.getId());
     }
