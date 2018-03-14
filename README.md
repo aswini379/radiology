@@ -48,5 +48,7 @@ The /Viewers folder contains the code for the OHIF Viewer, which is a meteor app
 
 This will deploy OHIF Viewer on http://localhost:3000 and will be available from the Radiology header menu
 
+NB: Make sure that the global property 'Ohif Viewer Url' is changed to http://localhost:3000
+
 ## 4 License
 MPL v2.0
