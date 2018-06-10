@@ -1,34 +1,53 @@
-image: maven:3.3.9-jdk-8
-
+image: docker:latest
+services:
+  - docker:dind
 stages:
-  - build
   - test
-  - deploy
+  - build
+  - package
+unit-test-job:
+  image: maven:3.3.9-jdk-8
+  stage: test
+  script:
+    - mvn package -B
 
-build_job:
+build-job:
+  image: maven:3.3.9-jdk-8
   stage: build
   script:
-    - mvn clean package --batch-mode
+    - mvn clean package --batch-mode -U -DskipTests=true
     - curl -X DELETE -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/radiology-0.1.0-dev-SNAPSHOT.omod
     - curl -T omod/target/radiology-0.1.0-dev-SNAPSHOT.omod -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/lh-radiology-devbuilds/latest/radiology-0.1.0-dev-SNAPSHOT.omod
     - curl -X POST -u$BINTRAY_API_USER:$BINTRAY_API_KEY https://api.bintray.com/content/librehealth/lh-radiology-omod/lh-radiology-devbuilds/latest/publish
-
   only:
     - master
-
   artifacts:
     paths:
       - omod/target/*.omod
     expire_in: 5 days
 
-deploy_job:
-  stage: deploy
+
+docker-build-master:
+  image: docker:latest
+  stage: package
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - apt-get update -y && apt-get install rsync -y
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync --log-file=$HOME/rsync.log -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress omod/target/radiology-0.1.0-dev-SNAPSHOT.omod ci@radiology.librehealth.io:/var/lib/OpenMRS/lh-toolkit/modules
-    - ssh ci@radiology.librehealth.io -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -t 'sudo service tomcat8 restart'
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/toolkit" .
+    - docker push "$CI_REGISTRY_IMAGE/toolkit"
+  only:
+    - master
+
+docker-build:
+  image: docker:latest
+  stage: package
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE/toolkit:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE/toolkit:$CI_COMMIT_REF_SLUG"
+
+  except:
+    - master
