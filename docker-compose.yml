@@ -1,25 +1,63 @@
-version: "2"
+version: '2.1'
 services:
-  db:
-    image: achabill/lh-mysql
+  mysql:
+    image: 'mysql:5.7'
+    command: '--max_allowed_packet=32505856' # Set max_allowed_packet to 256M
+    restart: always
+    env_file: .env.mysql
+    volumes:
+      - ./docker//db/:/docker-entrypoint-initdb.d/
+      - mysql_data:/var/lib/mysql
+  lh-toolkit:
+    build:
+      context: .
     ports:
-      - "3306:3306"
-    container_name: &db lh-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: librehealth
-      MYSQL_USER: &lh_db_user librehealth
-      MYSQL_PASSWORD: &lh_db_password librehealth
-      MYSQL_DATABASE: &lh_db librehealth
-  lh:
-    image: achabill/lh-toolkit
-    ports:
-      - "8080:8080"
-    container_name: lh-toolkit
+      - '127.0.0.1:8080:8080'
+    volumes:
+      - ./docker/index.html:/usr/local/tomcat/webapps/ROOT/index.html:ro
+      - ./docker/lh-toolkit-runtime.properties:/usr/local/tomcat/lh-toolkit-runtime.properties
     depends_on:
-      - db
+      - mysql
+    restart: always
+  orthanc:
+    image: jodogne/orthanc-plugins
+    ports:
+      - '4242:4242'
+      - '8042:8042'
+    restart: unless-stopped
+    volumes:
+      - ./docker/orthanc/orthanc-db/:/var/lib/orthanc/db/
+      - ./docker/orthanc/orthanc.json:/etc/orthanc/orthanc.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+  postgres:
+      image: 'robbyoconnor/postgres-alpine-healthcheck'
+      env_file: .env.postgres
+      restart: unless-stopped
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:3.2
+    volumes:
+      - mongodb_data:/data/db
+    command: mongod --smallfiles
+    restart: always
+  ohifviewer:
+    image: 'registry.gitlab.com/librehealth/radiology/lh-radiology-docker/ohifviewer:latest'
     environment:
-      MYSQL_USER: *lh_db_user
-      MYSQL_PASSWORD: *lh_db_password
-      MYSQL_DATABASE: *lh_db
-      MYSQL_HOST: *db
-      MYSQL_PORT: 3306
+      - ROOT_URL=http://localhost:3000
+      - MONGO_URL=mongodb://mongodb:27017/ohifviewer
+      - PORT=3000
+    ports:
+      - '127.0.0.1:3000:3000'
+    depends_on:
+      - orthanc
+      - mongodb
+    restart: always
+volumes:
+  mongodb_data: {}
+  mysql_data: {}
+  postgres_data: {}
+  orthanc_db: {}
