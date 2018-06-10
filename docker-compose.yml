@@ -4,7 +4,7 @@ services:
     image: 'mysql:5.7'
     command: '--max_allowed_packet=32505856' # Set max_allowed_packet to 256M
     restart: always
-    env_file: .env.mysql
+    env_file: ./docker/.env.mysql
     volumes:
       - ./docker//db/:/docker-entrypoint-initdb.d/
       - mysql_data:/var/lib/mysql
@@ -33,7 +33,7 @@ services:
         condition: service_healthy
   postgres:
       image: 'robbyoconnor/postgres-alpine-healthcheck'
-      env_file: .env.postgres
+      env_file: ./docker/.env.postgres
       restart: unless-stopped
       volumes:
         - postgres_data:/var/lib/postgresql/data
