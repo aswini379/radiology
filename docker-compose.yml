@@ -37,7 +37,6 @@ services:
       restart: unless-stopped
       volumes:
         - postgres_data:/var/lib/postgresql/data
-
   mongodb:
     image: mongo:3.2
     volumes:
