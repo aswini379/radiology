@@ -16,7 +16,6 @@ Information System (RIS) onto [Librehealth Toolkit](https://gitlab.com/libreheal
 [![pipeline status](https://gitlab.com/librehealth/lh-radiology/badges/master/pipeline.svg)](https://gitlab.com/librehealth/lh-radiology/commits/master)
 [![LibreHealth Radiology Forums](https://img.shields.io/badge/librehealth-forum-orange.svg)](https://forums.librehealth.io/)
 [![LibreHealth Radiology Chat](https://img.shields.io/badge/librehealth-chat-orange.svg)](https://chat.librehealth.io)
-[![LibreHealth Radiology Telegram](https://img.shields.io/badge/librehealth%20radiology-telegram-blue.svg)](http://telegram.me/LibreHealth%20Radiology)
 [![LibreHealth Radiology Wiki](https://img.shields.io/badge/librehealth%20radiology-wiki-blue.svg)](https://gitlab.com/librehealth/lh-radiology/wikis/home)
 
 ### 2.1 Contributing and participating in the 2019 Google Summer of Code
