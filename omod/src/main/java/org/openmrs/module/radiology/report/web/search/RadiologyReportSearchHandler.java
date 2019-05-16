@@ -37,45 +37,45 @@ import org.springframework.stereotype.Component;
 
 /**
  * Find {@code RadiologyReport's} that match the specified search phrase.
- * 
+ *
  * @see org.openmrs.module.radiology.report.RadiologyReport
  */
 @Component
 public class RadiologyReportSearchHandler implements SearchHandler {
-    
-    
+
+
     public static final String REQUEST_PARAM_DATE_FROM = "fromdate";
-    
+
     public static final String REQUEST_PARAM_DATE_TO = "todate";
-    
+
     public static final String REQUEST_PARAM_PRINCIPAL_RESULT_INTERPRETER = "principalResultsInterpreter";
-    
+
     public static final String REQUEST_PARAM_STATUS = "status";
-    
+
     public static final String REQUEST_PARAM_TOTAL_COUNT = "totalCount";
-    
+
     @Autowired
     RadiologyReportService radiologyReportService;
-    
+
     SearchQuery searchQuery = new SearchQuery.Builder(
             "Allows you to search for RadiologyReport's by from date, to date and principal results interpreter")
                     .withOptionalParameters(RestConstants.REQUEST_PROPERTY_FOR_INCLUDE_ALL, REQUEST_PARAM_DATE_FROM,
                         REQUEST_PARAM_DATE_TO, REQUEST_PARAM_PRINCIPAL_RESULT_INTERPRETER, REQUEST_PARAM_STATUS,
                         REQUEST_PARAM_TOTAL_COUNT)
                     .build();
-    
+
     private final SearchConfig searchConfig =
             new SearchConfig("default", RestConstants.VERSION_1 + "/radiologyreport", Arrays.asList("2.*.*"), searchQuery);
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.api.SearchHandler#getSearchConfig()
      */
     @Override
     public SearchConfig getSearchConfig() {
-        
+
         return this.searchConfig;
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.api.SearchHandler#search(RequestContext)
      * @throws IllegalArgumentException if report status doesn't exist
@@ -94,7 +94,7 @@ public class RadiologyReportSearchHandler implements SearchHandler {
      */
     @Override
     public PageableResult search(RequestContext context) throws ResponseException {
-        
+
         final String principalResultsInterpreterUuid = context.getRequest()
                 .getParameter(REQUEST_PARAM_PRINCIPAL_RESULT_INTERPRETER);
         Provider principalResultsInterpreter = null;
@@ -105,28 +105,28 @@ public class RadiologyReportSearchHandler implements SearchHandler {
                 return new EmptySearchResult();
             }
         }
-        
+
         final String fromDateString = context.getRequest()
                 .getParameter(REQUEST_PARAM_DATE_FROM);
         Date fromDate = null;
         if (StringUtils.isNotBlank(fromDateString)) {
             fromDate = (Date) ConversionUtil.convert(fromDateString, java.util.Date.class);
         }
-        
+
         final String toDateString = context.getRequest()
                 .getParameter(REQUEST_PARAM_DATE_TO);
         Date toDate = null;
         if (StringUtils.isNotBlank(toDateString)) {
             toDate = (Date) ConversionUtil.convert(toDateString, java.util.Date.class);
         }
-        
+
         final String statusString = context.getRequest()
                 .getParameter(REQUEST_PARAM_STATUS);
         RadiologyReportStatus status = null;
         if (StringUtils.isNotBlank(statusString)) {
             status = RadiologyReportStatus.valueOf(statusString);
         }
-        
+
         RadiologyReportSearchCriteria.Builder radiologyReportSearchCriteriaBuilder =
                 new RadiologyReportSearchCriteria.Builder();
         if (context.getIncludeAll()) {
@@ -137,9 +137,9 @@ public class RadiologyReportSearchHandler implements SearchHandler {
                 .withPrincipalResultsInterpreter(principalResultsInterpreter)
                 .withStatus(status)
                 .build();
-        
+
         final List<RadiologyReport> result = radiologyReportService.getRadiologyReports(radiologyReportSearchCriteria);
-        
+
         if (result.isEmpty()) {
             return new EmptySearchResult();
         }

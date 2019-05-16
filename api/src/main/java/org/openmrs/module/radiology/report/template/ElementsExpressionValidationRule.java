@@ -17,16 +17,16 @@ import java.util.function.Predicate;
  * Checks a condition on a subset of elements matching a selector.
  */
 class ElementsExpressionValidationRule implements ValidationRule<Elements> {
-    
-    
+
+
     private final String description;
-    
+
     private final String messageCode;
-    
+
     private final String elementsSelector;
-    
+
     private final Predicate<Elements> condition;
-    
+
     public ElementsExpressionValidationRule(String description, String messageCode, String elementsSelector,
         Predicate<Elements> condition) {
         this.description = description;
@@ -34,7 +34,7 @@ class ElementsExpressionValidationRule implements ValidationRule<Elements> {
         this.elementsSelector = elementsSelector;
         this.condition = condition;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.ValidationRule#check(ValidationResult, Object)
      */

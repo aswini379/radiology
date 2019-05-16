@@ -33,8 +33,8 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_0.RestCons
 @Resource(name = RestConstants.VERSION_1 + "/mrrtreporttemplate", supportedClass = MrrtReportTemplate.class,
         supportedOpenmrsVersions = { "2.*.*" })
 public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtReportTemplate> {
-    
-    
+
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.webservices.rest.web.representation.Representation)
      * @should return default representation given instance of defaultrepresentation
@@ -45,7 +45,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
     public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
         if (rep instanceof DefaultRepresentation) {
             final DelegatingResourceDescription description = new DelegatingResourceDescription();
-            
+
             description.addProperty("uuid");
             description.addProperty("templateId");
             description.addProperty("dcTermsIdentifier");
@@ -62,7 +62,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             return description;
         } else if (rep instanceof FullRepresentation) {
             final DelegatingResourceDescription description = new DelegatingResourceDescription();
-            
+
             description.addProperty("uuid");
             description.addProperty("charset");
             description.addProperty("templateId");
@@ -85,7 +85,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             return null;
         }
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getPropertiesToExposeAsSubResources()
      */
@@ -93,7 +93,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
     public List<String> getPropertiesToExposeAsSubResources() {
         return Arrays.asList("terms");
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getByUniqueId(java.lang.String)
      * @should return radiology order given its uuid
@@ -103,7 +103,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
         return Context.getService(MrrtReportTemplateService.class)
                 .getMrrtReportTemplateByUuid(uuid);
     }
-    
+
     /**
      * Display string for {@link MrrtReportTemplate}
      *
@@ -115,7 +115,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
     public String getDisplayString(MrrtReportTemplate mrrtReportTemplate) {
         return mrrtReportTemplate.getDcTermsIdentifier();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#delete(java.lang.Object,
      *      java.lang.String, org.openmrs.module.webservices.rest.web.RequestContext)
@@ -126,7 +126,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             throws ResourceDoesNotSupportOperationException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#purge(java.lang.Object,
      *      org.openmrs.module.webservices.rest.web.RequestContext)
@@ -137,7 +137,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
             throws ResourceDoesNotSupportOperationException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#newDelegate()
      * @should throw ResourceDoesNotSupportOperationException
@@ -146,7 +146,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
     public MrrtReportTemplate newDelegate() throws ResourceDoesNotSupportOperationException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceHandler#save(java.lang.Object)
      * @should throw ResourceDoesNotSupportOperationException
@@ -155,7 +155,7 @@ public class MrrtReportTemplateResource extends DataDelegatingCrudResource<MrrtR
     public MrrtReportTemplate save(MrrtReportTemplate mrrtReportTemplate) {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getResourceVersion()
      * @should return supported resource version

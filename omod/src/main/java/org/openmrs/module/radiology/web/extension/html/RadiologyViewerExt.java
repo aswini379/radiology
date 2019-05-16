@@ -22,21 +22,21 @@ import static org.openmrs.module.radiology.RadiologyPrivileges.VIEW_GUTTERLIST_R
  * @author surap
  */
 public class RadiologyViewerExt extends LinkExt {
-    
-    
+
+
     @Override
     public String getLabel() {
         return "Radiology";
     }
-    
+
     @Override
     public String getUrl() {
         return "/module/radiology/ohif.htm";
     }
-    
+
     @Override
     public String getRequiredPrivilege() {
         return VIEW_GUTTERLIST_RADIOLOGY_LINK;
     }
-    
+
 }

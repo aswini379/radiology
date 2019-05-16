@@ -26,10 +26,10 @@ import org.springframework.util.StringUtils;
  */
 @Component
 public class MrrtReportTemplateEditor extends PropertyEditorSupport {
-    
-    
+
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * @should set value to mrrt report template whos id matches given text
      * @should set value to mrrt report template whos uuid matches given text
@@ -56,7 +56,7 @@ public class MrrtReportTemplateEditor extends PropertyEditorSupport {
             setValue(null);
         }
     }
-    
+
     /**
      * @should return empty string if value does not contain a mrrt report template
      * @should return mrrt report template id if value does contain a mrrt report template

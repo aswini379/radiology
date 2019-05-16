@@ -28,45 +28,45 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(RadiologyDashboardReportsTabController.RADIOLOGY_REPORTS_TAB_REQUEST_MAPPING)
 public class RadiologyDashboardReportsTabController {
-    
-    
+
+
     public static final String RADIOLOGY_REPORTS_TAB_REQUEST_MAPPING = "/module/radiology/radiologyDashboardReportsTab.htm";
-    
+
     static final String RADIOLOGY_REPORTS_TAB_VIEW = "/module/radiology/radiologyDashboardReportsTab";
-    
+
     /**
      * Handles get requests for radiology reports tab page.
-     * 
+     *
      * @return model and view of the radiology reports tab page
      * @should return model and view of the radiology reports tab page and set tab session attribute to radiology reports tab page
      */
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView getRadiologyReportsTab(HttpServletRequest request) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORTS_TAB_VIEW);
         request.getSession()
                 .setAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE,
                     RADIOLOGY_REPORTS_TAB_REQUEST_MAPPING);
         return modelAndView;
     }
-    
+
     /**
      * Returns entries for report status select element to filter radiology reports.
-     * 
+     *
      * @return a map containing all report status values and an entry to select all report statuses
      * @should return a map containing all report status values and an entry to select all report statuses
      */
     @ModelAttribute("reportStatuses")
     protected Map<String, String> getReportStatusList() {
-        
+
         final Map<String, String> reportStatuses = new HashMap<String, String>();
         reportStatuses.put("", "selectStatus");
-        
+
         for (final RadiologyReportStatus status : RadiologyReportStatus.values()) {
             reportStatuses.put(status.name(), status.name());
         }
-        
+
         return reportStatuses;
     }
-    
+
 }

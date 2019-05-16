@@ -18,14 +18,14 @@ import java.util.List;
  * Validates <meta> tags of an Mrrt Report Template.
  */
 class MetaTagsValidationEngine implements ValidationEngine<Elements> {
-    
-    
+
+
     static String SELECTOR_QUERY_META_ATTRIBUTE_CHARSET = "meta[charset]";
-    
+
     static String SELECTOR_QUERY_META_ATTRIBUTE_NAME = "meta[name]";
-    
+
     private List<ValidationRule<Elements>> rules;
-    
+
     public MetaTagsValidationEngine() {
         rules = new ArrayList<>();
         rules.add(new ElementsExpressionValidationRule("One 'meta' element with attribute 'charset' expected",
@@ -36,7 +36,7 @@ class MetaTagsValidationEngine implements ValidationEngine<Elements> {
                     "radiology.MrrtReportTemplate.validation.error.meta.dublinCore.missing",
                     SELECTOR_QUERY_META_ATTRIBUTE_NAME, subject -> subject.isEmpty()));
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.ValidationEngine#run(Object)
      * @should return validation result with no errors if subject passes all checks
@@ -46,7 +46,7 @@ class MetaTagsValidationEngine implements ValidationEngine<Elements> {
      */
     @Override
     public ValidationResult run(Elements subject) {
-        
+
         final ValidationResult validationResult = new ValidationResult();
         for (ValidationRule rule : rules) {
             rule.check(validationResult, subject);

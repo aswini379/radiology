@@ -20,10 +20,10 @@ import org.hibernate.criterion.Restrictions;
  * @see org.openmrs.module.radiology.study.RadiologyStudyService
  */
 class HibernateRadiologyStudyDAO implements RadiologyStudyDAO {
-    
-    
+
+
     private SessionFactory sessionFactory;
-    
+
     /**
      * Set session factory that allows us to connect to the database that Hibernate knows about.
      *
@@ -32,7 +32,7 @@ class HibernateRadiologyStudyDAO implements RadiologyStudyDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#saveRadiologyStudy(RadiologyStudy)
      */
@@ -42,7 +42,7 @@ class HibernateRadiologyStudyDAO implements RadiologyStudyDAO {
                 .saveOrUpdate(radiologyStudy);
         return radiologyStudy;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudy(Integer)
      */
@@ -51,19 +51,19 @@ class HibernateRadiologyStudyDAO implements RadiologyStudyDAO {
         return (RadiologyStudy) sessionFactory.getCurrentSession()
                 .get(RadiologyStudy.class, studyId);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudyByUuid(String)
      */
     @Override
     public RadiologyStudy getRadiologyStudyByUuid(String uuid) {
-        
+
         return (RadiologyStudy) sessionFactory.getCurrentSession()
                 .createCriteria(RadiologyStudy.class)
                 .add(Restrictions.eq("uuid", uuid))
                 .uniqueResult();
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudyByStudyInstanceUid(String)
      */

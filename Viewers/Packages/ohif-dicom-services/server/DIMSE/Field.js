@@ -59,7 +59,7 @@ FilledField.prototype.write = function(stream) {
         stream.write(C.TYPE_ASCII, this.value);
     } else {
         throw 'Length mismatch';
-    }    
+    }
 };
 
 HexField = function(hex) {
@@ -83,7 +83,7 @@ util.inherits(UInt8Field, Field);
 
 UInt8Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 UInt16Field = function(value) {
     Field.call(this, C.TYPE_UINT16, value);
@@ -93,7 +93,7 @@ util.inherits(UInt16Field, Field);
 
 UInt16Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 UInt32Field = function(value) {
     Field.call(this, C.TYPE_UINT32, value);
@@ -103,7 +103,7 @@ util.inherits(UInt32Field, Field);
 
 UInt32Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 Int8Field = function(value) {
     Field.call(this, C.TYPE_INT8, value);
@@ -113,7 +113,7 @@ util.inherits(Int8Field, Field);
 
 Int8Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 Int16Field = function(value) {
     Field.call(this, C.TYPE_INT16, value);
@@ -123,7 +123,7 @@ util.inherits(Int16Field, Field);
 
 Int16Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 Int32Field = function(value) {
     Field.call(this, C.TYPE_INT32, value);
@@ -133,7 +133,7 @@ util.inherits(Int32Field, Field);
 
 Int32Field.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 FloatField = function(value) {
     Field.call(this, C.TYPE_FLOAT, value);
@@ -143,7 +143,7 @@ util.inherits(FloatField, Field);
 
 FloatField.prototype.isNumeric = function() {
     return true;
-}; 
+};
 
 DoubleField = function(value) {
     Field.call(this, C.TYPE_DOUBLE, value);

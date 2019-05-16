@@ -20,45 +20,45 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class RadiologyReportResourceComponentTest
         extends BaseDelegatingResourceTest<RadiologyReportResource, RadiologyReport> {
-    
-    
+
+
     protected static final String TEST_DATASET = "RadiologyReportResourceComponentTestDataset.xml";
-    
+
     @Autowired
     RadiologyReportService radiologyReportService;
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getDisplayProperty()
      */
     @Override
     public String getDisplayProperty() {
-        
+
         return "2007, COMPLETED";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getUuidProperty()
      */
     @Override
     public String getUuidProperty() {
-        
+
         return "82d3fb80-e403-4b9b-982c-22161ec29810";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#newObject()
      */
     @Override
     public RadiologyReport newObject() {
-        
+
         return radiologyReportService.getRadiologyReportByUuid(getUuidProperty());
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateDefaultRepresentation()
      */
@@ -74,7 +74,7 @@ public class RadiologyReportResourceComponentTest
         assertPropPresent("display");
         assertPropPresent("voided");
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateFullRepresentation()
      */

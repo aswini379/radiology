@@ -35,35 +35,35 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(RadiologyDashboardReportTemplatesTabController.RADIOLOGY_REPORT_TEMPLATES_TAB_REQUEST_MAPPING)
 public class RadiologyDashboardReportTemplatesTabController {
-    
-    
+
+
     public static final String RADIOLOGY_REPORT_TEMPLATES_TAB_REQUEST_MAPPING =
             "/module/radiology/radiologyDashboardReportTemplatesTab.htm";
-    
+
     static final String RADIOLOGY_REPORT_TEMPLATES_TAB_VIEW = "/module/radiology/radiologyDashboardReportTemplatesTab";
-    
+
     @Autowired
     private MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     /**
      * Handles get requests for radiology report templates tab.
-     * 
+     *
      * @return model and view of the radiology report templates tab page
      * @should return model and view of the radiology report templates tab page and set tab session attribute to radiology reports tab page
      */
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView getRadiologyReportTemplatesTab(HttpServletRequest request) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_TEMPLATES_TAB_VIEW);
         request.getSession()
                 .setAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE,
                     RADIOLOGY_REPORT_TEMPLATES_TAB_REQUEST_MAPPING);
         return modelAndView;
     }
-    
+
     /**
      * Handle request for importing new {@code MrrtReportTemplate}.
-     * 
+     *
      * @param request the HttpServletRequest to import MrrtReportTemplates
      * @param templateFile the MrrtReportTemplate file to be imported
      * @return model and view of the radiology dashboard report templates page with success or failure message in session
@@ -78,15 +78,15 @@ public class RadiologyDashboardReportTemplatesTabController {
     @RequestMapping(method = RequestMethod.POST, params = "uploadReportTemplate")
     protected ModelAndView uploadReportTemplate(HttpServletRequest request, @RequestParam MultipartFile templateFile)
             throws IOException {
-        
+
         ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_TEMPLATES_TAB_VIEW);
-        
+
         if (templateFile.isEmpty()) {
             request.getSession()
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "radiology.MrrtReportTemplate.not.imported.empty");
             return modelAndView;
         }
-        
+
         try (InputStream in = templateFile.getInputStream()) {
             String mrrtTemplate = IOUtils.toString(in);
             mrrtReportTemplateService.importMrrtReportTemplate(mrrtTemplate);
@@ -109,24 +109,24 @@ public class RadiologyDashboardReportTemplatesTabController {
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
                         "Failed to import " + templateFile.getOriginalFilename() + " => " + exception.getMessage());
         }
-        
+
         return modelAndView;
     }
-    
+
     /**
      * Handles request for deleting {@code MrrtReportTemplate}
-     * 
+     *
      * @param request the HttpServletRequest to delete MrrtReportTemplates
      * @param mrrtReportTemplate the MrrtReportTemplate to be deleted
      * @return model and view of the radiology dashboard report templates page with success or failure message in session
      *         attribute
      * @should return a model and view of the radiology dashboard report templates page with a status message
-     * @should catch api exception and set error message in session 
+     * @should catch api exception and set error message in session
      */
     @RequestMapping(method = RequestMethod.GET, params = "templateId")
     public ModelAndView deleteMrrtReportTemplate(HttpServletRequest request,
             @RequestParam("templateId") MrrtReportTemplate mrrtReportTemplate) {
-        
+
         try {
             mrrtReportTemplateService.purgeMrrtReportTemplate(mrrtReportTemplate);
             request.getSession()

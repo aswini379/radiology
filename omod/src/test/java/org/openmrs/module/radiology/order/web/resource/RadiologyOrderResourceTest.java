@@ -50,37 +50,37 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Context.class, RestUtil.class, LocaleUtility.class })
 public class RadiologyOrderResourceTest {
-    
-    
+
+
     private static final String RADIOLOGY_ORDER_UUID = "1bae735a-fca0-11e5-9e59-08002719a237";
-    
+
     @Mock
     RadiologyOrderService radiologyOrderService;
-    
+
     RadiologyOrderResource radiologyOrderResource = new RadiologyOrderResource();
-    
+
     RadiologyOrder radiologyOrder = new RadiologyOrder();
-    
+
     Locale localeEn = new Locale("en");
-    
+
     @Before
     public void setUp() throws Exception {
-        
+
         radiologyOrder.setUuid(RADIOLOGY_ORDER_UUID);
         radiologyOrder.setAccessionNumber("1");
-        
+
         PowerMockito.mockStatic(RestUtil.class);
-        
+
         PowerMockito.mockStatic(LocaleUtility.class);
         Set<Locale> locales = new HashSet<Locale>();
         locales.add(localeEn);
         when(LocaleUtility.getLocalesInOrder()).thenReturn(locales);
-        
+
         PowerMockito.mockStatic(Context.class);
         when(Context.getService(RadiologyOrderService.class)).thenReturn(radiologyOrderService);
         when(radiologyOrderService.getRadiologyOrderByUuid(RADIOLOGY_ORDER_UUID)).thenReturn(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyOrderResource#getRepresentationDescription(Representation)
      * @verifies return default representation given instance of defaultrepresentation
@@ -88,9 +88,9 @@ public class RadiologyOrderResourceTest {
     @Test
     public void getRepresentationDescription_shouldReturnDefaultRepresentationGivenInstanceOfDefaultrepresentation()
             throws Exception {
-        
+
         DefaultRepresentation defaultRepresentation = new DefaultRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 radiologyOrderResource.getRepresentationDescription(defaultRepresentation);
         assertThat(resourceDescription.getProperties()
@@ -127,7 +127,7 @@ public class RadiologyOrderResourceTest {
                 .getRep(),
             is(Representation.REF));
     }
-    
+
     /**
      * @see RadiologyOrderResource#getRepresentationDescription(Representation)
      * @verifies return full representation given instance of fullrepresentation
@@ -135,9 +135,9 @@ public class RadiologyOrderResourceTest {
     @Test
     public void getRepresentationDescription_shouldReturnFullRepresentationGivenInstanceOfFullrepresentation()
             throws Exception {
-        
+
         FullRepresentation fullRepresentation = new FullRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 radiologyOrderResource.getRepresentationDescription(fullRepresentation);
         assertThat(resourceDescription.getProperties()
@@ -175,56 +175,56 @@ public class RadiologyOrderResourceTest {
                 .getRep(),
             is(Representation.REF));
     }
-    
+
     /**
      * @see RadiologyOrderResource#getRepresentationDescription(Representation)
      * @verifies return null for representation other then default or full
      */
     @Test
     public void getRepresentationDescription_shouldReturnNullForRepresentationOtherThenDefaultOrFull() throws Exception {
-        
+
         CustomRepresentation customRepresentation = new CustomRepresentation("some");
-        
+
         assertThat(radiologyOrderResource.getRepresentationDescription(customRepresentation), is(nullValue()));
-        
+
         NamedRepresentation namedRepresentation = new NamedRepresentation("some");
         radiologyOrderResource = new RadiologyOrderResource();
-        
+
         assertThat(radiologyOrderResource.getRepresentationDescription(namedRepresentation), is(nullValue()));
-        
+
         RefRepresentation refRepresentation = new RefRepresentation();
         radiologyOrderResource = new RadiologyOrderResource();
-        
+
         assertThat(radiologyOrderResource.getRepresentationDescription(refRepresentation), is(nullValue()));
     }
-    
+
     /**
      * @see RadiologyOrderResource#getResourceVersion()
      * @verifies return supported resource version
      */
     @Test
     public void getResourceVersion_shouldReturnSupportedResourceVersion() throws Exception {
-        
+
         assertThat(radiologyOrderResource.getResourceVersion(), is(RestConstants2_0.RESOURCE_VERSION));
     }
-    
+
     /**
      * @see RadiologyOrderResource#getByUniqueId(String)
      * @verifies return radiology order given its uuid
      */
     @Test
     public void getByUniqueId_shouldReturnRadiologyOrderGivenItsUuid() throws Exception {
-        
+
         radiologyOrderResource.getByUniqueId(RADIOLOGY_ORDER_UUID);
     }
-    
+
     /**
      * @see RadiologyOrderResource#getDisplayString(RadiologyOrder)
      * @verifies return accession number and concept name of given radiology order
      */
     @Test
     public void getDisplayString_shouldReturnAccessionNumberAndConceptNameOfGivenRadiologyOrder() throws Exception {
-        
+
         ConceptName conceptName = new ConceptName();
         conceptName.setName("X-RAY, HEAD");
         conceptName.setLocale(localeEn);
@@ -232,58 +232,58 @@ public class RadiologyOrderResourceTest {
         concept.addName(conceptName);
         concept.setPreferredName(conceptName);
         radiologyOrder.setConcept(concept);
-        
+
         assertThat(radiologyOrderResource.getDisplayString(radiologyOrder), is("1 - X-RAY, HEAD"));
     }
-    
+
     /**
      * @see RadiologyOrderResource#getDisplayString(RadiologyOrder)
      * @verifies return no concept string if given radiologyOrders concept is null
      */
     @Test
     public void getDisplayString_shouldReturnNoConceptStringIfGivenRadiologyOrdersConceptIsNull() throws Exception {
-        
+
         assertThat(radiologyOrderResource.getDisplayString(radiologyOrder), is("1 - [No Concept]"));
     }
-    
+
     /**
      * @see RadiologyOrderResource#newDelegate()
      * @verifies throw ResourceDoesNotSupportOperationException
      */
     @Test(expected = ResourceDoesNotSupportOperationException.class)
     public void newDelegate_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
-        
+
         radiologyOrderResource.newDelegate();
     }
-    
+
     /**
      * @see RadiologyOrderResource#save(RadiologyOrder)
      * @verifies throw ResourceDoesNotSupportOperationException
      */
     @Test(expected = ResourceDoesNotSupportOperationException.class)
     public void save_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
-        
+
         radiologyOrderResource.save(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyOrderResource#delete(RadiologyOrder,String,RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
      */
     @Test(expected = ResourceDoesNotSupportOperationException.class)
     public void delete_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
-        
+
         RequestContext requestContext = new RequestContext();
         radiologyOrderResource.delete(radiologyOrder, "wrong order", requestContext);
     }
-    
+
     /**
      * @see RadiologyOrderResource#purge(RadiologyOrder,RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
      */
     @Test(expected = ResourceDoesNotSupportOperationException.class)
     public void purge_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
-        
+
         RequestContext requestContext = new RequestContext();
         radiologyOrderResource.purge(radiologyOrder, requestContext);
     }

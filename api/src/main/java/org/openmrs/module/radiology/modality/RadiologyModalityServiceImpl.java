@@ -20,36 +20,36 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 class RadiologyModalityServiceImpl extends BaseOpenmrsService implements RadiologyModalityService {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(RadiologyModalityServiceImpl.class);
-    
+
     private RadiologyModalityDAO radiologyModalityDAO;
-    
+
     public void setRadiologyModalityDAO(RadiologyModalityDAO radiologyModalityDAO) {
         this.radiologyModalityDAO = radiologyModalityDAO;
     }
-    
+
     /**
      * @see RadiologyModalityService#saveRadiologyModality(RadiologyModality)
      */
     @Override
     @Transactional
     public synchronized RadiologyModality saveRadiologyModality(RadiologyModality radiologyModality) {
-        
+
         if (radiologyModality == null) {
             throw new IllegalArgumentException("radiologyModality cannot be null");
         }
         return radiologyModalityDAO.saveRadiologyModality(radiologyModality);
     }
-    
+
     /**
      * @see RadiologyModalityService#retireRadiologyModality(RadiologyModality, String)
      */
     @Override
     @Transactional
     public synchronized RadiologyModality retireRadiologyModality(RadiologyModality radiologyModality, String reason) {
-        
+
         if (radiologyModality == null) {
             throw new IllegalArgumentException("radiologyModality cannot be null");
         }
@@ -59,37 +59,37 @@ class RadiologyModalityServiceImpl extends BaseOpenmrsService implements Radiolo
         }
         return radiologyModalityDAO.saveRadiologyModality(radiologyModality);
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModality(Integer)
      */
     @Override
     public RadiologyModality getRadiologyModality(Integer id) {
-        
+
         if (id == null) {
             throw new IllegalArgumentException("id cannot be null");
         }
         return radiologyModalityDAO.getRadiologyModality(id);
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalityByUuid(String)
      */
     @Override
     public RadiologyModality getRadiologyModalityByUuid(String uuid) {
-        
+
         if (uuid == null) {
             throw new IllegalArgumentException("uuid cannot be null");
         }
         return radiologyModalityDAO.getRadiologyModalityByUuid(uuid);
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalities(boolean)
      */
     @Override
     public List<RadiologyModality> getRadiologyModalities(boolean includeRetired) {
-        
+
         return radiologyModalityDAO.getRadiologyModalities(includeRetired);
     }
 }

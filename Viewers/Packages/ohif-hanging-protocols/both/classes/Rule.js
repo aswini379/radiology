@@ -80,7 +80,7 @@ export class Rule {
 
     /**
      * Get the constraint info object for the current constraint
-     * @return {Object\undefined} Constraint object or undefined if current constraint 
+     * @return {Object\undefined} Constraint object or undefined if current constraint
      *                            is not valid or not found in comparators list
      */
     getConstraintInfo() {
@@ -141,7 +141,7 @@ export class Rule {
      */
     getConstraintValidatorAndValue() {
         let validatorAndValue = this._validatorAndValue;
-        
+
         // Check if validator and value are cached already
         if (validatorAndValue !== void 0) {
             return validatorAndValue;

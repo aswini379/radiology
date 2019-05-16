@@ -13,12 +13,12 @@ package org.openmrs.module.radiology.report.template;
  * Represents an error found during validation of the IHE Management of Radiology Report Templates (MRRT).
  */
 public class ValidationError {
-    
-    
+
+
     private final String description;
-    
+
     private final String messageCode;
-    
+
     /**
      * Get this description.
      *
@@ -27,7 +27,7 @@ public class ValidationError {
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * Get this message code.
      *
@@ -36,7 +36,7 @@ public class ValidationError {
     public String getMessageCode() {
         return messageCode;
     }
-    
+
     /**
      * Creates a new instance of {@link ValidationError}.
      *
@@ -47,7 +47,7 @@ public class ValidationError {
         this.description = description;
         this.messageCode = messageCode;
     }
-    
+
     /**
      * @see Object#toString()
      */

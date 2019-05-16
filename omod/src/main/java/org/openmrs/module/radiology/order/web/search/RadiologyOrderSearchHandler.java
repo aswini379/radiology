@@ -40,41 +40,41 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RadiologyOrderSearchHandler implements SearchHandler {
-    
-    
+
+
     public static final String REQUEST_PARAM_ACCESSION_NUMBER = "accessionNumber";
-    
+
     public static final String REQUEST_PARAM_PATIENT = "patient";
-    
+
     public static final String REQUEST_PARAM_EFFECTIVE_START_DATE_FROM = "fromEffectiveStartDate";
-    
+
     public static final String REQUEST_PARAM_EFFECTIVE_START_DATE_TO = "toEffectiveStartDate";
-    
+
     public static final String REQUEST_PARAM_URGENCY = "urgency";
-    
+
     public static final String REQUEST_PARAM_TOTAL_COUNT = "totalCount";
-    
+
     @Autowired
     RadiologyOrderService radiologyOrderService;
-    
+
     SearchQuery searchQuery = new SearchQuery.Builder("Allows you to search for RadiologyOrder's by patient and urgency")
             .withOptionalParameters(REQUEST_PARAM_ACCESSION_NUMBER, REQUEST_PARAM_PATIENT,
                 REQUEST_PARAM_EFFECTIVE_START_DATE_FROM, REQUEST_PARAM_EFFECTIVE_START_DATE_TO, REQUEST_PARAM_URGENCY,
                 REQUEST_PARAM_TOTAL_COUNT)
             .build();
-    
+
     private final SearchConfig searchConfig =
             new SearchConfig("default", RestConstants.VERSION_1 + "/radiologyorder", Arrays.asList("2.*.*"), searchQuery);
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.api.SearchHandler#getSearchConfig()
      */
     @Override
     public SearchConfig getSearchConfig() {
-        
+
         return this.searchConfig;
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.api.SearchHandler#search(RequestContext)
      * @should return all radiology orders for given accession number
@@ -94,7 +94,7 @@ public class RadiologyOrderSearchHandler implements SearchHandler {
      */
     @Override
     public PageableResult search(RequestContext context) throws ResponseException {
-        
+
         final String patientUuid = context.getRequest()
                 .getParameter(REQUEST_PARAM_PATIENT);
         Patient patient = null;
@@ -105,31 +105,31 @@ public class RadiologyOrderSearchHandler implements SearchHandler {
                 return new EmptySearchResult();
             }
         }
-        
+
         final String fromEffectiveStartDateString = context.getRequest()
                 .getParameter(REQUEST_PARAM_EFFECTIVE_START_DATE_FROM);
         Date fromEffectiveStartDate = null;
         if (StringUtils.isNotBlank(fromEffectiveStartDateString)) {
             fromEffectiveStartDate = (Date) ConversionUtil.convert(fromEffectiveStartDateString, java.util.Date.class);
         }
-        
+
         final String toEffectiveStartDateString = context.getRequest()
                 .getParameter(REQUEST_PARAM_EFFECTIVE_START_DATE_TO);
         Date toEffectiveStartDate = null;
         if (StringUtils.isNotBlank(toEffectiveStartDateString)) {
             toEffectiveStartDate = (Date) ConversionUtil.convert(toEffectiveStartDateString, java.util.Date.class);
         }
-        
+
         final String urgencyString = context.getRequest()
                 .getParameter(REQUEST_PARAM_URGENCY);
         Urgency urgency = null;
         if (StringUtils.isNotBlank(urgencyString)) {
             urgency = Urgency.valueOf(urgencyString);
         }
-        
+
         final String accessionNumber = context.getRequest()
                 .getParameter(REQUEST_PARAM_ACCESSION_NUMBER);
-        
+
         final RadiologyOrderSearchCriteria radiologyOrderSearchCriteria =
                 new RadiologyOrderSearchCriteria.Builder().withAccessionNumber(accessionNumber)
                         .withPatient(patient)
@@ -137,9 +137,9 @@ public class RadiologyOrderSearchHandler implements SearchHandler {
                         .toEffectiveStartDate(toEffectiveStartDate)
                         .withUrgency(urgency)
                         .build();
-        
+
         final List<RadiologyOrder> result = radiologyOrderService.getRadiologyOrders(radiologyOrderSearchCriteria);
-        
+
         if (result.isEmpty()) {
             return new EmptySearchResult();
         }

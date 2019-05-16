@@ -27,10 +27,10 @@ import org.openmrs.Provider;
  * Tests {@link RadiologyReportSearchCriteria}.
  */
 public class RadiologyReportSearchCriteriaTest {
-    
-    
+
+
     private RadiologyReportSearchCriteria radiologyReportSearchCriteria;
-    
+
     /**
      * @see RadiologyReportSearchCriteria.Builder#build()
      * @verifies create a new radiology report search criteria instance with from and to date specified if date from and date to are set
@@ -38,14 +38,14 @@ public class RadiologyReportSearchCriteriaTest {
     @Test
     public void build_createANewRadiologyReportSearchCriteriaInstanceWithFromAndToDateSpecifiedIfDateFromAndDateToAreSet()
             throws Exception {
-        
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date fromDate = format.parse("2016-05-01");
         Date toDate = format.parse("2016-05-01");
         radiologyReportSearchCriteria = new RadiologyReportSearchCriteria.Builder().fromDate(fromDate)
                 .toDate(toDate)
                 .build();
-        
+
         assertTrue(radiologyReportSearchCriteria.getFromDate()
                 .equals(fromDate));
         assertTrue(radiologyReportSearchCriteria.getToDate()
@@ -54,7 +54,7 @@ public class RadiologyReportSearchCriteriaTest {
         assertNull(radiologyReportSearchCriteria.getPrincipalResultsInterpreter());
         assertNull(radiologyReportSearchCriteria.getStatus());
     }
-    
+
     /**
      * @see RadiologyReportSearchCriteria.Builder#build()
      * @verifies create a new radiology report search criteria instance with principal results interpreter specified if principal results interpreter is set
@@ -63,11 +63,11 @@ public class RadiologyReportSearchCriteriaTest {
     public void
             build_createANewRadiologyReportSearchCriteriaInstanceWithPrincipalResultsInterpreterSpecifiedIfPrincipalResultsInterpreterIsSet()
                     throws Exception {
-        
+
         radiologyReportSearchCriteria =
                 new RadiologyReportSearchCriteria.Builder().withPrincipalResultsInterpreter(new Provider(1))
                         .build();
-        
+
         assertNotNull(radiologyReportSearchCriteria.getPrincipalResultsInterpreter());
         assertThat(radiologyReportSearchCriteria.getPrincipalResultsInterpreter()
                 .getId(),
@@ -77,7 +77,7 @@ public class RadiologyReportSearchCriteriaTest {
         assertNull(radiologyReportSearchCriteria.getFromDate());
         assertNull(radiologyReportSearchCriteria.getStatus());
     }
-    
+
     /**
      * @see RadiologyReportSearchCriteria.Builder#build()
      * @verifies create a new radiology report search criteria instance with include voided set to true if voided reports should be included
@@ -86,17 +86,17 @@ public class RadiologyReportSearchCriteriaTest {
     public void
             build_createANewRadiologyReportSearchCriteriaInstanceWithIncludeDiscontinuedSetToTrueIfDiscontinuedReportsShouldBeIncluded()
                     throws Exception {
-        
+
         radiologyReportSearchCriteria = new RadiologyReportSearchCriteria.Builder().includeVoided()
                 .build();
-        
+
         assertTrue(radiologyReportSearchCriteria.getIncludeVoided());
         assertNull(radiologyReportSearchCriteria.getToDate());
         assertNull(radiologyReportSearchCriteria.getFromDate());
         assertNull(radiologyReportSearchCriteria.getPrincipalResultsInterpreter());
         assertNull(radiologyReportSearchCriteria.getStatus());
     }
-    
+
     /**
      * @see RadiologyReportSearchCriteria.Builder#build()
      * @verifies create a new radiology report search criteria instance with report status specified if status is set to claimed or completed
@@ -105,16 +105,16 @@ public class RadiologyReportSearchCriteriaTest {
     public void
             build_createANewRadiologyReportSearchCriteriaInstanceWithReportStatusSpecifiedIfStatusIsSetToClaimedOrCompleted()
                     throws Exception {
-        
+
         radiologyReportSearchCriteria = new RadiologyReportSearchCriteria.Builder().withStatus(RadiologyReportStatus.DRAFT)
                 .build();
-        
+
         assertThat(radiologyReportSearchCriteria.getStatus(), is(RadiologyReportStatus.DRAFT));
         assertFalse(radiologyReportSearchCriteria.getIncludeVoided());
         assertNull(radiologyReportSearchCriteria.getToDate());
         assertNull(radiologyReportSearchCriteria.getFromDate());
         assertNull(radiologyReportSearchCriteria.getPrincipalResultsInterpreter());
-        
+
         radiologyReportSearchCriteria =
                 new RadiologyReportSearchCriteria.Builder().withStatus(RadiologyReportStatus.COMPLETED)
                         .build();

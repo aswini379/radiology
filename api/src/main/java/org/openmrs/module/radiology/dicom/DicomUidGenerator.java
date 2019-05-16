@@ -16,21 +16,21 @@ package org.openmrs.module.radiology.dicom;
  * http://dicom.nema.org/MEDICAL/Dicom/current/output/chtml/part05/chapter_9.html
  */
 public interface DicomUidGenerator {
-    
-    
+
+
     /**
      * Returns the maximum allowed {@code root} length.
      * Allows users of the {@code DicomUidGenerator} to validate their {@code root's} length before using this generator.
-     * 
+     *
      * @return maximum allowed root length
      * @should return maximum allowed root length
      */
     public int getMaxRootLength();
-    
+
     /**
      * Generates a new DICOM UID prefixed by {@code root} the UID uniquely identifying an organization.
      * Note that this method is invoked in a non thread-safe way, therefore implementations need to be thread safe.
-     * 
+     *
      * @param root Org root UID uniquely identifying an organization
      * @return the new dicom uid prefixed with root
      * @throws NullPointerException if root is null

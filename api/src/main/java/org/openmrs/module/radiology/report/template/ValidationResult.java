@@ -17,10 +17,10 @@ import java.util.List;
  *
  */
 public class ValidationResult {
-    
-    
+
+
     private List<ValidationError> errors;
-    
+
     /**
      * Get the errors of this validation result.
      *
@@ -29,7 +29,7 @@ public class ValidationResult {
     public List<ValidationError> getErrors() {
         return errors;
     }
-    
+
     /**
      * Creates a new instance of {@link ValidationResult}.
      * @should create a new validation result initializing errors
@@ -37,7 +37,7 @@ public class ValidationResult {
     public ValidationResult() {
         errors = new ArrayList<>();
     }
-    
+
     /**
      * Add an error to this validation result.
      *
@@ -49,7 +49,7 @@ public class ValidationResult {
         ValidationError error = new ValidationError(description, messageCode);
         errors.add(error);
     }
-    
+
     /**
      * Add an error to this validation result.
      *
@@ -59,7 +59,7 @@ public class ValidationResult {
     public void addError(ValidationError validationError) {
         errors.add(validationError);
     }
-    
+
     /**
      * Assert that this validation result has no errors and throw an exception if it does.
      *
@@ -72,7 +72,7 @@ public class ValidationResult {
             throw new MrrtReportTemplateValidationException(this);
         }
     }
-    
+
     /**
      * Check if this validation result has errors.
      *
@@ -83,7 +83,7 @@ public class ValidationResult {
     public boolean hasErrors() {
         return !errors.isEmpty();
     }
-    
+
     /**
      * @see Object#toString()
      * @should return ok if validation has no errors
@@ -91,7 +91,7 @@ public class ValidationResult {
      */
     @Override
     public String toString() {
-        
+
         if (hasErrors()) {
             final StringBuilder result = new StringBuilder();
             result.append("Validation failed due to:\n");

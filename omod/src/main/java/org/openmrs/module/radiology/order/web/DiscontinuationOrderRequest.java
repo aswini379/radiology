@@ -15,37 +15,37 @@ import org.openmrs.Provider;
  * Used as {@code ModelAttribute} when discontinuing {@code Order's}.
  */
 final class DiscontinuationOrderRequest {
-    
-    
+
+
     /**
      * Provider ordering discontinuation of an {@code Order}.
      */
     Provider orderer;
-    
+
     /**
      * Non coded reason why an {@code Order} should be discontinued.
      */
     String reasonNonCoded;
-    
+
     /**
      * Create a {@code DiscontinuationOrderRequest}.
      */
     protected DiscontinuationOrderRequest() {
         // shall only be used within this package
     }
-    
+
     public Provider getOrderer() {
         return this.orderer;
     }
-    
+
     public void setOrderer(Provider orderer) {
         this.orderer = orderer;
     }
-    
+
     public String getReasonNonCoded() {
         return this.reasonNonCoded;
     }
-    
+
     public void setReasonNonCoded(String reasonNonCoded) {
         this.reasonNonCoded = reasonNonCoded;
     }

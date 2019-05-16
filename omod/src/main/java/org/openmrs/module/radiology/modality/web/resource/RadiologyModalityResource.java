@@ -32,18 +32,18 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_0.RestCons
 @Resource(name = RestConstants.VERSION_1 + "/radiologymodality", supportedClass = RadiologyModality.class,
         supportedOpenmrsVersions = { "2.*.*" }, order = 1)
 public class RadiologyModalityResource extends MetadataDelegatingCrudResource<RadiologyModality> {
-    
-    
+
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getResourceVersion()
      * @should return supported resource version
      */
     @Override
     public String getResourceVersion() {
-        
+
         return RestConstants2_0.RESOURCE_VERSION;
     }
-    
+
     /**
     * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.webservices.rest.web.representation.Representation)
      * @should return default representation given instance of defaultrepresentation
@@ -70,18 +70,18 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
         }
         return null;
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getCreatableProperties()
      */
     @Override
     public DelegatingResourceDescription getCreatableProperties() {
-        
+
         DelegatingResourceDescription description = super.getCreatableProperties();
         description.addRequiredProperty("aeTitle");
         return description;
     }
-    
+
     /**
      * Get the display string for a {@link RadiologyModality}.
      *
@@ -93,7 +93,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
     public String getDisplayString(RadiologyModality delegate) {
         return delegate.getAeTitle();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getByUniqueId(String)
      * @should return radiology modality given its uuid
@@ -103,7 +103,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
         return Context.getService(RadiologyModalityService.class)
                 .getRadiologyModalityByUuid(uniqueId);
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#newDelegate()
      */
@@ -111,7 +111,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
     public RadiologyModality newDelegate() {
         return new RadiologyModality();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#save(Object)
      * @should save given radiology modality
@@ -121,7 +121,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
         return Context.getService(RadiologyModalityService.class)
                 .saveRadiologyModality(delegate);
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#delete(Object, String, RequestContext)
      * @should retire given radiology modality
@@ -131,7 +131,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
         Context.getService(RadiologyModalityService.class)
                 .retireRadiologyModality(delegate, reason);
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#purge(Object, RequestContext)
      * @should throw ResourceDoesNotSupportOperationException
@@ -140,7 +140,7 @@ public class RadiologyModalityResource extends MetadataDelegatingCrudResource<Ra
     public void purge(RadiologyModality delegate, RequestContext context) throws ResponseException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#doGetAll(RequestContext)
      * @should return radiology modalities including retired ones if include all is true

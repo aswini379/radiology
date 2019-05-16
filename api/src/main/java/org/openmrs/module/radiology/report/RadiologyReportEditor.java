@@ -20,20 +20,20 @@ import org.springframework.util.StringUtils;
  * Allows for serializing/deserializing a RadiologyReport object to a string so that Spring knows how to pass
  * a RadiologyReport back and forth through an html form or other medium
  * <br/>
- * 
+ *
  * @see RadiologyReport
  */
 public class RadiologyReportEditor extends PropertyEditorSupport {
-    
-    
+
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * @should set value to radiology report whos id matches given text
      * @should set value to radiology report whos uuid matches given text
      * @should throw illegal argument exception for radiology report not found
      * @should return null for empty text
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
      */
     public void setAsText(String text) throws IllegalArgumentException {
@@ -54,11 +54,11 @@ public class RadiologyReportEditor extends PropertyEditorSupport {
             setValue(null);
         }
     }
-    
+
     /**
      * @should return empty string if value does not contain a radiology report
      * @should return radiology report id if value does contain a radiology report
-     * 
+     *
      * @see java.beans.PropertyEditorSupport#getAsText()
      */
     public String getAsText() {
@@ -70,5 +70,5 @@ public class RadiologyReportEditor extends PropertyEditorSupport {
                     .toString();
         }
     }
-    
+
 }

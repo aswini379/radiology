@@ -37,29 +37,29 @@ import org.springframework.web.servlet.ModelAndView;
  * Tests {@code MrrtReportTemplateFormController}.
  */
 public class MrrtReportTemplateFormControllerTest extends BaseContextMockTest {
-    
-    
+
+
     @Mock
     private MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     @InjectMocks
     private MrrtReportTemplateFormController controller = new MrrtReportTemplateFormController();
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     private MrrtReportTemplate mrrtReportTemplate;
-    
+
     private MockHttpServletRequest request;
-    
+
     private static final String RADIOLOGY_DASHBOARD_FORM_VIEW = "/module/radiology/radiologyDashboardForm";
-    
+
     @Before
     public void setUp() {
         mrrtReportTemplate = mock(MrrtReportTemplate.class);
         request = new MockHttpServletRequest();
     }
-    
+
     /**
      * @see MrrtReportTemplateFormController#displayMrrtReportTemplate(HttpServletRequest,MrrtReportTemplate)
      * @verifies return the model and view of the report template form page containing template body in model object
@@ -68,12 +68,12 @@ public class MrrtReportTemplateFormControllerTest extends BaseContextMockTest {
     public void
             displayMrrtReportTemplate_shouldReturnTheModelAndViewOfTheReportTemplateFormPageContainingTemplateBodyInModelObject()
                     throws Exception {
-        
+
         String templateBody = "<div><p>Test template body</p></div>";
         when(mrrtReportTemplateService.getMrrtReportTemplateHtmlBody(mrrtReportTemplate)).thenReturn(templateBody);
-        
+
         ModelAndView modelAndView = controller.displayMrrtReportTemplate(request, mrrtReportTemplate);
-        
+
         assertNotNull(modelAndView);
         assertThat(modelAndView.getViewName(), is(MrrtReportTemplateFormController.MRRT_REPORT_TEMPLATE_FORM_VIEW));
         assertThat(modelAndView.getModel()
@@ -84,7 +84,7 @@ public class MrrtReportTemplateFormControllerTest extends BaseContextMockTest {
         assertNotNull(templateBodyFromModel);
         assertThat(templateBodyFromModel, is(templateBody));
     }
-    
+
     /**
      * @see MrrtReportTemplateFormController#displayMrrtReportTemplate(HttpServletRequest,MrrtReportTemplate)
      * @verifies return the model and view of the radiology dashboard page with error message if io exception is thrown
@@ -93,12 +93,12 @@ public class MrrtReportTemplateFormControllerTest extends BaseContextMockTest {
     public void
             displayMrrtReportTemplate_shouldReturnTheModelAndViewOfTheRadiologyDashboardPageWithErrorMessageIfIoExceptionIsThrown()
                     throws Exception {
-        
+
         when(mrrtReportTemplateService.getMrrtReportTemplateHtmlBody(mrrtReportTemplate))
                 .thenThrow(new IOException("Error reading file."));
-        
+
         ModelAndView modelAndView = controller.displayMrrtReportTemplate(request, mrrtReportTemplate);
-        
+
         assertNotNull(modelAndView);
         assertThat(modelAndView.getViewName(), is(RADIOLOGY_DASHBOARD_FORM_VIEW));
         String errorMessage = (String) request.getSession()

@@ -48,7 +48,7 @@
 		<system>Gitlab</system>
 		<url>https://gitlab.com/librehealth/librehealth-radiology/pipelines</url>
 	</ciManagement>
-	
+
 	<modules>
 		<module>api</module>
 		<module>omod</module>

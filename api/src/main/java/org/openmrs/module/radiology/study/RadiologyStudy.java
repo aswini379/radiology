@@ -18,50 +18,50 @@ import org.openmrs.module.radiology.order.RadiologyOrder;
  * table order_dicom_complment
  */
 public class RadiologyStudy extends BaseOpenmrsData {
-    
-    
+
+
     private Integer studyId;
-    
+
     private String studyInstanceUid;
-    
+
     private RadiologyOrder radiologyOrder;
-    
+
     private PerformedProcedureStepStatus performedStatus;
-    
+
     /**
      * Get studyId of RadiologyStudy.
-     * 
+     *
      * @return studyId of RadiologyStudy
      */
     @Override
     public Integer getId() {
         return getStudyId();
     }
-    
+
     /**
      * Get studyId of RadiologyStudy.
-     * 
+     *
      * @return studyId of RadiologyStudy
      */
     public Integer getStudyId() {
         return studyId;
     }
-    
+
     public RadiologyOrder getRadiologyOrder() {
         return radiologyOrder;
     }
-    
+
     public PerformedProcedureStepStatus getPerformedStatus() {
         return performedStatus;
     }
-    
+
     public String getStudyInstanceUid() {
         return studyInstanceUid;
     }
-    
+
     /**
      * Returns true when this RadiologyStudy's performedStatus is in progress and false otherwise.
-     * 
+     *
      * @return true on performedStatus in progress and false otherwise
      * @should return false if performed status is null
      * @should return false if performed status is not in progress
@@ -70,10 +70,10 @@ public class RadiologyStudy extends BaseOpenmrsData {
     public boolean isInProgress() {
         return performedStatus == PerformedProcedureStepStatus.IN_PROGRESS;
     }
-    
+
     /**
      * Returns true when this RadiologyStudy's performedStatus is completed and false otherwise.
-     * 
+     *
      * @return true on performedStatus completed and false otherwise
      * @should return false if performedStatus is null
      * @should return false if performedStatus is not completed
@@ -82,7 +82,7 @@ public class RadiologyStudy extends BaseOpenmrsData {
     public boolean isCompleted() {
         return performedStatus == PerformedProcedureStepStatus.COMPLETED;
     }
-    
+
     /**
      * Returns true when this Study's performedStatus is null and false otherwise.
      *
@@ -93,39 +93,39 @@ public class RadiologyStudy extends BaseOpenmrsData {
     public boolean isScheduleable() {
         return performedStatus == null;
     }
-    
+
     /**
      * Set studyId of RadiologyStudy.
-     * 
+     *
      * @param studyId of RadiologyStudy
      */
     @Override
     public void setId(Integer studyId) {
-        
+
         setStudyId(studyId);
     }
-    
+
     /**
      * Set studyId of RadiologyStudy.
-     * 
+     *
      * @param studyId of RadiologyStudy
      */
     public void setStudyId(Integer studyId) {
         this.studyId = studyId;
     }
-    
+
     public void setRadiologyOrder(RadiologyOrder radiologyOrder) {
         this.radiologyOrder = radiologyOrder;
     }
-    
+
     public void setPerformedStatus(PerformedProcedureStepStatus performedStatus) {
         this.performedStatus = performedStatus;
     }
-    
+
     public void setStudyInstanceUid(String studyInstanceUid) {
         this.studyInstanceUid = studyInstanceUid;
     }
-    
+
     /**
      * @see Object#toString()
      * @return String of Study
@@ -134,7 +134,7 @@ public class RadiologyStudy extends BaseOpenmrsData {
      */
     @Override
     public String toString() {
-        
+
         final StringBuilder result = new StringBuilder();
         result.append("studyId: ")
                 .append(this.getStudyId())

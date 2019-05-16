@@ -30,15 +30,15 @@ import org.apache.commons.lang3.StringUtils;
  * http://dicom.nema.org/MEDICAL/Dicom/current/output/chtml/part05/chapter_9.html
  */
 public class DicomUidValidator {
-    
-    
+
+
     private static final int MAX_LENGTH = 64;
-    
+
     private static final Pattern VALIDATION_PATTERN = Pattern.compile("^[012]((\\.0)|(\\.[1-9]\\d*))+$");
-    
+
     /**
      * Validate {@code uid} according to the DICOM standard.
-     * 
+     *
      * @param uid DICOM UID to be validated
      * @return true if uid is a valid dicom uid and false otherwise
      * @should return false given null
@@ -51,13 +51,13 @@ public class DicomUidValidator {
      * @should return true for valid uid
      */
     public static boolean isValid(String uid) {
-        
+
         return isLengthValid(uid) && isPatternValid(uid);
     }
-    
+
     /**
      * Validate {@code uid's} length according to the DICOM standard.
-     * 
+     *
      * @param uid DICOM UID to be validated
      * @return true if uid length is smaller or equal than 64 and false otherwise
      * @should return false given null
@@ -66,17 +66,17 @@ public class DicomUidValidator {
      * @should return true for uid length smaller or equal to 64
      */
     public static boolean isLengthValid(String uid) {
-        
+
         if (StringUtils.isBlank(uid)) {
             return false;
         }
-        
+
         return uid.length() <= MAX_LENGTH;
     }
-    
+
     /**
      * Validate {@code uid's} pattern according to the DICOM standard.
-     * 
+     *
      * @param uid DICOM UID to be validated
      * @return true if uid pattern is valid and false otherwise
      * @should return false given null
@@ -88,11 +88,11 @@ public class DicomUidValidator {
      * @should return true for valid uid
      */
     public static boolean isPatternValid(String uid) {
-        
+
         if (StringUtils.isBlank(uid)) {
             return false;
         }
-        
+
         return VALIDATION_PATTERN.matcher(uid)
                 .matches();
     }

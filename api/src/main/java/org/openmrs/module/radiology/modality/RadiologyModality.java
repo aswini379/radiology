@@ -15,15 +15,15 @@ import org.openmrs.BaseOpenmrsMetadata;
  * Represents a radiology modality used to perform imaging procedures/studies which result in radiological images.
  */
 public class RadiologyModality extends BaseOpenmrsMetadata {
-    
-    
+
+
     private Integer modalityId;
-    
+
     /**
      * See DICOM standard Part 5, Table 6.2-1. DICOM Value Representations - VR AE for its rules.
      */
     private String aeTitle;
-    
+
     /**
      * @see org.openmrs.OpenmrsObject#getId()
      */
@@ -31,7 +31,7 @@ public class RadiologyModality extends BaseOpenmrsMetadata {
     public Integer getId() {
         return getModalityId();
     }
-    
+
     /**
      * @see org.openmrs.OpenmrsObject#setId(java.lang.Integer)
      */
@@ -39,7 +39,7 @@ public class RadiologyModality extends BaseOpenmrsMetadata {
     public void setId(Integer modalityId) {
         setModalityId(modalityId);
     }
-    
+
     /**
      * Get modalityId of RadiologyModality.
      *
@@ -48,7 +48,7 @@ public class RadiologyModality extends BaseOpenmrsMetadata {
     public Integer getModalityId() {
         return modalityId;
     }
-    
+
     /**
      * Set modalityId of RadiologyModality.
      *
@@ -57,7 +57,7 @@ public class RadiologyModality extends BaseOpenmrsMetadata {
     public void setModalityId(Integer modalityId) {
         this.modalityId = modalityId;
     }
-    
+
     /**
      * Get AE Title of RadiologyModality.
      *
@@ -66,7 +66,7 @@ public class RadiologyModality extends BaseOpenmrsMetadata {
     public String getAeTitle() {
         return aeTitle;
     }
-    
+
     /**
      * Set AE Title of RadiologyModality.
      *

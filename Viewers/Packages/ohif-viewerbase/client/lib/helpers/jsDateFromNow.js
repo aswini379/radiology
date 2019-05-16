@@ -11,7 +11,7 @@ Blaze.registerHelper('jsDateFromNow', function(context, format, options) {
     }
 
     Session.get('timeAgoVariable');
-    
+
     var dateAsMoment = moment(new Date(context));
     return dateAsMoment.fromNow();
 });

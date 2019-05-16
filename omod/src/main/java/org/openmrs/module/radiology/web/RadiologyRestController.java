@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/rest/" + RestConstants.VERSION_1 + RadiologyRestController.RADIOLOGY_REST_NAMESPACE)
 public class RadiologyRestController extends MainResourceController {
-    
-    
+
+
     public static final String RADIOLOGY_REST_NAMESPACE = "/radiology";
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.v1_0.controller.BaseRestController#getNamespace()
      */

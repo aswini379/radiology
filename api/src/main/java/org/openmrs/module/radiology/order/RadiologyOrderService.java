@@ -20,21 +20,21 @@ import org.openmrs.module.radiology.RadiologyPrivileges;
 
 /**
  * Service layer for {@code RadiologyOrder}.
- * 
+ *
  * @see org.openmrs.module.radiology.order.RadiologyOrder
  */
 public interface RadiologyOrderService extends OpenmrsService {
-    
-    
+
+
     /**
      * Gets the next available accession number seed.
-     * 
+     *
      * @return the accession number seed
      * @throws APIException
      * @should return the next accession number seed
      */
     public Long getNextAccessionNumberSeedSequenceValue();
-    
+
     /**
      * Saves a new {@code RadiologyOrder} and its {@code RadiologyStudy} to the
      * database.
@@ -53,7 +53,7 @@ public interface RadiologyOrderService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_ORDERS)
     public RadiologyOrder placeRadiologyOrder(RadiologyOrder radiologyOrder);
-    
+
     /**
      * Discontinues an existing {@code RadiologyOrder}.
      *
@@ -80,7 +80,7 @@ public interface RadiologyOrderService extends OpenmrsService {
     @Authorized({ RadiologyPrivileges.DELETE_RADIOLOGY_ORDERS })
     public Order discontinueRadiologyOrder(RadiologyOrder radiologyOrder, Provider orderer, String discontinueReason)
             throws Exception;
-    
+
     /**
      * Get the {@code RadiologyOrder} by its {@code orderId}.
      *
@@ -93,7 +93,7 @@ public interface RadiologyOrderService extends OpenmrsService {
      */
     @Authorized({ RadiologyPrivileges.GET_RADIOLOGY_ORDERS })
     public RadiologyOrder getRadiologyOrder(Integer orderId);
-    
+
     /**
      * Get the {@code RadiologyOrder} by its {@code UUID}.
      *
@@ -106,7 +106,7 @@ public interface RadiologyOrderService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_ORDERS)
     public RadiologyOrder getRadiologyOrderByUuid(String uuid);
-    
+
     /**
      * Get all {@code RadiologyOrder's} matching a variety of (nullable) criteria.
      * Each extra value for a parameter that is provided acts as an "and" and will reduce the number of results returned

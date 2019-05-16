@@ -25,10 +25,10 @@ import java.util.List;
  * @see RadiologyModalityService
  */
 class HibernateRadiologyModalityDAO implements RadiologyModalityDAO {
-    
-    
+
+
     private SessionFactory sessionFactory;
-    
+
     /**
      * Set session factory that allows us to connect to the database that Hibernate knows about.
      *
@@ -37,7 +37,7 @@ class HibernateRadiologyModalityDAO implements RadiologyModalityDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * @see RadiologyModalityService#saveRadiologyModality(RadiologyModality)
      */
@@ -47,7 +47,7 @@ class HibernateRadiologyModalityDAO implements RadiologyModalityDAO {
                 .saveOrUpdate(radiologyModality);
         return radiologyModality;
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModality(Integer)
      */
@@ -56,7 +56,7 @@ class HibernateRadiologyModalityDAO implements RadiologyModalityDAO {
         return (RadiologyModality) sessionFactory.getCurrentSession()
                 .get(RadiologyModality.class, id);
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalityByUuid(String)
      */
@@ -67,13 +67,13 @@ class HibernateRadiologyModalityDAO implements RadiologyModalityDAO {
                 .add(Restrictions.eq("uuid", uuid))
                 .uniqueResult();
     }
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalities(boolean)
      */
     @Override
     public List<RadiologyModality> getRadiologyModalities(boolean includeRetired) {
-        
+
         final Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(RadiologyModality.class);
         if (!includeRetired) {

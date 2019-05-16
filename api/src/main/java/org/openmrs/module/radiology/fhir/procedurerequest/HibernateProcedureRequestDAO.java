@@ -20,10 +20,10 @@ import org.hibernate.criterion.Restrictions;
  * @see ProcedureRequestService
  */
 class HibernateProcedureRequestDAO implements ProcedureRequestDAO {
-    
-    
+
+
     private SessionFactory sessionFactory;
-    
+
     /**
      * Set session factory that allows us to connect to the database that Hibernate knows about.
      *
@@ -32,44 +32,44 @@ class HibernateProcedureRequestDAO implements ProcedureRequestDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * @return the sessionFactory
      */
     public SessionFactory getSessionFactory() {
-        
+
         return sessionFactory;
     }
-    
+
     /**
      * @see ProcedureRequestService#getProcedureRequest(Integer)
      */
     @Override
     public ProcedureRequest getProcedureRequest(Integer requestId) {
-        
+
         return (ProcedureRequest) sessionFactory.getCurrentSession()
                 .get(ProcedureRequest.class, requestId);
     }
-    
+
     /**
      * @see ProcedureRequestService#getProcedureRequestByUuid(String)
      */
     @Override
     public ProcedureRequest getProcedureRequestByUuid(String uuid) {
-        
+
         return (ProcedureRequest) sessionFactory.getCurrentSession()
                 .createCriteria(ProcedureRequest.class)
                 .add(Restrictions.eq("uuid", uuid))
                 .uniqueResult();
     }
-    
+
     /**
      * Save a new ProcedureRequest or Update an existing ProcedureRequest
      * @see ProcedureRequestService#saveProcedureRequest(ProcedureRequest)
      */
     @Override
     public ProcedureRequest saveProcedureRequest(ProcedureRequest procedureRequest) {
-        
+
         sessionFactory.getCurrentSession()
                 .saveOrUpdate(procedureRequest);
         return procedureRequest;

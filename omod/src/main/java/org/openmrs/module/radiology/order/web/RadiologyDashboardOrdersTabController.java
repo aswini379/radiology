@@ -30,15 +30,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(RadiologyDashboardOrdersTabController.RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING)
 public class RadiologyDashboardOrdersTabController {
-    
-    
+
+
     public static final String RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING = "/module/radiology/radiologyDashboardOrdersTab.htm";
-    
+
     static final String RADIOLOGY_ORDERS_TAB_VIEW = "/module/radiology/radiologyDashboardOrdersTab";
-    
+
     /**
      * Handles get requests for radiology orders tab page.
-     * 
+     *
      * @return model and view of the radiology orders tab page
      * @should return model and view of the radiology orders tab page and set tab session attribute to radiology orders tab page if not already set
      * @should not redirect to dashboard tab page given from tab session attribute and set tab session attribute to radiology orders tab page if switch tab is set
@@ -47,9 +47,9 @@ public class RadiologyDashboardOrdersTabController {
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView getRadiologyOrdersTab(HttpServletRequest request,
             @RequestParam(required = false) String switchTab) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_ORDERS_TAB_VIEW);
-        
+
         String tabLink = (String) request.getSession()
                 .getAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE);
         if (StringUtils.isBlank(tabLink) || StringUtils.isNotBlank(switchTab)) {
@@ -61,27 +61,27 @@ public class RadiologyDashboardOrdersTabController {
                 modelAndView.setViewName("redirect:" + tabLink);
             }
         }
-        
+
         return modelAndView;
     }
-    
+
     /**
      * Returns entries for urgency select element to filter radiology orders.
-     * 
+     *
      * @return a map containing all urgency values and an entry to select all urgencies
      * @should return a map containing all urgency values and an entry to select all urgencies
      */
     @ModelAttribute("urgencies")
     protected Map<String, String> getUrgenciesList() {
-        
+
         final Map<String, String> urgencies = new HashMap<String, String>();
         urgencies.put("", "allurgencies");
-        
+
         for (final Urgency urgency : Urgency.values()) {
             urgencies.put(urgency.name(), urgency.name());
         }
-        
+
         return urgencies;
     }
-    
+
 }

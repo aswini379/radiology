@@ -22,8 +22,8 @@ import java.util.List;
  * @see RadiologyModality
  */
 public interface RadiologyModalityService extends OpenmrsService {
-    
-    
+
+
     /**
      * Saves a new or updates an existing {@code RadiologyModality}.
      *
@@ -38,7 +38,7 @@ public interface RadiologyModalityService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.MANAGE_RADIOLOGY_MODALITIES)
     public RadiologyModality saveRadiologyModality(RadiologyModality radiologyModality);
-    
+
     /**
      * Retires an existing {@code RadiologyModality}.
      * <p>This effectively removes the modality from circulation or use.</p>
@@ -54,7 +54,7 @@ public interface RadiologyModalityService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.MANAGE_RADIOLOGY_MODALITIES)
     public RadiologyModality retireRadiologyModality(RadiologyModality radiologyModality, String reason);
-    
+
     /**
      * Get the {@code RadiologyModality} by its {@code id}.
      *
@@ -67,7 +67,7 @@ public interface RadiologyModalityService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_MODALITIES)
     public RadiologyModality getRadiologyModality(Integer id);
-    
+
     /**
      * Get the {@code RadiologyModality} by its {@code UUID}.
      *
@@ -80,7 +80,7 @@ public interface RadiologyModalityService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_MODALITIES)
     public RadiologyModality getRadiologyModalityByUuid(String uuid);
-    
+
     /**
      * Get the {@code RadiologyModality's}.
      *

@@ -22,7 +22,7 @@ const getStudy = function(property) {
     if (!study) {
         return '';
     }
-    
+
     return study[property];
 };
 

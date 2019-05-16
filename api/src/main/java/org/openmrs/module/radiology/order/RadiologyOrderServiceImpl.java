@@ -29,75 +29,75 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 class RadiologyOrderServiceImpl extends BaseOpenmrsService implements RadiologyOrderService, AccessionNumberGenerator {
-    
-    
+
+
     private RadiologyOrderDAO radiologyOrderDAO;
-    
+
     private RadiologyStudyService radiologyStudyService;
-    
+
     private OrderService orderService;
-    
+
     private EncounterService encounterService;
-    
+
     private RadiologyProperties radiologyProperties;
-    
+
     public void setRadiologyOrderDAO(RadiologyOrderDAO radiologyOrderDAO) {
         this.radiologyOrderDAO = radiologyOrderDAO;
     }
-    
+
     public void setRadiologyStudyService(RadiologyStudyService radiologyStudyService) {
         this.radiologyStudyService = radiologyStudyService;
     }
-    
+
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
-    
+
     public void setEncounterService(EncounterService encounterService) {
         this.encounterService = encounterService;
     }
-    
+
     public void setRadiologyProperties(RadiologyProperties radiologyProperties) {
         this.radiologyProperties = radiologyProperties;
     }
-    
+
     /**
      * @see RadiologyOrderService#placeRadiologyOrder(RadiologyOrder)
      */
     @Override
     @Transactional
     public synchronized RadiologyOrder placeRadiologyOrder(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
-        
+
         if (radiologyOrder.getOrderId() != null) {
             throw new APIException("Order.cannot.edit.existing");
         }
-        
+
         if (radiologyOrder.getStudy() == null) {
             throw new IllegalArgumentException("radiologyOrder.study cannot be null");
         }
-        
+
         radiologyOrder.setAccessionNumber(getNewAccessionNumber());
-        
+
         final Encounter encounter =
                 saveRadiologyOrderEncounter(radiologyOrder.getPatient(), radiologyOrder.getOrderer(), new Date());
         encounter.addOrder(radiologyOrder);
-        
+
         final OrderContext orderContext = new OrderContext();
         orderContext.setCareSetting(radiologyProperties.getRadiologyCareSetting());
         orderContext.setOrderType(radiologyProperties.getRadiologyTestOrderType());
-        
+
         final RadiologyOrder result = (RadiologyOrder) orderService.saveOrder(radiologyOrder, orderContext);
         this.radiologyStudyService.saveRadiologyStudy(result.getStudy());
         return result;
     }
-    
+
     /**
      * Save radiology order encounter for given parameters.
-     * 
+     *
      * @param patient the encounter patient
      * @param provider the encounter provider
      * @param encounterDateTime the encounter date
@@ -112,7 +112,7 @@ class RadiologyOrderServiceImpl extends BaseOpenmrsService implements RadiologyO
         radiologyOrderEncounter.setEncounterType(radiologyProperties.getRadiologyOrderEncounterType());
         return encounterService.saveEncounter(radiologyOrderEncounter);
     }
-    
+
     /**
      * @throws Exception
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
@@ -121,58 +121,58 @@ class RadiologyOrderServiceImpl extends BaseOpenmrsService implements RadiologyO
     @Transactional
     public Order discontinueRadiologyOrder(RadiologyOrder radiologyOrder, Provider orderer, String nonCodedDiscontinueReason)
             throws Exception {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
-        
+
         if (radiologyOrder.getOrderId() == null) {
             throw new IllegalArgumentException("radiologyOrder.orderId cannot be null, can only discontinue existing order");
         }
-        
+
         if (orderer == null) {
             throw new IllegalArgumentException("orderer cannot be null");
         }
-        
+
         if (radiologyOrder.isDiscontinuedRightNow()) {
             throw new APIException("RadiologyOrder.cannot.discontinue.discontinued");
         }
-        
+
         if (radiologyOrder.isInProgress() | radiologyOrder.isCompleted()) {
             throw new APIException("RadiologyOrder.cannot.discontinue.inProgressOrcompleted");
         }
-        
+
         final Encounter encounter = this.saveRadiologyOrderEncounter(radiologyOrder.getPatient(), orderer, new Date());
-        
+
         return this.orderService.discontinueOrder(radiologyOrder, nonCodedDiscontinueReason, null, orderer, encounter);
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrder(Integer)
      */
     @Override
     public RadiologyOrder getRadiologyOrder(Integer orderId) {
-        
+
         if (orderId == null) {
             throw new IllegalArgumentException("orderId cannot be null");
         }
-        
+
         return radiologyOrderDAO.getRadiologyOrder(orderId);
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrderByUuid(String)
      */
     @Override
     public RadiologyOrder getRadiologyOrderByUuid(String uuid) {
-        
+
         if (uuid == null) {
             throw new IllegalArgumentException("uuid cannot be null");
         }
-        
+
         return radiologyOrderDAO.getRadiologyOrderByUuid(uuid);
     }
-    
+
     /**
      * @see AccessionNumberGenerator#getNewAccessionNumber()
      */
@@ -182,23 +182,23 @@ class RadiologyOrderServiceImpl extends BaseOpenmrsService implements RadiologyO
                 .getNextAccessionNumberSeedSequenceValue()
                 .toString();
     }
-    
+
     /**
      * @see RadiologyOrderService#getNextAccessionNumberSeedSequenceValue()
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public synchronized Long getNextAccessionNumberSeedSequenceValue() {
-        
+
         return radiologyOrderDAO.getNextAccessionNumberSeedSequenceValue();
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrders(RadiologyOrderSearchCriteria)
      */
     @Override
     public List<RadiologyOrder> getRadiologyOrders(RadiologyOrderSearchCriteria radiologyOrderSearchCriteria) {
-        
+
         if (radiologyOrderSearchCriteria == null) {
             throw new IllegalArgumentException("radiologyOrderSearchCriteria cannot be null");
         }

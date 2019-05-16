@@ -3,7 +3,7 @@ var Radiology = (function(openmrsContextPath) {
 
   /**
    * Show a custom alert dialog with one button
-   * 
+   *
    * @param dialogTitle the title of the dialog
    * @param dialogMessage the message of the dialog
    * @param dialogButtonText the text to display on the button
@@ -30,10 +30,10 @@ var Radiology = (function(openmrsContextPath) {
 
   /**
    * Get a (nested) property safely from an object.
-   * 
+   *
    * @param object the object to search
-   * @param property the property to be returned in dot notation style (ie"full.orderReason") 
-   * 
+   * @param property the property to be returned in dot notation style (ie"full.orderReason")
+   *
    * @return the value of the property in question if existing or empty string otherwise
    */
   var getProperty = function(object, property) {

@@ -23,51 +23,51 @@ import static org.junit.Assert.assertThat;
  * Tests {@link VoidRadiologyReportRequest}.
  */
 public class VoidRadiologyReportRequestValidatorTest {
-    
-    
+
+
     VoidRadiologyReportRequestValidator voidRadiologyReportRequestValidator;
-    
+
     VoidRadiologyReportRequest voidRadiologyReportRequest;
-    
+
     @Before
     public void setUp() {
-        
+
         voidRadiologyReportRequestValidator = new VoidRadiologyReportRequestValidator();
-        
+
         voidRadiologyReportRequest = new VoidRadiologyReportRequest();
         voidRadiologyReportRequest.setVoidReason("wrong order selected");
     }
-    
+
     /**
      * @see VoidRadiologyReportRequestValidator#supports(Class)
      * @verifies return true only for void radiology report request objects
      */
     @Test
     public void supports_shouldReturnTrueOnlyForVoidRadiologyReportRequestObjects() throws Exception {
-        
+
         assertTrue(voidRadiologyReportRequestValidator.supports(VoidRadiologyReportRequest.class));
     }
-    
+
     /**
      * @see VoidRadiologyReportRequestValidator#supports(Class)
      * @verifies return false for other object types
      */
     @Test
     public void supports_shouldReturnFalseForOtherObjectTypes() throws Exception {
-        
+
         assertFalse(voidRadiologyReportRequestValidator.supports(Object.class));
     }
-    
+
     /**
      * @see VoidRadiologyReportRequestValidator#validate(Object, Errors)
      * @verifies fail validation if void radiology report request is null
      */
     @Test
     public void validate_shouldFailValidationIfDiscontinuationOrderRequestIsNull() throws Exception {
-        
+
         Errors errors = new BindException(voidRadiologyReportRequest, "voidRadiologyReportRequest");
         voidRadiologyReportRequestValidator.validate(null, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
@@ -76,58 +76,58 @@ public class VoidRadiologyReportRequestValidatorTest {
                 .getCode(),
             is("error.general"));
     }
-    
+
     /**
      * @see VoidRadiologyReportRequestValidator#validate(Object, Errors)
      * @verifies fail validation if void reason is null or empty or whitespaces only
      */
     @Test
     public void validate_shouldFailValidationIfVoidReasonNonCodedIsNull() throws Exception {
-        
+
         voidRadiologyReportRequest.setVoidReason(null);
-        
+
         Errors errors = new BindException(voidRadiologyReportRequest, "voidRadiologyReportRequest");
         voidRadiologyReportRequestValidator.validate(voidRadiologyReportRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
             is(1));
         assertTrue(errors.hasFieldErrors("voidReason"));
-        
+
         voidRadiologyReportRequest.setVoidReason("");
-        
+
         errors = new BindException(voidRadiologyReportRequest, "voidRadiologyReportRequest");
         voidRadiologyReportRequestValidator.validate(voidRadiologyReportRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
             is(1));
         assertTrue(errors.hasFieldErrors("voidReason"));
-        
+
         voidRadiologyReportRequest.setVoidReason("   ");
-        
+
         errors = new BindException(voidRadiologyReportRequest, "voidRadiologyReportRequest");
         voidRadiologyReportRequestValidator.validate(voidRadiologyReportRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
             is(1));
         assertTrue(errors.hasFieldErrors("voidReason"));
     }
-    
+
     /**
      * @see VoidRadiologyReportRequestValidator#validate(Object, Errors)
      * @verifies pass validation if all fields are correct
      */
     @Test
     public void validate_shouldPassValidationIfAllFieldsAreCorrect() throws Exception {
-        
+
         Errors errors = new BindException(voidRadiologyReportRequest, "voidRadiologyReportRequest");
         voidRadiologyReportRequestValidator.validate(voidRadiologyReportRequest, errors);
-        
+
         assertFalse(errors.hasErrors());
     }
 }

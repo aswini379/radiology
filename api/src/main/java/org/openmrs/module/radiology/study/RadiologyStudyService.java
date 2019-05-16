@@ -15,15 +15,15 @@ import org.openmrs.module.radiology.RadiologyPrivileges;
 
 /**
  * Service layer for {@code RadiologyStudy}.
- * 
+ *
  * @see org.openmrs.module.radiology.study.RadiologyStudy
  */
 public interface RadiologyStudyService extends OpenmrsService {
-    
-    
+
+
     /**
      * Saves a new {@code RadiologyStudy} to the database.
-     * 
+     *
      * @param radiologyStudy the radiology study to be created
      * @return the created radiology study
      * @throws IllegalArgumentException if given null
@@ -41,7 +41,7 @@ public interface RadiologyStudyService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_STUDIES)
     public RadiologyStudy saveRadiologyStudy(RadiologyStudy radiologyStudy);
-    
+
     /**
      * Get the {@code RadiologyStudy} by its {@code studyId}.
      *
@@ -54,7 +54,7 @@ public interface RadiologyStudyService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_STUDIES)
     public RadiologyStudy getRadiologyStudy(Integer studyId);
-    
+
     /**
      * Get the {@code RadiologyStudy} by its {@code UUID}.
      *
@@ -67,7 +67,7 @@ public interface RadiologyStudyService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_STUDIES)
     public RadiologyStudy getRadiologyStudyByUuid(String uuid);
-    
+
     /**
      * Get the {@code RadiologyStudy} by its Study Instance UID.
      *

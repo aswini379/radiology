@@ -18,24 +18,24 @@ import org.junit.Test;
  * Tests {@code MrrtReportTemplateSearchCriteria}.
  */
 public class MrrtReportTemplateSearchCriteriaTest {
-    
-    
+
+
     private MrrtReportTemplateSearchCriteria mrrtReportTemplateSearchCriteria;
-    
+
     /**
      * @see MrrtReportTemplateSearchCriteria.Builder#build()
      * @verifies create an mrrt report template search criteria instance with title if title is set
      */
     @Test
     public void build_createAnMrrtReportTemplateSearchCriteriaInstanceWithTitleIfTitleIsSet() throws Exception {
-        
+
         String title = "Test MrrtReportTemplate";
         mrrtReportTemplateSearchCriteria = new MrrtReportTemplateSearchCriteria.Builder().withTitle(title)
                 .build();
-        
+
         assertThat(mrrtReportTemplateSearchCriteria.getTitle(), is(title));
     }
-    
+
     /**
      * @see MrrtReportTemplateSearchCriteria.Builder#build()
      * @verifies create an mrrt report template search criteria instance with publisher if publisher is set
@@ -43,13 +43,13 @@ public class MrrtReportTemplateSearchCriteriaTest {
     @Test
     public void build_shouldCreateAnMrrtReportTemplateSearchCriteriaInstanceWithPublisherIfPublisherIsSet()
             throws Exception {
-        
+
         String publisher = "IHE CAT Publisher";
         mrrtReportTemplateSearchCriteria = new MrrtReportTemplateSearchCriteria.Builder().withPublisher(publisher)
                 .build();
         assertThat(mrrtReportTemplateSearchCriteria.getPublisher(), is(publisher));
     }
-    
+
     /**
      * @see MrrtReportTemplateSearchCriteria.Builder#build()
      * @verifies create an mrrt report template search criteria instance with license if license is set
@@ -61,7 +61,7 @@ public class MrrtReportTemplateSearchCriteriaTest {
                 .build();
         assertThat(mrrtReportTemplateSearchCriteria.getLicense(), is(license));
     }
-    
+
     /**
      * @see MrrtReportTemplateSearchCriteria.Builder#build()
      * @verifies create an mrrt report template search criteria instance with creator if creator is set

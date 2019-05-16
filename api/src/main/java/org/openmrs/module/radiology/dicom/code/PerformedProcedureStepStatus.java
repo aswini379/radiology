@@ -16,14 +16,14 @@ package org.openmrs.module.radiology.dicom.code;
  * </p>
  */
 public enum PerformedProcedureStepStatus {
-    
+
     IN_PROGRESS,
     DISCONTINUED,
     COMPLETED;
-    
+
     /**
      * Get name or UNKNOWN for given Performed Procedure Step Status
-     * 
+     *
      * @param performedProcedureStepStatus PerformedProcedureStepStatus for which the name is
      *        returned
      * @return name of given PerformedProcedureStepStatus
@@ -37,10 +37,10 @@ public enum PerformedProcedureStepStatus {
             return performedProcedureStepStatus.name();
         }
     }
-    
+
     /**
      * Get Performed Procedure Step Status for given displayName
-     * 
+     *
      * @param displayName name defined by DICOM standard for which the PerformedProcedureStepStatus is returned
      * @return PerformedProcedureStepStatus PerformedProcedureStepStatus matching given displayName
      * @throws IllegalArgumentException
@@ -52,7 +52,7 @@ public enum PerformedProcedureStepStatus {
         if (displayName == null) {
             throw new IllegalArgumentException("displayName is required");
         }
-        
+
         if ("in progress".equalsIgnoreCase(displayName)) {
             return IN_PROGRESS;
         } else if ("discontinued".equalsIgnoreCase(displayName)) {

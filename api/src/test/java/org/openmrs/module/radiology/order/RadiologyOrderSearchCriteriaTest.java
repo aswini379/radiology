@@ -28,21 +28,21 @@ import org.openmrs.Provider;
  * Tests {@link RadiologyOrderSearchCriteria}.
  */
 public class RadiologyOrderSearchCriteriaTest {
-    
-    
+
+
     private RadiologyOrderSearchCriteria radiologyOrderSearchCriteria;
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with patient if patient is set
      */
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithPatientIfPatientIsSet() throws Exception {
-        
+
         Patient patient = new Patient(1);
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().withPatient(patient)
                 .build();
-        
+
         assertTrue(radiologyOrderSearchCriteria.getPatient()
                 .equals(patient));
         assertFalse(radiologyOrderSearchCriteria.getIncludeVoided());
@@ -52,7 +52,7 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getAccessionNumber());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with include voided set to true if voided orders should be included
@@ -61,10 +61,10 @@ public class RadiologyOrderSearchCriteriaTest {
     public void
             build_createANewRadiologyOrderSearchCriteriaInstanceWithIncludeVoidedSetToTrueIfVoidedOrdersShouldBeIncluded()
                     throws Exception {
-        
+
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().includeVoided()
                 .build();
-        
+
         assertTrue(radiologyOrderSearchCriteria.getIncludeVoided());
         assertNull(radiologyOrderSearchCriteria.getPatient());
         assertNull(radiologyOrderSearchCriteria.getUrgency());
@@ -73,17 +73,17 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getAccessionNumber());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with urgency if urgency is set
      */
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithUrgencyIfUrgencyIsSet() throws Exception {
-        
+
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().withUrgency(Urgency.ROUTINE)
                 .build();
-        
+
         assertTrue(radiologyOrderSearchCriteria.getUrgency()
                 .equals(Urgency.ROUTINE));
         assertNull(radiologyOrderSearchCriteria.getPatient());
@@ -93,7 +93,7 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getAccessionNumber());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with from effective start date if from effective start date is set
@@ -101,13 +101,13 @@ public class RadiologyOrderSearchCriteriaTest {
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithFromEffectiveStartDateIfFromEffectiveStartDateIsSet()
             throws Exception {
-        
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date fromEffectiveStartDate = format.parse("2016-05-01");
         radiologyOrderSearchCriteria =
                 new RadiologyOrderSearchCriteria.Builder().fromEffectiveStartDate(fromEffectiveStartDate)
                         .build();
-        
+
         assertThat(radiologyOrderSearchCriteria.getFromEffectiveStartDate(), is(fromEffectiveStartDate));
         assertNull(radiologyOrderSearchCriteria.getPatient());
         assertFalse(radiologyOrderSearchCriteria.getIncludeVoided());
@@ -116,7 +116,7 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getAccessionNumber());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with to effective start date if to effective start date is set
@@ -124,12 +124,12 @@ public class RadiologyOrderSearchCriteriaTest {
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithToEffectiveStartDateIfToEffectiveStartDateIsSet()
             throws Exception {
-        
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date toEffectiveStartDate = format.parse("2016-05-01");
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().toEffectiveStartDate(toEffectiveStartDate)
                 .build();
-        
+
         assertThat(radiologyOrderSearchCriteria.getToEffectiveStartDate(), is(toEffectiveStartDate));
         assertNull(radiologyOrderSearchCriteria.getPatient());
         assertFalse(radiologyOrderSearchCriteria.getIncludeVoided());
@@ -138,7 +138,7 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getAccessionNumber());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
     * @verifies create a new radiology order search criteria instance with accession number if accession number is set
@@ -146,11 +146,11 @@ public class RadiologyOrderSearchCriteriaTest {
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithAccessionNumberIfAccessionNumberIsSet()
             throws Exception {
-        
+
         String accessionNumber = "1";
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().withAccessionNumber(accessionNumber)
                 .build();
-        
+
         assertThat(radiologyOrderSearchCriteria.getAccessionNumber(), is(accessionNumber));
         assertNull(radiologyOrderSearchCriteria.getPatient());
         assertFalse(radiologyOrderSearchCriteria.getIncludeVoided());
@@ -159,18 +159,18 @@ public class RadiologyOrderSearchCriteriaTest {
         assertNull(radiologyOrderSearchCriteria.getToEffectiveStartDate());
         assertNull(radiologyOrderSearchCriteria.getOrderer());
     }
-    
+
     /**
      * @see RadiologyOrderSearchCriteria.Builder#build()
      * @verifies create a new radiology order search criteria instance with orderer if orderer is set
      */
     @Test
     public void build_createANewRadiologyOrderSearchCriteriaInstanceWithOrdererIfOrdererIsSet() throws Exception {
-        
+
         Provider orderer = new Provider(1);
         radiologyOrderSearchCriteria = new RadiologyOrderSearchCriteria.Builder().withOrderer(orderer)
                 .build();
-        
+
         assertThat(radiologyOrderSearchCriteria.getOrderer(), is(orderer));
         assertNull(radiologyOrderSearchCriteria.getPatient());
         assertFalse(radiologyOrderSearchCriteria.getIncludeVoided());

@@ -52,7 +52,7 @@ const match = (metadataInstance, rules) => {
             [attribute]: rule.constraint
         };
 
-        // Create a single attribute object to be validated, since metadataInstance is an 
+        // Create a single attribute object to be validated, since metadataInstance is an
         // instance of Metadata (StudyMetadata, SeriesMetadata or InstanceMetadata)
         const attributeValue = customAttributeExists ? metadataInstance.getCustomAttribute(attribute) : metadataInstance.getTagValue(attribute);
         const attributeMap = {

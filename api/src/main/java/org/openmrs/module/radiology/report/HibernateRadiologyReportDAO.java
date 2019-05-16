@@ -25,10 +25,10 @@ import org.openmrs.module.radiology.order.RadiologyOrder;
  * @see org.openmrs.module.radiology.report.RadiologyReportService
  */
 class HibernateRadiologyReportDAO implements RadiologyReportDAO {
-    
-    
+
+
     private SessionFactory sessionFactory;
-    
+
     /**
      * Set session factory that allows us to connect to the database that Hibernate knows about.
      *
@@ -37,7 +37,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReport(Integer)
      */
@@ -46,7 +46,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
         return (RadiologyReport) sessionFactory.getCurrentSession()
                 .get(RadiologyReport.class, reportId);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReportByUuid(String)
      */
@@ -57,7 +57,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
                 .add(Restrictions.eq("uuid", uuid))
                 .uniqueResult();
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#saveRadiologyReportDraft(RadiologyReport)
      */
@@ -67,7 +67,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
                 .saveOrUpdate(radiologyReport);
         return radiologyReport;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder)
      *      (RadiologyReport)
@@ -82,7 +82,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
                 .list();
         return radiologyReports.size() == 1;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder)
      */
@@ -96,7 +96,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
                 .list();
         return radiologyReports.size() == 1;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getActiveRadiologyReportByRadiologyOrder(RadiologyOrder)
      */
@@ -109,17 +109,17 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
                 .list()
                 .get(0);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReports(RadiologyReportSearchCriteria)
      */
     @SuppressWarnings("unchecked")
     @Override
     public List<RadiologyReport> getRadiologyReports(RadiologyReportSearchCriteria searchCriteria) {
-        
+
         final Criteria crit = sessionFactory.getCurrentSession()
                 .createCriteria(RadiologyReport.class);
-        
+
         if (!searchCriteria.getIncludeVoided()) {
             crit.add(Restrictions.eq("voided", false));
         }
@@ -135,7 +135,7 @@ class HibernateRadiologyReportDAO implements RadiologyReportDAO {
         if (searchCriteria.getStatus() != null) {
             crit.add(Restrictions.eq("status", searchCriteria.getStatus()));
         }
-        
+
         crit.addOrder(Order.asc("date"));
         return crit.list();
     }

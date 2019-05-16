@@ -49,7 +49,7 @@ Meteor.methods({
     if (!currentUser) {
       return;
     }
-    
+
     return currentUser.failedPasswordAttempts || 0;
   },
 
@@ -141,7 +141,7 @@ Meteor.methods({
 
     var lastLoginDate = currentUser.lastLoginDate;
     if (!lastLoginDate) {
-      return false; 
+      return false;
     }
 
     lastLoginDate.setDate(lastLoginDate.getDate() + inactivityPeriodDays);

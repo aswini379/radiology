@@ -20,56 +20,56 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 class ProcedureRequestServiceImpl extends BaseOpenmrsService implements ProcedureRequestService {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(ProcedureRequestServiceImpl.class);
-    
+
     private ProcedureRequestDAO procedureRequestDAO;
-    
+
     /**
      * @return the procedureRequestDAO
      */
     public ProcedureRequestDAO getProcedureRequestDAO() {
         return procedureRequestDAO;
     }
-    
+
     /**
      * @param procedureRequestDAO, the procedureRequestDAO to be set
      */
     public void setProcedureRequestDAO(ProcedureRequestDAO procedureRequestDAO) {
         this.procedureRequestDAO = procedureRequestDAO;
     }
-    
+
     /**
      * @see ProcedureRequestService#getProcedureRequest(Integer)
      */
     @Override
     public ProcedureRequest getProcedureRequest(Integer requestId) {
-        
+
         if (requestId == null) {
             throw new IllegalArgumentException("requestId cannot be null");
         }
         return procedureRequestDAO.getProcedureRequest(requestId);
     }
-    
+
     /**
      * @see ProcedureRequestService#getProcedureRequestByUuid(String)
      */
     @Override
     public ProcedureRequest getProcedureRequestByUuid(String uuid) {
-        
+
         if (uuid == null) {
             throw new IllegalArgumentException("ProcedureRequest uuid cannot be null");
         }
         return procedureRequestDAO.getProcedureRequestByUuid(uuid);
     }
-    
+
     /**
      * @see ProcedureRequestService#addProcedureRequest(ProcedureRequest)
      */
     @Override
     public ProcedureRequest addProcedureRequest(ProcedureRequest procedureRequest) {
-        
+
         if (procedureRequest == null) {
             throw new IllegalArgumentException("procedureRequest cannot be null");
         }
@@ -78,13 +78,13 @@ class ProcedureRequestServiceImpl extends BaseOpenmrsService implements Procedur
         }
         return procedureRequestDAO.saveProcedureRequest(procedureRequest);
     }
-    
+
     /**
      * @see ProcedureRequestService#updateProcedureRequest(ProcedureRequest)
      */
     @Override
     public ProcedureRequest updateProcedureRequest(ProcedureRequest procedureRequest) {
-        
+
         if (procedureRequest == null) {
             throw new IllegalArgumentException("procedureRequest cannot be null");
         }

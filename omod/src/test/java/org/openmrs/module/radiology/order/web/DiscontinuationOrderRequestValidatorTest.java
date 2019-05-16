@@ -24,52 +24,52 @@ import org.springframework.validation.Errors;
  * Tests {@link DiscontinuationOrderRequestValidator}.
  */
 public class DiscontinuationOrderRequestValidatorTest {
-    
-    
+
+
     DiscontinuationOrderRequestValidator discontinuationOrderRequestValidator;
-    
+
     DiscontinuationOrderRequest discontinuationOrderRequest;
-    
+
     @Before
     public void setUp() {
-        
+
         discontinuationOrderRequestValidator = new DiscontinuationOrderRequestValidator();
-        
+
         discontinuationOrderRequest = new DiscontinuationOrderRequest();
         discontinuationOrderRequest.setOrderer(new Provider());
         discontinuationOrderRequest.setReasonNonCoded("Wrong Procedure");
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#supports(Class)
      * @verifies return true only for discontinuation order request objects
      */
     @Test
     public void supports_shouldReturnTrueOnlyForDiscontinuationOrderRequestObjects() throws Exception {
-        
+
         assertTrue(discontinuationOrderRequestValidator.supports(DiscontinuationOrderRequest.class));
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#supports(Class)
      * @verifies return false for other object types
      */
     @Test
     public void supports_shouldReturnFalseForOtherObjectTypes() throws Exception {
-        
+
         assertFalse(discontinuationOrderRequestValidator.supports(Object.class));
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#validate(Object, Errors)
      * @verifies fail validation if discontinuation order request is null
      */
     @Test
     public void validate_shouldFailValidationIfDiscontinuationOrderRequestIsNull() throws Exception {
-        
+
         Errors errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(null, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
@@ -78,19 +78,19 @@ public class DiscontinuationOrderRequestValidatorTest {
                 .getCode(),
             is("error.general"));
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#validate(Object, Errors)
      * @verifies fail validation if orderer is null or empty or whitespaces only
      */
     @Test
     public void validate_shouldFailValidationIfOrdererIsNull() throws Exception {
-        
+
         discontinuationOrderRequest.setOrderer(null);
-        
+
         Errors errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(discontinuationOrderRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
@@ -98,43 +98,43 @@ public class DiscontinuationOrderRequestValidatorTest {
         assertTrue(errors.hasFieldErrors("orderer"));
         assertFalse(errors.hasFieldErrors("reasonNonCoded"));
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#validate(Object, Errors)
      * @verifies fail validation if reason non coded is null or empty or whitespaces only
      */
     @Test
     public void validate_shouldFailValidationIfOrderReasonNonCodedIsNull() throws Exception {
-        
+
         discontinuationOrderRequest.setReasonNonCoded(null);
-        
+
         Errors errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(discontinuationOrderRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
             is(1));
         assertFalse(errors.hasFieldErrors("orderer"));
         assertTrue(errors.hasFieldErrors("reasonNonCoded"));
-        
+
         discontinuationOrderRequest.setReasonNonCoded("");
-        
+
         errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(discontinuationOrderRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
             is(1));
         assertFalse(errors.hasFieldErrors("orderer"));
         assertTrue(errors.hasFieldErrors("reasonNonCoded"));
-        
+
         discontinuationOrderRequest.setReasonNonCoded("   ");
-        
+
         errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(discontinuationOrderRequest, errors);
-        
+
         assertTrue(errors.hasErrors());
         assertThat(errors.getAllErrors()
                 .size(),
@@ -142,17 +142,17 @@ public class DiscontinuationOrderRequestValidatorTest {
         assertFalse(errors.hasFieldErrors("orderer"));
         assertTrue(errors.hasFieldErrors("reasonNonCoded"));
     }
-    
+
     /**
      * @see DiscontinuationOrderRequestValidator#validate(Object, Errors)
      * @verifies pass validation if all fields are correct
      */
     @Test
     public void validate_shouldPassValidationIfAllFieldsAreCorrect() throws Exception {
-        
+
         Errors errors = new BindException(discontinuationOrderRequest, "discontinuationOrderRequest");
         discontinuationOrderRequestValidator.validate(discontinuationOrderRequest, errors);
-        
+
         assertFalse(errors.hasErrors());
     }
 }

@@ -18,7 +18,7 @@ OrthancRemote.prototype.findInstances = function(modality, studyId, seriesId, pa
 OrthancRemote.prototype.query = function(modality, level, params) {
   var url = this.root + '/modalities/' + modality + '/query',
       postData = {Level : level, Query : params || {}};
-  
+
   var result = HTTP.call('POST', url, {content : JSON.stringify(postData)});
   return this.getAnswersFromQuery(result.data['ID']);
 }
@@ -32,7 +32,7 @@ OrthancRemote.prototype.getAnswersFromQuery = function(id) {
     var contentUrl = this.root + '/queries/' + id + '/answers/' + result.data[i] + '/content';
     //fetch the result
     var contentResult = HTTP.call('GET', contentUrl);
-    answers.push(contentResult.data); 
+    answers.push(contentResult.data);
     i++;
   }
   return {
@@ -78,7 +78,7 @@ OrthancRemote.prototype.retrieveMetadata = function(modality, studyInstanceUID) 
   for (var i = 0;i < length;i++) {
     var instanceId = instances[i].ID, metadata = this.getInstanceMetadata(instanceId);
     metadata['xxxx,0001'] = {Value : instanceId};
-    
+
     results.push(metadata);
   }
 

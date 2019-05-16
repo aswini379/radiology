@@ -14,8 +14,8 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.radiology.RadiologyPrivileges;
 
 public interface ProcedureRequestService extends OpenmrsService {
-    
-    
+
+
     /**
      * Get the {@code ProcedureRequest} by it's {@code requestId}
      *
@@ -28,7 +28,7 @@ public interface ProcedureRequestService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_PROCEDURE_REQUESTS)
     ProcedureRequest getProcedureRequest(Integer requestId);
-    
+
     /**
      * Get the {@code ProcedureRequest} by its {@code UUID}.
      *
@@ -40,7 +40,7 @@ public interface ProcedureRequestService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_PROCEDURE_REQUESTS)
     ProcedureRequest getProcedureRequestByUuid(String uuid);
-    
+
     /**
      * Adds a new {@code ProcedureRequest} to the database
      *
@@ -54,7 +54,7 @@ public interface ProcedureRequestService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_PROCEDURE_REQUESTS)
     ProcedureRequest addProcedureRequest(ProcedureRequest procedureRequest);
-    
+
     /**
      * Updates an existing {@code ProcedureRequest} in the database
      *
@@ -68,5 +68,5 @@ public interface ProcedureRequestService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.EDIT_RADIOLOGY_PROCEDURE_REQUESTS)
     ProcedureRequest updateProcedureRequest(ProcedureRequest procedureRequest);
-    
+
 }

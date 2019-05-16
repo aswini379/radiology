@@ -14,18 +14,18 @@ import org.openmrs.module.web.extension.LinkExt;
 import static org.openmrs.module.radiology.order.web.RadiologyDashboardOrdersTabController.RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING;
 
 public class GutterListExt extends LinkExt {
-    
-    
+
+
     @Override
     public String getLabel() {
         return "radiology.gutterlist.title";
     }
-    
+
     @Override
     public String getRequiredPrivilege() {
         return VIEW_GUTTERLIST_RADIOLOGY_LINK;
     }
-    
+
     @Override
     public String getUrl() {
         return RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING;

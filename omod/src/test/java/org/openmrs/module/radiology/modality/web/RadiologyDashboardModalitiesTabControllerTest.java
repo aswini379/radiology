@@ -25,11 +25,11 @@ import static org.junit.Assert.assertThat;
  * Tests {@link RadiologyDashboardModalitiesTabController}.
  */
 public class RadiologyDashboardModalitiesTabControllerTest {
-    
-    
+
+
     private RadiologyDashboardModalitiesTabController radiologyDashboardModalitiesTabController =
             new RadiologyDashboardModalitiesTabController();
-    
+
     /**
      * @verifies return model and view of the radiology modalities tab page and set tab session attribute to radiology modalities tab page
      * @see RadiologyDashboardModalitiesTabController#getRadiologyModalitiesTab(HttpServletRequest)
@@ -38,13 +38,13 @@ public class RadiologyDashboardModalitiesTabControllerTest {
     public void
             getRadiologyModalitiesTab_shouldReturnModelAndViewOfTheRadiologyModalitiesTabPageAndSetTabSessionAttributeToRadiologyModalitiesTabPage()
                     throws Exception {
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         ModelAndView modelAndView = radiologyDashboardModalitiesTabController.getRadiologyModalitiesTab(mockRequest);
-        
+
         assertNotNull(modelAndView);
         assertThat(modelAndView.getViewName(), is(RadiologyDashboardModalitiesTabController.RADIOLOGY_MODALITIES_TAB_VIEW));
         assertThat(mockSession.getAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE),

@@ -176,7 +176,7 @@ Template.settingEntryDialog.events({
      */
     'click #cancel': function() {
         var dialog = Template.settingEntryDialog.dialog;
-        closeHandler(dialog);  
+        closeHandler(dialog);
     },
     /**
      * Allow Esc keydown events to close the dialog

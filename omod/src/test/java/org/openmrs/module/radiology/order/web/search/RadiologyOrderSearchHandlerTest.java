@@ -44,49 +44,49 @@ import org.springframework.mock.web.MockHttpServletRequest;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ RestUtil.class, Context.class })
 public class RadiologyOrderSearchHandlerTest {
-    
-    
+
+
     private static final String PATIENT_UUID_WITH_ORDERS = "1bae735a-fca0-11e5-9e59-08002719a237";
-    
+
     private static final String PATIENT_UUID_WITHOUT_ORDERS = "88888888-fca0-11e5-9e59-08002719a237";
-    
+
     private static final String PATIENT_UUID_UNKNOWN = "99999999-fca0-11e5-9e59-08002719a237";
-    
+
     @Mock
     RestService restService;
-    
+
     @Mock
     PatientService patientService;
-    
+
     @Mock
     RadiologyOrderService radiologyOrderService;
-    
+
     @Mock
     PatientResource1_9 patientResource = new PatientResource1_9();
-    
+
     @InjectMocks
     RadiologyOrderSearchHandler radiologyOrderSearchHandler = new RadiologyOrderSearchHandler();
-    
+
     Patient patientWithOrders = new Patient();
-    
+
     Patient patientWithoutOrders = new Patient();
-    
+
     RadiologyOrder radiologyOrder1 = new RadiologyOrder();
-    
+
     RadiologyOrder radiologyOrder2 = new RadiologyOrder();
-    
+
     @Before
     public void setUp() throws Exception {
-        
+
         patientWithOrders.setUuid(PATIENT_UUID_WITH_ORDERS);
         radiologyOrder1.setPatient(patientWithOrders);
         radiologyOrder2.setPatient(patientWithOrders);
         List<RadiologyOrder> radiologyOrders = new ArrayList<RadiologyOrder>();
         radiologyOrders.add(radiologyOrder1);
         radiologyOrders.add(radiologyOrder2);
-        
+
         patientWithoutOrders.setUuid(PATIENT_UUID_WITHOUT_ORDERS);
-        
+
         PowerMockito.mockStatic(RestUtil.class);
         PowerMockito.mockStatic(Context.class);
         when(Context.getPatientService()).thenReturn(patientService);
@@ -96,35 +96,35 @@ public class RadiologyOrderSearchHandlerTest {
         when(Context.getService(RestService.class)).thenReturn(restService);
         when(restService.getResourceBySupportedClass(Patient.class)).thenReturn(patientResource);
     }
-    
+
     /**
      * @see RadiologyOrderSearchHandler#search(RequestContext)
      * @verifies return empty search result if patient cannot be found
      */
     @Test
     public void search_shouldReturnEmptySearchResultIfPatientCannotBeFound() throws Exception {
-        
+
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setParameter(RadiologyOrderSearchHandler.REQUEST_PARAM_PATIENT, PATIENT_UUID_UNKNOWN);
         RequestContext requestContext = new RequestContext();
         requestContext.setRequest(request);
-        
+
         PageableResult pageableResult = radiologyOrderSearchHandler.search(requestContext);
         assertThat(pageableResult, is(instanceOf(EmptySearchResult.class)));
     }
-    
+
     /**
      * @see RadiologyOrderSearchHandler#search(RequestContext)
      * @verifies return empty search result if patient has no radiology orders
      */
     @Test
     public void search_shouldReturnEmptySearchResultIfPatientHasNoRadiologyOrders() throws Exception {
-        
+
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setParameter(RadiologyOrderSearchHandler.REQUEST_PARAM_PATIENT, PATIENT_UUID_WITHOUT_ORDERS);
         RequestContext requestContext = new RequestContext();
         requestContext.setRequest(request);
-        
+
         PageableResult pageableResult = radiologyOrderSearchHandler.search(requestContext);
         assertThat(pageableResult, is(instanceOf(EmptySearchResult.class)));
     }

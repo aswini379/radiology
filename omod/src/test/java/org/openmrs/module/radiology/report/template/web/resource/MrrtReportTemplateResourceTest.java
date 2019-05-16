@@ -44,28 +44,28 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Context.class, RestUtil.class })
 public class MrrtReportTemplateResourceTest {
-    
-    
+
+
     private static final String MRRT_REPORT_TEMPLATE_UUID = "aa551445-def0-4f93-9047-95f0a9afbdce";
-    
+
     @Mock
     MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     MrrtReportTemplateResource mrrtReportTemplateResource = new MrrtReportTemplateResource();
-    
+
     MrrtReportTemplate mrrtReportTemplate = new MrrtReportTemplate();
-    
+
     @Before
     public void setUp() {
         mrrtReportTemplate.setUuid(MRRT_REPORT_TEMPLATE_UUID);
-        
+
         PowerMockito.mockStatic(RestUtil.class);
         PowerMockito.mockStatic(Context.class);
         when(Context.getService(MrrtReportTemplateService.class)).thenReturn(mrrtReportTemplateService);
         when(mrrtReportTemplateService.getMrrtReportTemplateByUuid(MRRT_REPORT_TEMPLATE_UUID))
                 .thenReturn(mrrtReportTemplate);
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getRepresentationDescription(Representation)
     * @verifies return default representation given instance of defaultrepresentation
@@ -74,7 +74,7 @@ public class MrrtReportTemplateResourceTest {
     public void getRepresentationDescription_shouldReturnDefaultRepresentationGivenInstanceOfDefaultrepresentation()
             throws Exception {
         DefaultRepresentation defaultRepresentation = new DefaultRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 mrrtReportTemplateResource.getRepresentationDescription(defaultRepresentation);
         assertThat(resourceDescription.getProperties()
@@ -82,7 +82,7 @@ public class MrrtReportTemplateResourceTest {
             contains("uuid", "templateId", "dcTermsIdentifier", "dcTermsTitle", "dcTermsType", "dcTermsPublisher",
                 "dcTermsCreator", "dcTermsRights", "html", "terms", "display"));
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getRepresentationDescription(Representation)
     * @verifies return full representation given instance of fullrepresentation
@@ -91,7 +91,7 @@ public class MrrtReportTemplateResourceTest {
     public void getRepresentationDescription_shouldReturnFullRepresentationGivenInstanceOfFullrepresentation()
             throws Exception {
         FullRepresentation fullRepresentation = new FullRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 mrrtReportTemplateResource.getRepresentationDescription(fullRepresentation);
         assertThat(resourceDescription.getProperties()
@@ -100,7 +100,7 @@ public class MrrtReportTemplateResourceTest {
                 "dcTermsType", "dcTermsLanguage", "dcTermsPublisher", "dcTermsCreator", "dcTermsRights", "dcTermsLicense",
                 "dcTermsDate", "html", "terms", "display"));
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getRepresentationDescription(Representation)
     * @verifies return null for representation other then default or full
@@ -108,21 +108,21 @@ public class MrrtReportTemplateResourceTest {
     @Test
     public void getRepresentationDescription_shouldReturnNullForRepresentationOtherThenDefaultOrFull() throws Exception {
         CustomRepresentation customRepresentation = new CustomRepresentation("some");
-        
+
         assertThat(mrrtReportTemplateResource.getRepresentationDescription(customRepresentation), is(nullValue()));
-        
+
         NamedRepresentation namedRepresentation = new NamedRepresentation("some");
         mrrtReportTemplateResource = new MrrtReportTemplateResource();
-        
+
         assertThat(mrrtReportTemplateResource.getRepresentationDescription(namedRepresentation), is(nullValue()));
-        
+
         RefRepresentation refRepresentation = new RefRepresentation();
         mrrtReportTemplateResource = new MrrtReportTemplateResource();
-        
+
         assertThat(mrrtReportTemplateResource.getRepresentationDescription(refRepresentation), is(nullValue()));
-        
+
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getResourceVersion()
     * @verifies return supported resource version
@@ -131,7 +131,7 @@ public class MrrtReportTemplateResourceTest {
     public void getResourceVersion_shouldReturnSupportedResourceVersion() throws Exception {
         assertThat(mrrtReportTemplateResource.getResourceVersion(), is(RestConstants2_0.RESOURCE_VERSION));
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getByUniqueId(String)
     * @verifies return radiology order given its uuid
@@ -140,7 +140,7 @@ public class MrrtReportTemplateResourceTest {
     public void getByUniqueId_shouldReturnRadiologyOrderGivenItsUuid() throws Exception {
         assertNotNull(mrrtReportTemplateResource.getByUniqueId(MRRT_REPORT_TEMPLATE_UUID));
     }
-    
+
     /**
     * @see MrrtReportTemplateResource#getDisplayString(MrrtReportTemplate)
     * @verifies return templateIdentifier
@@ -150,7 +150,7 @@ public class MrrtReportTemplateResourceTest {
         mrrtReportTemplate.setDcTermsIdentifier("org/radrep/0001");
         assertThat(mrrtReportTemplateResource.getDisplayString(mrrtReportTemplate), is("org/radrep/0001"));
     }
-    
+
     /**
      * @see MrrtReportTemplateResource#delete(MrrtReportTemplate,String,RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
@@ -160,7 +160,7 @@ public class MrrtReportTemplateResourceTest {
         RequestContext requestContext = new RequestContext();
         mrrtReportTemplateResource.delete(mrrtReportTemplate, "wrong template", requestContext);
     }
-    
+
     /**
      * @see MrrtReportTemplateResource#newDelegate()
      * @verifies throw ResourceDoesNotSupportOperationException
@@ -169,7 +169,7 @@ public class MrrtReportTemplateResourceTest {
     public void newDelegate_shouldThrowResourceDoesNotSupportOperationException() throws Exception {
         mrrtReportTemplateResource.newDelegate();
     }
-    
+
     /**
      * @see MrrtReportTemplateResource#purge(MrrtReportTemplate,RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
@@ -179,7 +179,7 @@ public class MrrtReportTemplateResourceTest {
         RequestContext requestContext = new RequestContext();
         mrrtReportTemplateResource.purge(mrrtReportTemplate, requestContext);
     }
-    
+
     /**
      * @see MrrtReportTemplateResource#save(MrrtReportTemplate)
      * @verifies throw ResourceDoesNotSupportOperationException

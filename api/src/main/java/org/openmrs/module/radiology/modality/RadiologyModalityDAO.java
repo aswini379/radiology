@@ -13,28 +13,28 @@ import java.util.List;
 
 /**
  * {@code RadiologyModality} related database methods.
- * 
+ *
  * @see RadiologyModalityService
  * @see RadiologyModality
  */
 interface RadiologyModalityDAO {
-    
-    
+
+
     /**
      * @see RadiologyModalityService#saveRadiologyModality(RadiologyModality)
      */
     RadiologyModality saveRadiologyModality(RadiologyModality radiologyModality);
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModality(Integer)
      */
     RadiologyModality getRadiologyModality(Integer id);
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalityByUuid(String)
      */
     RadiologyModality getRadiologyModalityByUuid(String uuid);
-    
+
     /**
      * @see RadiologyModalityService#getRadiologyModalities(boolean)
      */

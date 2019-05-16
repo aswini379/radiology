@@ -1,6 +1,6 @@
 ## clinical:active-entry
 
-This package provides the SignIn, SignUp, and ForgotPassword pages.  
+This package provides the SignIn, SignUp, and ForgotPassword pages.
 
 [![Circle CI](https://circleci.com/gh/clinical-meteor/active-entry/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/active-entry/tree/master)
 
@@ -73,11 +73,11 @@ if(Meteor.isServer){
      return "You have been selected to participate in building a better future!"
        + " To activate your account, simply click the link below:\n\n"
        + url;
-  };  
+  };
 
   Meteor.startup(function(){
     process.env.MAIL_URL = 'smtp://sandboxid.mailgun.org:mypassword@smtp.mailgun.org:587';
-  })  
+  })
 }
 ````
 Alternatively, you may want to set the ``MAIL_URL`` via an external environment variable, particularly if you're using a SaaS hosting provider.
@@ -125,6 +125,6 @@ starrynight run-tests --type validation
 See our [notes on contributing](https://github.com/clinical-meteor/clinical-active-entry/blob/master/Contributing.md).
 
 ===============================
-#### Licensing  
+#### Licensing
 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)

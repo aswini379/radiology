@@ -8,7 +8,7 @@ HIPAA logging and audit features for Meteor Apps built with Clinical UI.
 ====================================================
 #### Installation
 
-The HIPAA audit log is now split into two packages:  one for the logging, and one for the UI.  Please see [``clinical:hipaa-logger``](https://github.com/clinical-meteor/hipaa-logger) for the logging portion.  
+The HIPAA audit log is now split into two packages:  one for the logging, and one for the UI.  Please see [``clinical:hipaa-logger``](https://github.com/clinical-meteor/hipaa-logger) for the logging portion.
 
 ````
 meteor add clinical:hipaa-audit-log

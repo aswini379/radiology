@@ -8,7 +8,7 @@ var dicomNDict = {
   0x00020013 : { vr : 'SH', vm : C.VM_SINGLE, keyword : "ImplementationVersionName" },
   0x00020016 : { vr : 'AE', vm : C.VM_SINGLE, keyword : "SourceApplicationEntityTitle" },
   0x00020100 : { vr : 'UI', vm : C.VM_SINGLE, keyword : "PrivateInformationCreatorUID" },
-  0x00020102 : { vr : 'OB', vm : C.VM_SINGLE, keyword : "PrivateInformation" },  
+  0x00020102 : { vr : 'OB', vm : C.VM_SINGLE, keyword : "PrivateInformation" },
   0x00080001 : { vr : "UL", vm : C.VM_SINGLE, keyword : "LengthToEnd"},
   0x00080005 : { vr : "CS", vm : C.VM_1N, keyword : "SpecificCharacterSet"},
   0x00080006 : { vr : "SQ", vm : C.VM_SINGLE, keyword : "LanguageCodeSequence"},
@@ -3608,4 +3608,4 @@ var dicomVDict = {
   "7Fxx0040" : { vr : "OW", vm : C.VM_SINGLE, keyword : "VariableCoefficientsSDDN"},
 }
 
-DicomElements = {dicomNDict : dicomNDict, dicomVDict : dicomVDict} 
+DicomElements = {dicomNDict : dicomNDict, dicomVDict : dicomVDict}
