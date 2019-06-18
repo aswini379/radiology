@@ -103,7 +103,8 @@ function resultDataToStudyMetadata(server, studyInstanceUid, resultData) {
             frameTime: parseFloat(remoteGetValue(instance['0018,1063'])),
             frameTimeVector: parseFloatArray(remoteGetValue(instance['0018,1065'])),
             echoNumber: remoteGetValue(instance['0018,0086']),
-            contrastBolusAgent: remoteGetValue(instance['0018,0010'])
+            contrastBolusAgent: remoteGetValue(instance['0018,0010']),
+			imageComments: remoteGetValue(instance['0020','4000'])
         };
 
         var iid = instance['xxxx,0001'].Value;

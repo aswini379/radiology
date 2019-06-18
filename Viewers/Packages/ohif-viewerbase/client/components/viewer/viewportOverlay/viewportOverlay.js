@@ -81,6 +81,11 @@ Template.viewportOverlay.helpers({
 
         return viewportOverlayUtils.getStudy.call(this, 'studyDescription');
     },
+	imageComments() {
+        Session.get('CornerstoneNewImage' + this.viewportIndex);
+
+        return viewportOverlayUtils.getInstance.call(this, 'imageComments');
+    },
     seriesDescription() {
         Session.get('CornerstoneNewImage' + this.viewportIndex);
 

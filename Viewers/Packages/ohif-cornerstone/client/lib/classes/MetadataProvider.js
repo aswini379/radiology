@@ -213,6 +213,7 @@ export class MetadataProvider {
         imageMetadata.instance.frameIncrementPointer = imageMetadata.instance.frameIncrementPointer || this.getFromDataSet(image.data, 'string', 'x00280009');
         imageMetadata.instance.frameTime = imageMetadata.instance.frameTime || this.getFromDataSet(image.data, 'string', 'x00181063');
         imageMetadata.instance.frameTimeVector = imageMetadata.instance.frameTimeVector || this.getFromDataSet(image.data, 'string', 'x00181065');
+		imageMetadata.instance.imageComments = imageMetadata.instance.imageComments || this.getFromDataSet(image.data, 'string', 'x00204000');
 
         if ((image.data || image.instance) && !imageMetadata.instance.multiframeMetadata) {
             imageMetadata.instance.multiframeMetadata = this.getMultiframeModuleMetadata(image);
