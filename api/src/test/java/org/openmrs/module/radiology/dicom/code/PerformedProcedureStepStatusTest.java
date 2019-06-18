@@ -22,11 +22,11 @@ import org.openmrs.test.Verifies;
  * Tests {@link PerformedProcedureStepStatus}
  */
 public class PerformedProcedureStepStatusTest {
-    
-    
+
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     /**
      * @see PerformedProcedureStepStatus#getNameOrUnknown(PerformedProcedureStepStatus)
      */
@@ -40,7 +40,7 @@ public class PerformedProcedureStepStatusTest {
             is("DISCONTINUED"));
         assertThat(PerformedProcedureStepStatus.getNameOrUnknown(PerformedProcedureStepStatus.COMPLETED), is("COMPLETED"));
     }
-    
+
     /**
      * @see PerformedProcedureStepStatus#getNameOrUnknown(PerformedProcedureStepStatus)
      */
@@ -49,7 +49,7 @@ public class PerformedProcedureStepStatusTest {
     public void getNameOrUnknown_shouldReturnUnknownGivenNull() {
         assertThat(PerformedProcedureStepStatus.getNameOrUnknown(null), is("UNKNOWN"));
     }
-    
+
     /**
      * @see PerformedProcedureStepStatus#getMatchForDisplayName(String)
      */
@@ -63,14 +63,14 @@ public class PerformedProcedureStepStatusTest {
             is(PerformedProcedureStepStatus.IN_PROGRESS));
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("In Progress"),
             is(PerformedProcedureStepStatus.IN_PROGRESS));
-        
+
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("DISCONTINUED"),
             is(PerformedProcedureStepStatus.DISCONTINUED));
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("discontinued"),
             is(PerformedProcedureStepStatus.DISCONTINUED));
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("Discontinued"),
             is(PerformedProcedureStepStatus.DISCONTINUED));
-        
+
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("COMPLETED"),
             is(PerformedProcedureStepStatus.COMPLETED));
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("completed"),
@@ -78,7 +78,7 @@ public class PerformedProcedureStepStatusTest {
         assertThat(PerformedProcedureStepStatus.getMatchForDisplayName("Completed"),
             is(PerformedProcedureStepStatus.COMPLETED));
     }
-    
+
     /**
      * @see PerformedProcedureStepStatus#getMatchForDisplayName(String)
      */
@@ -87,7 +87,7 @@ public class PerformedProcedureStepStatusTest {
     public void getMatchForDisplayName_shouldReturnNullGivenUndefinedDisplayName() {
         assertNull(PerformedProcedureStepStatus.getMatchForDisplayName("NON EXISTING FANTASY PERFORMEDSTATUS"));
     }
-    
+
     /**
      * @see PerformedProcedureStepStatus#getMatchForDisplayName(String)
      */

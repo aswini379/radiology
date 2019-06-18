@@ -55,7 +55,7 @@
   <person_name person_name_id="2" preferred="true" person_id="70021" given_name="John" middle_name="Francis" family_name="Doe" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="0f1f7d08-076b-4fc6-acac-4bb91515141e"/>
   <patient patient_id="70021" creator="1" date_created="2015-01-01 00:00:00.0" voided="false"/>
   <patient_identifier patient_identifier_id="1" patient_id="70021" identifier="4321" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="1ac98ec8-e9d9-4626-998c-c795c2f0aa9f"/>
-  
+
   <!-- patient with no radiology order and visits -->
   <person person_id="70044" gender="M" birthdate="1983-04-13" dead="false" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid=""/>
   <person_name person_name_id="3" preferred="true" person_id="70044" given_name="Peter" family_name="Peterson" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="f58d1689-f5ac-11e5-b84b-08002719a237" />
@@ -100,7 +100,7 @@
   <patient_identifier patient_identifier_id="3" patient_id="70055" identifier="1238" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="6f25e831-fc9e-11e5-9e59-08002719a237"/>
   <person person_id="70055" gender="M" birthdate="1980-04-13" dead="false" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="72ff0770-fc9e-11e5-9e59-08002719a237" />
   <person_name person_name_id="3" preferred="true" person_id="70055" given_name="John" family_name="Cena" creator="1" date_created="2015-01-01 00:00:00.0" voided="false" uuid="76dbd350-fc9e-11e5-9e59-08002719a237"/>
-	
+
   <encounter encounter_id="2009" encounter_type="1001" patient_id="70055" visit_id="3004" location_id="1" form_id="1" encounter_datetime="2015-02-02 12:24:10.0" creator="1" date_created="2015-02-02 12:24:10.0" voided="false" uuid="18208334-fca0-11e5-9e59-08002719a237"/>
   <orders order_id="2009" order_number="2009" order_type_id="5" order_action="NEW" care_setting="1" encounter_id="2009" urgency="ROUTINE" orderer="1" concept_id="178" accession_number="4" instructions="CT ABDOMEN PANCREAS WITH IV CONTRAST" date_activated="2015-02-04 12:24:10.0" creator="1" date_created="2015-02-04 12:24:10.0" voided="false" patient_id="70055" uuid="1bae735a-fca0-11e5-9e59-08002719a237" />
   <test_order order_id="2009"/>

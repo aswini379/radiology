@@ -37,46 +37,46 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = RadiologyReportFormController.RADIOLOGY_REPORT_FORM_REQUEST_MAPPING)
 public class RadiologyReportFormController {
-    
-    
+
+
     protected static final String RADIOLOGY_REPORT_FORM_REQUEST_MAPPING = "/module/radiology/radiologyReport.form";
-    
+
     static final String RADIOLOGY_REPORT_FORM_VIEW = "/module/radiology/reports/radiologyReportForm";
-    
+
     @Autowired
     private RadiologyReportService radiologyReportService;
-    
+
     @Autowired
     private RadiologyReportValidator radiologyReportValidator;
-    
+
     @Autowired
     private VoidRadiologyReportRequestValidator voidRadiologyReportRequestValidator;
-    
+
     @InitBinder("radiologyReport")
     protected void initBinderRadiologyReport(WebDataBinder webDataBinder) {
         webDataBinder.setValidator(radiologyReportValidator);
     }
-    
+
     @InitBinder("voidRadiologyReportRequest")
     protected void initBinderVoidRadiologyReportRequest(WebDataBinder webDataBinder) {
         webDataBinder.setValidator(voidRadiologyReportRequestValidator);
     }
-    
+
     /**
      * Handles requests for creating a new {@code RadiologyReport} for a {@code RadiologyOrder}.
-     * 
+     *
      * @param radiologyOrder the radiology order for which a radiology report will be created
      * @return the model and view redirecting to the newly created radiology report
      * @should create a new radiology report for given radiology order and redirect to its radiology report form
      */
     @RequestMapping(method = RequestMethod.GET, params = "orderId")
     protected ModelAndView createRadiologyReport(@RequestParam("orderId") RadiologyOrder radiologyOrder) {
-        
+
         final RadiologyReport radiologyReport = radiologyReportService.createRadiologyReport(radiologyOrder);
         return new ModelAndView(
                 "redirect:" + RADIOLOGY_REPORT_FORM_REQUEST_MAPPING + "?reportId=" + radiologyReport.getId());
     }
-    
+
     /**
      * Handles requests for creating a new {@code RadiologyReport} for a {@code RadiologyOrder}.
      *
@@ -87,15 +87,15 @@ public class RadiologyReportFormController {
     protected ModelAndView createOrderlessRadiologyReport(@RequestParam("patient") String patientUuid) {
         Patient patient = Context.getPatientService()
                 .getPatientByUuid(patientUuid);
-        
+
         final RadiologyReport radiologyReport = radiologyReportService.createOrderlessRadiologyReport(patient);
         return new ModelAndView(
                 "redirect:" + RADIOLOGY_REPORT_FORM_REQUEST_MAPPING + "?reportId=" + radiologyReport.getId());
     }
-    
+
     /**
      * Handles requests for getting existing {@code RadiologyReport's}.
-     * 
+     *
      * @param radiologyReport the radiology report which is requested
      * @return the model and view containing radiology report for given radiology report id
      * @should populate model and view with given radiology report
@@ -103,13 +103,13 @@ public class RadiologyReportFormController {
     @RequestMapping(method = RequestMethod.GET, params = "reportId")
     protected ModelAndView
             getRadiologyReportFormWithExistingRadiologyReport(@RequestParam("reportId") RadiologyReport radiologyReport) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_FORM_VIEW);
         addObjectsToModelAndView(modelAndView, radiologyReport);
         modelAndView.addObject(new VoidRadiologyReportRequest());
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for saving a {@code RadiologyReport} as draft.
      *
@@ -124,9 +124,9 @@ public class RadiologyReportFormController {
     @RequestMapping(method = RequestMethod.POST, params = "saveRadiologyReportDraft")
     protected ModelAndView saveRadiologyReportDraft(HttpServletRequest request,
             @ModelAttribute RadiologyReport radiologyReport) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_FORM_VIEW);
-        
+
         try {
             radiologyReportService.saveRadiologyReportDraft(radiologyReport);
             request.getSession()
@@ -139,12 +139,12 @@ public class RadiologyReportFormController {
             request.getSession()
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, apiException.getMessage());
         }
-        
+
         addObjectsToModelAndView(modelAndView, radiologyReport);
         modelAndView.addObject(new VoidRadiologyReportRequest());
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for voiding a {@code RadiologyReport}.
      *
@@ -164,14 +164,14 @@ public class RadiologyReportFormController {
     protected ModelAndView voidRadiologyReport(HttpServletRequest request,
             @RequestParam("reportId") RadiologyReport radiologyReport,
             @Valid @ModelAttribute VoidRadiologyReportRequest voidRadiologyReportRequest, BindingResult bindingResult) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_FORM_VIEW);
-        
+
         if (bindingResult.hasErrors()) {
             addObjectsToModelAndView(modelAndView, radiologyReport);
             return modelAndView;
         }
-        
+
         try {
             radiologyReportService.voidRadiologyReport(radiologyReport, voidRadiologyReportRequest.getVoidReason());
             request.getSession()
@@ -184,11 +184,11 @@ public class RadiologyReportFormController {
             request.getSession()
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, apiException.getMessage());
         }
-        
+
         addObjectsToModelAndView(modelAndView, radiologyReport);
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for completing a {@code RadiologyReport}.
      *
@@ -206,15 +206,15 @@ public class RadiologyReportFormController {
     @RequestMapping(method = RequestMethod.POST, params = "completeRadiologyReport")
     protected ModelAndView completeRadiologyReport(HttpServletRequest request,
             @Valid @ModelAttribute RadiologyReport radiologyReport, BindingResult bindingResult) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_REPORT_FORM_VIEW);
-        
+
         if (bindingResult.hasErrors()) {
             addObjectsToModelAndView(modelAndView, radiologyReport);
             modelAndView.addObject(new VoidRadiologyReportRequest());
             return modelAndView;
         }
-        
+
         try {
             radiologyReportService.saveRadiologyReport(radiologyReport);
             request.getSession()
@@ -231,7 +231,7 @@ public class RadiologyReportFormController {
         modelAndView.addObject(new VoidRadiologyReportRequest());
         return modelAndView;
     }
-    
+
     /**
      * Convenience method to add objects (Order, RadiologyOrder, RadiologyReport) to given
      * ModelAndView
@@ -241,7 +241,7 @@ public class RadiologyReportFormController {
      *        view
      */
     private void addObjectsToModelAndView(ModelAndView modelAndView, RadiologyReport radiologyReport) {
-        
+
         modelAndView.addObject("radiologyReport", radiologyReport);
         modelAndView.addObject("radiologyOrder", radiologyReport.getRadiologyOrder());
     }

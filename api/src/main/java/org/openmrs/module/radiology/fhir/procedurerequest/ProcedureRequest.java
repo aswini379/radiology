@@ -23,50 +23,50 @@ import org.openmrs.BaseOpenmrsData;
  * with or on a patient
  */
 public class ProcedureRequest extends BaseOpenmrsData {
-    
-    
+
+
     private Integer requestId;
-    
+
     private String identifier;
-    
+
     private Status status;
-    
+
     private Intent intent;
-    
+
     private Priority priority;
-    
+
     private Boolean doNotPerform;
-    
+
     private Concept category;
-    
+
     private Concept code;
-    
+
     private Person subject;
-    
+
     private Encounter context;
-    
+
     private Date authoredOn;
-    
+
     private Provider requester;
-    
+
     private Concept reasonCode;
-    
+
     private String note;
-    
+
     public ProcedureRequest() {
-        
+
     }
-    
+
     /**
      * Get requestId of ProcedureRequest
-     * 
+     *
      * @return requestId of ProcedureRequest
      */
     @Override
     public Integer getId() {
         return getRequestId();
     }
-    
+
     /**
      * Set requestId of ProcedureRequest
      *
@@ -74,44 +74,44 @@ public class ProcedureRequest extends BaseOpenmrsData {
      */
     @Override
     public void setId(Integer requestId) {
-        
+
         setRequestId(requestId);
     }
-    
+
     /**
      * Get requestId of ProcedureRequest
      *
      * @return requestId of ProcedureRequest
      */
     public Integer getRequestId() {
-        
+
         return requestId;
     }
-    
+
     /**
      * Set requestId of ProcedureRequest
      *
      * @param requestId of ProcedureRequest
      */
     public void setRequestId(Integer requestId) {
-        
+
         this.requestId = requestId;
     }
-    
+
     /**
      * @return the identifier
      */
     public String getIdentifier() {
         return identifier;
     }
-    
+
     /**
      * @param identifier to be set
      */
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
-    
+
     /**
      * Gets the Status
      *
@@ -120,21 +120,21 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public Status getStatus() {
         return status;
     }
-    
+
     /**
      * @param status of enum type to be set
      */
     public void setStatus(Status status) {
         this.status = status;
     }
-    
+
     /**
      * @return the Intent of the Request
      */
     public Intent getIntent() {
         return intent;
     }
-    
+
     /**
      * Sets the Intent of the request
      *
@@ -143,7 +143,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setIntent(Intent intent) {
         this.intent = intent;
     }
-    
+
     /**
      * Gets the Priority
      *
@@ -152,7 +152,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public Priority getPriority() {
         return priority;
     }
-    
+
     /**
      * Sets the Priority
      *
@@ -161,14 +161,14 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    
+
     /**
      * @return true if Procedure is to be performed
      */
     public Boolean getDoNotPerform() {
         return doNotPerform;
     }
-    
+
     /**
      * Sets if the Procedure is to be performed or not
      *
@@ -177,35 +177,35 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setDoNotPerform(Boolean doNotPerform) {
         this.doNotPerform = doNotPerform;
     }
-    
+
     /**
      * @return category of the Procedure
      */
     public Concept getCategory() {
         return category;
     }
-    
+
     /**
      * @param category to be set
      */
     public void setCategory(Concept category) {
         this.category = category;
     }
-    
+
     /**
      * @return code
      */
     public Concept getCode() {
         return code;
     }
-    
+
     /**
      * @param code to be set
      */
     public void setCode(Concept code) {
         this.code = code;
     }
-    
+
     /**
      * Gets Person on which Procedure is to be performed
      *
@@ -214,7 +214,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public Person getSubject() {
         return subject;
     }
-    
+
     /**
      * Sets Person on which Procedure is to be performed
      * @param subject
@@ -222,14 +222,14 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setSubject(Person subject) {
         this.subject = subject;
     }
-    
+
     /**
      * @return context in which request is made
      */
     public Encounter getContext() {
         return context;
     }
-    
+
     /**
      * Sets the context in which request is made
      *
@@ -238,21 +238,21 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setContext(Encounter context) {
         this.context = context;
     }
-    
+
     /**
      * @return Date request was actionable
      */
     public Date getAuthoredOn() {
         return authoredOn;
     }
-    
+
     /**
      * @param authoredOn Date to be set
      */
     public void setAuthoredOn(Date authoredOn) {
         this.authoredOn = authoredOn;
     }
-    
+
     /**
      * Gets the Provider who initiates request
      * @return requester
@@ -260,7 +260,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public Provider getRequester() {
         return requester;
     }
-    
+
     /**
      * Sets Provider who initiated request
      * @param requester
@@ -268,7 +268,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setRequester(Provider requester) {
         this.requester = requester;
     }
-    
+
     /**
      * Gets Reason Code
      *
@@ -277,7 +277,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public Concept getReasonCode() {
         return reasonCode;
     }
-    
+
     /**
      * Sets the Reason Code
      *
@@ -286,7 +286,7 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public void setReasonCode(Concept reasonCode) {
         this.reasonCode = reasonCode;
     }
-    
+
     /**
      * Gets any Notes made about request
      *
@@ -295,14 +295,14 @@ public class ProcedureRequest extends BaseOpenmrsData {
     public String getNote() {
         return note;
     }
-    
+
     /**
      * @param note to be set
      */
     public void setNote(String note) {
         this.note = note;
     }
-    
+
     public enum Status {
         DRAFT,
         ACTIVE,
@@ -311,18 +311,18 @@ public class ProcedureRequest extends BaseOpenmrsData {
         ENTERED_IN_ERROR,
         CANCELLED
     }
-    
+
     public enum Intent {
         PROPOSAL,
         PLAN,
         ORDER
     }
-    
+
     public enum Priority {
         ROUTINE,
         URGENT,
         ASAP,
         STAT
     }
-    
+
 }

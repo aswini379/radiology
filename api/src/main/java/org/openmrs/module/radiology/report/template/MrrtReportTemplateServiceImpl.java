@@ -29,46 +29,46 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtReportTemplateService {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(MrrtReportTemplateServiceImpl.class);
-    
+
     private MrrtReportTemplateFileParser parser;
-    
+
     private RadiologyProperties radiologyProperties;
-    
+
     private MrrtReportTemplateDAO mrrtReportTemplateDAO;
-    
+
     public void setMrrtReportTemplateDAO(MrrtReportTemplateDAO mrrtReportTemplateDAO) {
         this.mrrtReportTemplateDAO = mrrtReportTemplateDAO;
     }
-    
+
     public void setParser(MrrtReportTemplateFileParser parser) {
         this.parser = parser;
     }
-    
+
     public void setRadiologyProperties(RadiologyProperties radiologyProperties) {
         this.radiologyProperties = radiologyProperties;
     }
-    
+
     /**
      * @see MrrtReportTemplateService#importMrrtReportTemplate(String)
      */
     @Override
     @Transactional
     public MrrtReportTemplate importMrrtReportTemplate(String mrrtTemplate) throws IOException {
-        
+
         final MrrtReportTemplate template = parser.parse(mrrtTemplate);
-        
+
         final File destination = new File(radiologyProperties.getReportTemplateHome(), java.util.UUID.randomUUID()
                 .toString());
         FileUtils.writeStringToFile(destination, mrrtTemplate);
-        
+
         template.setPath(destination.getAbsolutePath());
         template.setHtml(mrrtTemplate);
         return saveMrrtReportTemplate(template);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#saveMrrtReportTemplate(MrrtReportTemplate)
      */
@@ -84,7 +84,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         }
         return mrrtReportTemplateDAO.saveMrrtReportTemplate(template);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#purgeMrrtReportTemplate(MrrtReportTemplate)
      */
@@ -106,7 +106,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
             throw new APIException("radiology.MrrtReportTemplate.delete.error.fs", null, ioException);
         }
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplate(Integer)
      */
@@ -117,7 +117,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         }
         return mrrtReportTemplateDAO.getMrrtReportTemplate(id);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplateByUuid(String)
      */
@@ -128,7 +128,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         }
         return mrrtReportTemplateDAO.getMrrtReportTemplateByUuid(uuid);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplateByIdentifier(String)
      */
@@ -139,7 +139,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         }
         return mrrtReportTemplateDAO.getMrrtReportTemplateByIdentifier(identifier);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplates(MrrtReportTemplateSearchCriteria)
      */
@@ -151,7 +151,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
         }
         return mrrtReportTemplateDAO.getMrrtReportTemplates(mrrtReportTemplateSearchCriteria);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplateHtmlBody(MrrtReportTemplate)
      */
@@ -161,7 +161,7 @@ class MrrtReportTemplateServiceImpl extends BaseOpenmrsService implements MrrtRe
             throw new IllegalArgumentException("mrrtReportTemplate cannot be null");
         }
         final Document doc = Jsoup.parse(mrrtReportTemplate.getHtml());
-        
+
         return doc.select("body")
                 .html();
     }

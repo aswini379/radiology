@@ -34,32 +34,32 @@ import org.xml.sax.SAXParseException;
  * Uses xsd with schema to validate {@code MrrtReportTemplate} files.
  */
 public class XsdMrrtReportTemplateValidator implements MrrtReportTemplateValidator {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(XsdMrrtReportTemplateValidator.class);
-    
+
     private static final String MRRT_REPORT_TEMPLATE_SCHEMA_FILE = "MrrtReportTemplateSchema.xsd";
-    
+
     MetaTagsValidationEngine metaTagsValidationEngine;
-    
+
     public MetaTagsValidationEngine getMetaTagsValidationEngine() {
         return metaTagsValidationEngine;
     }
-    
+
     public void setMetaTagsValidationEngine(MetaTagsValidationEngine metaTagsValidationEngine) {
         this.metaTagsValidationEngine = metaTagsValidationEngine;
     }
-    
+
     /**
      * @see MrrtReportTemplateValidator#validate(String)
      */
     @Override
     public void validate(String mrrtTemplate) throws IOException {
-        
+
         final Document document = Jsoup.parse(mrrtTemplate, "");
         final Elements metatags = document.getElementsByTag("meta");
         ValidationResult validationResult = metaTagsValidationEngine.run(metatags);
-        
+
         final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         final Schema schema;
         final Validator validator;
@@ -67,20 +67,20 @@ public class XsdMrrtReportTemplateValidator implements MrrtReportTemplateValidat
             schema = factory.newSchema(getSchemaFile());
             validator = schema.newValidator();
             validator.setErrorHandler(new ErrorHandler() {
-                
-                
+
+
                 @Override
                 public void warning(SAXParseException exception) throws SAXException {
                     log.debug(exception.getMessage(), exception);
                     validationResult.addError(exception.getMessage(), "");
                 }
-                
+
                 @Override
                 public void error(SAXParseException exception) throws SAXException {
                     log.debug(exception.getMessage(), exception);
                     validationResult.addError(exception.getMessage(), "");
                 }
-                
+
                 @Override
                 public void fatalError(SAXParseException exception) throws SAXException {
                     log.debug(exception.getMessage(), exception);
@@ -95,7 +95,7 @@ public class XsdMrrtReportTemplateValidator implements MrrtReportTemplateValidat
             throw new APIException("radiology.report.template.validation.error", null, e);
         }
     }
-    
+
     private File getSchemaFile() {
         return new File(getClass().getClassLoader()
                 .getResource(MRRT_REPORT_TEMPLATE_SCHEMA_FILE)

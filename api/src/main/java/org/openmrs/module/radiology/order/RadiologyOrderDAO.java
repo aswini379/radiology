@@ -13,28 +13,28 @@ import java.util.List;
 
 /**
  * {@code RadiologyOrder} related database methods.
- * 
+ *
  * @see org.openmrs.module.radiology.order.RadiologyOrderService
  * @see org.openmrs.module.radiology.order.RadiologyOrder
  */
 interface RadiologyOrderDAO {
-    
-    
+
+
     /**
      * @see org.openmrs.module.radiology.order.RadiologyOrderService#getNextAccessionNumberSeedSequenceValue()
      */
     public Long getNextAccessionNumberSeedSequenceValue();
-    
+
     /**
      * @see org.openmrs.module.radiology.order.RadiologyOrderService#getRadiologyOrder(Integer)
      */
     public RadiologyOrder getRadiologyOrder(Integer orderId);
-    
+
     /**
      * @see org.openmrs.module.radiology.order.RadiologyOrderService#getRadiologyOrderByUuid(String)
      */
     public RadiologyOrder getRadiologyOrderByUuid(String uuid);
-    
+
     /**
      * @see org.openmrs.module.radiology.order.RadiologyOrderService#getRadiologyOrders(RadiologyOrderSearchCriteria)
      */

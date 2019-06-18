@@ -16,50 +16,50 @@ package org.openmrs.module.radiology;
  * </p>
  */
 public class RadiologyPrivileges {
-    
-    
+
+
     public static final String ADD_RADIOLOGY_ORDERS = "Add Radiology Orders";
-    
+
     public static final String ADD_RADIOLOGY_REPORTS = "Add Radiology Reports";
-    
+
     public static final String ADD_RADIOLOGY_REPORT_TEMPLATES = "Add Radiology Report Templates";
-    
+
     public static final String ADD_RADIOLOGY_STUDIES = "Add Radiology Studies";
-    
+
     public static final String ADD_RADIOLOGY_PROCEDURE_REQUESTS = "Add Radiology Procedure Requests";
-    
+
     public static final String DELETE_RADIOLOGY_ORDERS = "Delete Radiology Orders";
-    
+
     public static final String DELETE_RADIOLOGY_REPORTS = "Delete Radiology Reports";
-    
+
     public static final String DELETE_RADIOLOGY_REPORT_TEMPLATES = "Delete Radiology Report Templates";
-    
+
     public static final String EDIT_RADIOLOGY_REPORTS = "Edit Radiology Reports";
-    
+
     public static final String EDIT_RADIOLOGY_STUDIES = "Edit Radiology Studies";
-    
+
     public static final String EDIT_RADIOLOGY_PROCEDURE_REQUESTS = "Edit Radiology Procedure Requests";
-    
+
     public static final String GET_RADIOLOGY_MODALITIES = "Get Radiology Modalities";
-    
+
     public static final String GET_RADIOLOGY_ORDERS = "Get Radiology Orders";
-    
+
     public static final String GET_RADIOLOGY_REPORTS = "Get Radiology Reports";
-    
+
     public static final String GET_RADIOLOGY_STUDIES = "Get Radiology Studies";
-    
+
     public static final String GET_RADIOLOGY_PROCEDURE_REQUESTS = "Get Radiology Procedure Requests";
-    
+
     public static final String MANAGE_RADIOLOGY_MODALITIES = "Manage Radiology Modalities";
-    
+
     public static final String VIEW_PATIENT_DASHBOARD_RADIOLOGY_TAB = "Patient Dashboard - View Radiology Section";
-    
+
     public static final String VIEW_GUTTERLIST_RADIOLOGY_LINK = "View Navigation Menu - Radiology";
-    
+
     public static final String GET_RADIOLOGY_REPORT_TEMPLATES = "Get Radiology Report Templates";
-    
+
     public static final String VIEW_RADIOLOGY_REPORT_TEMPLATES = "View Radiology Report Templates";
-    
+
     private RadiologyPrivileges() {
         // Utility class not meant to be instantiated.
     }

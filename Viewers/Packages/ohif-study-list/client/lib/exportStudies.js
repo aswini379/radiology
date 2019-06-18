@@ -109,7 +109,7 @@ const exportQueriedStudies = (studiesToExport, options) => {
                         processed: exportFilesCount - pendingDownloads.length,
                         totalBytes: totalBytes
                     })
-                    
+
                     return zipInstance(study, series, instance, zip, data)
                 })
                 .catch(err => {

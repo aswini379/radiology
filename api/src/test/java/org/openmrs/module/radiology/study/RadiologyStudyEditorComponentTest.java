@@ -25,26 +25,26 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Tests {@link RadiologyStudyEditor}.
  */
 public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiveTest {
-    
-    
+
+
     private static final String TEST_DATASET =
             "org/openmrs/module/radiology/include/RadiologyStudyServiceComponentTestDataset.xml";
-    
+
     private static final String EXISTING_RADIOLOGY_STUDY_UUID = "dde7399b-6092-4a3d-88a2-405b6b4499fc";
-    
+
     private static final String NON_EXISTING_RADIOLOGY_STUDY_UUID = "637d5011-49f5-4ce8-b4ce-47b37ff2cda2";
-    
+
     @Autowired
     private RadiologyStudyService radiologyStudyService;
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
     * @see RadiologyStudyEditor#setAsText(String)
     * @verifies set value to radiology study whos id matches given text
@@ -56,7 +56,7 @@ public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiv
         assertThat(editor.getValue(), is(notNullValue()));
         assertThat((RadiologyStudy) editor.getValue(), is(radiologyStudyService.getRadiologyStudy(1)));
     }
-    
+
     /**
     * @see RadiologyStudyEditor#setAsText(String)
     * @verifies set value to radiology study whos uuid matches given text
@@ -69,7 +69,7 @@ public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiv
         assertThat((RadiologyStudy) editor.getValue(),
             is(radiologyStudyService.getRadiologyStudyByUuid(EXISTING_RADIOLOGY_STUDY_UUID)));
     }
-    
+
     /**
     * @see RadiologyStudyEditor#setAsText(String)
     * @verifies throw illegal argument exception for radiology study not found
@@ -81,7 +81,7 @@ public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiv
         expectedException.expectMessage("RadiologyStudy not found: ");
         editor.setAsText(NON_EXISTING_RADIOLOGY_STUDY_UUID);
     }
-    
+
     /**
     * @see RadiologyStudyEditor#setAsText(String)
     * @verifies return null for empty text
@@ -92,7 +92,7 @@ public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiv
         editor.setAsText("");
         assertThat(editor.getValue(), is(nullValue()));
     }
-    
+
     /**
     * @see RadiologyStudyEditor#getAsText()
     * @verifies return empty string if value does not contain a radiology study
@@ -103,7 +103,7 @@ public class RadiologyStudyEditorComponentTest extends BaseModuleContextSensitiv
         editor.setAsText("");
         assertThat(editor.getAsText(), is(""));
     }
-    
+
     /**
     * @see RadiologyStudyEditor#getAsText()
     * @verifies return radiology study id if value does contain a radiology study

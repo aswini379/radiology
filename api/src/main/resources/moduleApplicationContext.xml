@@ -11,7 +11,7 @@
 
 -->
 <!--<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"> -->
-<!-- xmlns:mvc="http://www.springframework.org/schema/mvc" http://www.springframework.org/schema/mvc 
+<!-- xmlns:mvc="http://www.springframework.org/schema/mvc" http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -54,9 +54,9 @@
 		</property>
 	</bean>
 
-	<!-- IMPORTANT NOTE: be careful when using formatter on this file. Ensure 
-		that there are no line breaks/spaces in between the <value> this will prevent 
-		spring from adding these services to the serviceContext since the line breaks/spaces 
+	<!-- IMPORTANT NOTE: be careful when using formatter on this file. Ensure
+		that there are no line breaks/spaces in between the <value> this will prevent
+		spring from adding these services to the serviceContext since the line breaks/spaces
 		will be part of the class name -->
 	<bean parent="serviceContext">
 		<property name="moduleService">
@@ -176,7 +176,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="mrrtReportTemplateService"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">
@@ -204,7 +204,7 @@
 			<ref bean="transactionAttributeSource" />
 		</property>
 	</bean>
-	
+
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list merge="true">
@@ -223,7 +223,7 @@
 			<bean class="org.openmrs.module.radiology.report.template.MetaTagsValidationEngine"></bean>
 		</property>
 	</bean>
-	
+
 	<bean id="procedureRequestService"
 		  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">

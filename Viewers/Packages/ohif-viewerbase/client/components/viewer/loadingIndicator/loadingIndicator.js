@@ -5,7 +5,7 @@ import { OHIF } from 'meteor/ohif:core';
 
 Meteor.startup(() => {
     // This checking is necessary because cornerstoneTools may not have some tools available.
-    // Example: when an app defines its own cornerstone's lib versions, so it 
+    // Example: when an app defines its own cornerstone's lib versions, so it
     // uses only ohif-viewerbase and not ohif-cornerstone and those libs are added later.
     if (cornerstoneTools.loadHandlerManager) {
         cornerstoneTools.loadHandlerManager.setStartLoadHandler(startLoadingHandler);

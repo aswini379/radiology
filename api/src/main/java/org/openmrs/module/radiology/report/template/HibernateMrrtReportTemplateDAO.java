@@ -26,10 +26,10 @@ import org.hibernate.criterion.Restrictions;
  * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService
  */
 class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
-    
-    
+
+
     private SessionFactory sessionFactory;
-    
+
     /**
      * Set session factory that allows us to connect to the database that Hibernate knows about.
      *
@@ -38,7 +38,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplate(Integer)
      */
@@ -47,7 +47,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
         return (MrrtReportTemplate) sessionFactory.getCurrentSession()
                 .get(MrrtReportTemplate.class, templateId);
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplateByUuid(String)
      */
@@ -57,7 +57,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
         criteria.add(Restrictions.eq("uuid", uuid));
         return (MrrtReportTemplate) criteria.uniqueResult();
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplateByIdentifier(String)
      */
@@ -67,18 +67,18 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
         criteria.add(Restrictions.eq("dcTermsIdentifier", identifier));
         return (MrrtReportTemplate) criteria.uniqueResult();
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#getMrrtReportTemplates(MrrtReportTemplateSearchCriteria)
      */
     @SuppressWarnings("unchecked")
     @Override
     public List<MrrtReportTemplate> getMrrtReportTemplates(MrrtReportTemplateSearchCriteria searchCriteria) {
-        
+
         final Criteria crit = sessionFactory.getCurrentSession()
                 .createCriteria(MrrtReportTemplate.class);
         crit.addOrder(Order.asc("dcTermsTitle"));
-        
+
         if (searchCriteria.getTitle() != null) {
             crit.add(Restrictions.ilike("dcTermsTitle", searchCriteria.getTitle() + "%", MatchMode.ANYWHERE));
         }
@@ -94,7 +94,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
         final List<MrrtReportTemplate> result = (List<MrrtReportTemplate>) crit.list();
         return result == null ? new ArrayList<>() : result;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#saveMrrtReportTemplate(MrrtReportTemplate)
      */
@@ -104,7 +104,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
                 .save(template);
         return template;
     }
-    
+
     /**
      * @see org.openmrs.module.radiology.report.template.MrrtReportTemplateService#purgeMrrtReportTemplate(MrrtReportTemplate)
      */
@@ -113,7 +113,7 @@ class HibernateMrrtReportTemplateDAO implements MrrtReportTemplateDAO {
         sessionFactory.getCurrentSession()
                 .delete(template);
     }
-    
+
     /**
      * A utility method creating a criteria for MrrtReportTemplate
      *

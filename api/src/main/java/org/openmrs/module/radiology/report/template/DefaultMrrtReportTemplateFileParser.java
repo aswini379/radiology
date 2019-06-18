@@ -38,42 +38,42 @@ import org.xml.sax.SAXException;
  * A parser to parse MRRT report templates and and return an MrrtReportTemplate object.
  */
 class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParser {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(DefaultMrrtReportTemplateFileParser.class);
-    
+
     private static final String DCTERMS_TITLE = "dcterms.title";
-    
+
     private static final String DCTERMS_DESCRIPTION = "dcterms.description";
-    
+
     private static final String DCTERMS_IDENTIFIER = "dcterms.identifier";
-    
+
     private static final String DCTERMS_TYPE = "dcterms.type";
-    
+
     private static final String DCTERMS_LANGUAGE = "dcterms.language";
-    
+
     private static final String DCTERMS_PUBLISHER = "dcterms.publisher";
-    
+
     private static final String DCTERMS_RIGHTS = "dcterms.rights";
-    
+
     private static final String DCTERMS_LICENSE = "dcterms.license";
-    
+
     private static final String DCTERMS_DATE = "dcterms.date";
-    
+
     private static final String DCTERMS_CREATOR = "dcterms.creator";
-    
+
     private MrrtReportTemplateValidator validator;
-    
+
     public void setValidator(MrrtReportTemplateValidator validator) {
         this.validator = validator;
     }
-    
+
     /**
      * @see MrrtReportTemplateFileParser#parse(String)
      */
     @Override
     public MrrtReportTemplate parse(String mrrtTemplate) throws IOException {
-        
+
         final Document doc = Jsoup.parse(mrrtTemplate, "");
         final MrrtReportTemplate result = new MrrtReportTemplate();
         initializeTemplate(result, doc);
@@ -88,16 +88,16 @@ class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParse
         }
         return result;
     }
-    
+
     private final void initializeTemplate(MrrtReportTemplate template, Document doc) {
         final Elements metaTags = doc.getElementsByTag("meta");
-        
+
         template.setPath(doc.baseUri());
         template.setCharset(metaTags.attr("charset"));
         for (Element metaTag : metaTags) {
             final String name = metaTag.attr("name");
             final String content = metaTag.attr("content");
-            
+
             switch (name) {
                 case DCTERMS_TITLE:
                     template.setDcTermsTitle(content);
@@ -134,10 +134,10 @@ class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParse
             }
         }
     }
-    
+
     private final void addTermsToTemplate(MrrtReportTemplate template, String script)
             throws ParserConfigurationException, SAXException, IOException {
-        
+
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
         try (InputStream in = new ByteArrayInputStream(script.getBytes())) {
@@ -147,7 +147,7 @@ class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParse
             final NodeList terms = scriptPartAsDocument.getElementsByTagName("term");
             final ConceptService conceptService = Context.getService(ConceptService.class);
             final Set<ConceptReferenceTerm> referenceTerms = new HashSet<>();
-            
+
             for (int i = 0; i < terms.getLength(); i++) {
                 final org.w3c.dom.Element termElement = (org.w3c.dom.Element) terms.item(i);
                 final org.w3c.dom.Element codeElement = (org.w3c.dom.Element) termElement.getElementsByTagName("code")
@@ -167,9 +167,9 @@ class DefaultMrrtReportTemplateFileParser implements MrrtReportTemplateFileParse
             }
         }
     }
-    
+
     private final ConceptSource getConceptSourceByName(String name, ConceptService conceptService) {
-        
+
         final List<ConceptSource> conceptSources = conceptService.getAllConceptSources(false);
         for (ConceptSource conceptSource : conceptSources) {
             if (conceptSource.getName()

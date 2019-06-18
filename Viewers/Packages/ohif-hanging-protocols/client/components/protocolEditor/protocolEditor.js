@@ -14,7 +14,7 @@ function updateProtocolSelect() {
     if (!ProtocolEngine) {
         return;
     }
-    
+
     // Loop through the available hanging protocols
     // to create an array with the protocols that includes
     // a property labelled 'text', so that Select2 has something
@@ -85,7 +85,7 @@ Template.protocolEditor.helpers({
 
         // Make sure that the number of referenced priors is correct
         ProtocolEngine.protocol.updateNumberOfPriorsReferenced();
-        
+
         // Otherwise, return the active Hanging Protocol
         return ProtocolEngine.protocol;
     },
@@ -147,7 +147,7 @@ Template.protocolEditor.helpers({
                 stage.viewports.push(viewport);
             }
         }
-        
+
         // Return the current Stage model for the active Protocol
         return ProtocolEngine.getCurrentStageModel();
     },

@@ -24,16 +24,16 @@ CSocket = function(socket, options) {
     this.negotiatedContexts = {};
     this.receiving = null;
     this.receiveLength = null;
-    this.minRecv = null;    
+    this.minRecv = null;
     this.lastReceived = null;
     this.presentationContexts = [];
     this.associated = false;
     this.pendingPDVs = null;
     this.connected = false;
-    this.started = null;    
+    this.started = null;
     this.intervalId = null;
     this.lastCommand = null;
-    this.lastSent = null;    
+    this.lastSent = null;
     this.messages = {};
     this.messageIdCounter = 0;
     this.callingAe = null;
@@ -469,7 +469,7 @@ CSocket.prototype.receivedMessage = function(pdv) {
                 } else{
                     OHIF.log.info('move ', moveMessageId);
                 }
-                    
+
                 //this.storeResponse(useId, msg);
             }
         }
@@ -483,7 +483,7 @@ CSocket.prototype.wrapToPData = function(message, context) {
     var pdata = new PDataTF(),
         pdv = new PresentationDataValueItem(ctx.id);
     pdv.setMessage(message);
-    pdata.setPresentationDataValueItems([pdv]);   
+    pdata.setPresentationDataValueItems([pdv]);
     return pdata;
 };
 
@@ -505,7 +505,7 @@ CSocket.prototype.sendMessage = function(context, command, dataset) {
             cancelMessage.setReplyMessageId(this.command.messageId);
             cancelMessage.setSyntax(C.IMPLICIT_LITTLE_ENDIAN);
 
-            o.send(o.wrapToPData(cancelMessage, this.command.contextUID));           
+            o.send(o.wrapToPData(cancelMessage, this.command.contextUID));
         }
     });
 
@@ -591,7 +591,7 @@ CSocket.prototype.moveInstances = function(destination, params, options) {
     }, params);
     options = Object.assign({
         context: C.SOP_STUDY_ROOT_MOVE
-    }, options);     
+    }, options);
 
     return this.move(destination, sendParams, options);
 };
@@ -621,7 +621,7 @@ CSocket.prototype.findStudies = function(params, options) {
     }, params);
     options = Object.assign({
         context: C.SOP_STUDY_ROOT_FIND
-    }, options);   
+    }, options);
 
     return this.find(sendParams, options);
 };
@@ -636,7 +636,7 @@ CSocket.prototype.findSeries = function(params, options) {
     }, params);
     options = Object.assign({
         context: C.SOP_STUDY_ROOT_FIND
-    }, options);     
+    }, options);
 
     return this.find(sendParams, options);
 };
@@ -651,7 +651,7 @@ CSocket.prototype.findInstances = function(params, options) {
     }, params);
     options = Object.assign({
         context: C.SOP_STUDY_ROOT_FIND
-    }, options);     
+    }, options);
 
     return this.find(sendParams, options);
 };

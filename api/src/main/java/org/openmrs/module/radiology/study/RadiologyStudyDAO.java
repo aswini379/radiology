@@ -11,28 +11,28 @@ package org.openmrs.module.radiology.study;
 
 /**
  * {@code RadiologyStudy} related database methods.
- * 
+ *
  * @see org.openmrs.module.radiology.study.RadiologyStudyService
  * @see org.openmrs.module.radiology.study.RadiologyStudy
  */
 interface RadiologyStudyDAO {
-    
-    
+
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#saveRadiologyStudy(RadiologyStudy)
      */
     public RadiologyStudy saveRadiologyStudy(RadiologyStudy radiologyStudy);
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudy(Integer)
      */
     public RadiologyStudy getRadiologyStudy(Integer studyId);
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudyByUuid(String)
      */
     public RadiologyStudy getRadiologyStudyByUuid(String uuid);
-    
+
     /**
      * @see org.openmrs.module.radiology.study.RadiologyStudyService#getRadiologyStudyByStudyInstanceUid(String)
      */

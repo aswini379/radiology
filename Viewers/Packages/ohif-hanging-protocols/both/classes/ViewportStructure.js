@@ -48,6 +48,6 @@ HP.ViewportStructure = class ViewportStructure {
                 // For the typical grid layout, we only need to multiply rows by columns to
                 // obtain the number of viewports
                 return this.properties.rows * this.properties.columns;
-        }   
+        }
     }
 };

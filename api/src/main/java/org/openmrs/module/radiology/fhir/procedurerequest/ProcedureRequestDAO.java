@@ -16,21 +16,21 @@ package org.openmrs.module.radiology.fhir.procedurerequest;
  * @see ProcedureRequest
  */
 public interface ProcedureRequestDAO {
-    
-    
+
+
     /**
      * @see ProcedureRequestService#getProcedureRequest(Integer)
      */
     ProcedureRequest getProcedureRequest(Integer requestId);
-    
+
     /**
      * @see ProcedureRequestService#getProcedureRequestByUuid(String)
      */
     ProcedureRequest getProcedureRequestByUuid(String uuid);
-    
+
     /**
      * @see ProcedureRequestService#createProcedureRequest(ProcedureRequest)
      */
     ProcedureRequest saveProcedureRequest(ProcedureRequest procedureRequest);
-    
+
 }

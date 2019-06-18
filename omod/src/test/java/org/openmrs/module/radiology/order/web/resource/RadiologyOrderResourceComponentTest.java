@@ -19,45 +19,45 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Tests {@link RadiologyOrderResource}.
  */
 public class RadiologyOrderResourceComponentTest extends BaseDelegatingResourceTest<RadiologyOrderResource, RadiologyOrder> {
-    
-    
+
+
     protected static final String TEST_DATASET = "RadiologyOrderResourceComponentTestDataset.xml";
-    
+
     @Autowired
     RadiologyOrderService radiologyOrderService;
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getDisplayProperty()
      */
     @Override
     public String getDisplayProperty() {
-        
+
         return "4 - FRACTURE";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getUuidProperty()
      */
     @Override
     public String getUuidProperty() {
-        
+
         return "1bae735a-fca0-11e5-9e59-08002719a237";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#newObject()
      */
     @Override
     public RadiologyOrder newObject() {
-        
+
         return radiologyOrderService.getRadiologyOrderByUuid(getUuidProperty());
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateDefaultRepresentation()
      */
@@ -83,7 +83,7 @@ public class RadiologyOrderResourceComponentTest extends BaseDelegatingResourceT
         assertPropPresent("commentToFulfiller");
         assertPropPresent("display");
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateFullRepresentation()
      */

@@ -4,28 +4,27 @@
 
 ## 1 Overview
 
-**Welcome to the landing page of Librehealth Radiology!** This repository contains the Librehealth Radiology Module (librehealth-radiology - previously called radiologydcm4chee and forked from the openMRS radiology module) which is a module adding capabilities of a Radiology
-Information System (RIS) onto [Librehealth EHR](https://gitlab.com/librehealth/LibreEHR). The project's primary objectives are to develop a information management module for use in a radiology department, by:
+**Welcome to the landing page of Librehealth Radiology!** This repository contains the Librehealth Radiology Module (lh-radiology - previously called radiologydcm4chee and forked from the OpenMRS Radiology module) which is a module adding capabilities of a Radiology
+Information System (RIS) onto [Librehealth Toolkit](https://gitlab.com/librehealth/lh-toolkit). The project's primary objectives are to develop an information management module for use in a radiology department, by:
 
 1. identifying a radiology department's workflow according to radiology experts
 2. composing user stories in the areas of image study scheduling, ordering, reporting, viewing and analytics on behalf of radiologist and non-radiologist users.
-3. implementation of the module to run on the [librehealth toolkit](https://gitlab.com/librehealth/lh-toolkit)
+3. implementation of the module to run on the [LibreHealth Toolkit](https://gitlab.com/librehealth/lh-toolkit)
 4. maintenance and quality control parameters as set by the community
 
 ## 2 Librehealth Community
 [![pipeline status](https://gitlab.com/librehealth/lh-radiology/badges/master/pipeline.svg)](https://gitlab.com/librehealth/lh-radiology/commits/master)
 [![LibreHealth Radiology Forums](https://img.shields.io/badge/librehealth-forum-orange.svg)](https://forums.librehealth.io/)
 [![LibreHealth Radiology Chat](https://img.shields.io/badge/librehealth-chat-orange.svg)](https://chat.librehealth.io)
-[![LibreHealth Radiology Telegram](https://img.shields.io/badge/librehealth%20radiology-telegram-blue.svg)](http://telegram.me/LibreHealth%20Radiology)
 [![LibreHealth Radiology Wiki](https://img.shields.io/badge/librehealth%20radiology-wiki-blue.svg)](https://gitlab.com/librehealth/lh-radiology/wikis/home)
 
-### 2.1 Contributing and participating in the 2017 Google Summer of Code
-Contributions are very welcome, we can definitely use your help! Librehealth has been accepted to participate in the Google Summer of Code 2017 for which there is no shortage of mentors and tasks that prospective students can sign up for.  Browse the [chat room](https://chat.librehealth.io/channel/gci) and [forum](https://forums.librehealth.io/c/community/gsoc) for more information on planned tasks and opportunities for students! To get started , claim a
-ticket here [GSOC 2017 issues](https://gitlab.com/librehealth/lh-radiology/issues) and happy coding. Look forward to your pull requests
+### 2.1 Contributing and participating in the 2019 Google Summer of Code
+Contributions are very welcome, we can definitely use your help! Librehealth has been accepted to participate in the Google Summer of Code 2019 for which there is no shortage of mentors and tasks that prospective students can sign up for.  Browse the [chat room](https://chat.librehealth.io/channel/gci) and [forum](https://forums.librehealth.io/c/community/gsoc) for more information on planned tasks and opportunities for students! To get started , claim a
+ticket here [GSOC 2019 issues](https://gitlab.com/librehealth/lh-radiology/issues) and happy coding. Look forward to your pull requests
 
 ### 2.2 Community and Support
 The project is under collaboration with [librehealth.io](http://librehealth.io), an umbrella organization for health IT projects. <br>
-Introduce yourself to the community at: <br> [Librehealth Forums](https://forums.librehealth.io/) <br> [Librehealth Chat (Rocket.Chat)](https://chat.librehealth.io)
+Introduce yourself to the community at: [Librehealth Forums](https://forums.librehealth.io/) or [Librehealth Chat (Rocket.Chat)](https://chat.librehealth.io)
 
 ### 2.3 Understanding the Radiology Workflow
 The following resources will help with understanding the basic infrastructure behind radiology workflow and radiology information systems:

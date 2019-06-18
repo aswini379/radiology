@@ -14,7 +14,7 @@ DicomMessage.prototype.setSyntax = function(syntax) {
 
     for (var tag in this.elementPairs) {
         this.elementPairs[tag].setSyntax(this.syntax);
-    }  
+    }
 };
 
 DicomMessage.prototype.setMessageId = function(id) {
@@ -55,7 +55,7 @@ DicomMessage.prototype.response = function(cmds) {
 
     cmds.unshift(this.newElement(0x00000000, length));
     return cmds;
-};  
+};
 
 DicomMessage.prototype.setElements = function(pairs) {
     var p = {};
@@ -64,7 +64,7 @@ DicomMessage.prototype.setElements = function(pairs) {
     }
 
     this.elementPairs = p;
-};  
+};
 
 DicomMessage.prototype.newElement = function(tag, value) {
     return elementByType(tag, value, this.syntax);
@@ -96,7 +96,7 @@ DicomMessage.prototype.setDataSetPresent = function(present) {
 
 DicomMessage.prototype.haveData = function() {
     return this.dataSetPresent;
-};  
+};
 
 DicomMessage.prototype.tags = function() {
     return Object.keys(this.elementPairs);
@@ -112,7 +112,7 @@ DicomMessage.prototype.getValue = function(tag) {
 
 DicomMessage.prototype.affectedSOPClassUID = function() {
     return this.getValue(0x00000002);
-};  
+};
 
 DicomMessage.prototype.getMessageId = function() {
     return this.getValue(0x00000110);
@@ -125,7 +125,7 @@ DicomMessage.prototype.getFields = function() {
     }
 
     return eles;
-};  
+};
 
 DicomMessage.prototype.length = function(elems) {
     var len = 0;
@@ -141,7 +141,7 @@ DicomMessage.prototype.isResponse = function() {
 
 DicomMessage.prototype.is = function(type) {
     return this.commandType == type;
-};  
+};
 
 DicomMessage.prototype.write = function(stream) {
     var fields = this.getFields(),
@@ -191,8 +191,8 @@ DicomMessage.prototype.typeString = function() {
         case C.COMMAND_C_MOVE_RQ : typeName = 'C-MOVE-RQ'; break;
         case C.COMMAND_C_FIND_RQ : typeName = 'C-FIND-RQ'; break;
         case C.COMMAND_C_STORE_RSP : typeName = 'C-STORE-RSP'; break;
-    }      
-    }   
+    }
+    }
 
     return typeName;
 };
@@ -243,7 +243,7 @@ DicomMessage.readToPairs = function(stream, syntax, options) {
         pairs[elem.tag.value] = elem;
     }
 
-    return pairs;  
+    return pairs;
 };
 
 var fileValid = function(stream) {
@@ -257,7 +257,7 @@ var readMetaStream = function(stream, useSyntax, length, callback) {
         callback(null, message, length);
     }
 
-    return message;  
+    return message;
 };
 
 DicomMessage.readMetaHeader = function(bufferOrFile, callback) {
@@ -265,10 +265,10 @@ DicomMessage.readMetaHeader = function(bufferOrFile, callback) {
     if (bufferOrFile instanceof Buffer) {
         var stream = new ReadStream(bufferOrFile);
         stream.reset();
-        stream.increment(128);  
+        stream.increment(128);
         if (!fileValid(stream)) {
-            return quitWithError('Invalid a dicom file ', callback);  
-        }      
+            return quitWithError('Invalid a dicom file ', callback);
+        }
 
         var el = readAElement(stream, useSyntax),
             metaLength = el.value,
@@ -287,7 +287,7 @@ DicomMessage.readMetaHeader = function(bufferOrFile, callback) {
                 if (err || bytesRead != 16) {
                     fs.closeSync(fd);
                     return quitWithError('Cannot read file', callback);
-                } 
+                }
 
                 var stream = new ReadStream(buffer);
                 if (!fileValid(stream)) {
@@ -295,14 +295,14 @@ DicomMessage.readMetaHeader = function(bufferOrFile, callback) {
                     return quitWithError('Not a dicom file ' + bufferOrFile, callback);
                 }
 
-                var el = readAElement(stream, useSyntax), 
+                var el = readAElement(stream, useSyntax),
                     metaLength = el.value,
                     metaBuffer = new Buffer(metaLength);
 
                 fs.read(fd, metaBuffer, 0, metaLength, 144, function(err, bytesRead) {
                     fs.closeSync(fd);
                     if (err || bytesRead != metaLength) {
-                      return quitWithError('Invalid a dicom file ' + bufferOrFile, callback);            
+                      return quitWithError('Invalid a dicom file ' + bufferOrFile, callback);
                     }
 
                     var metaStream = new ReadStream(metaBuffer);
@@ -310,7 +310,7 @@ DicomMessage.readMetaHeader = function(bufferOrFile, callback) {
                 });
             });
         });
-    } 
+    }
 
     return null;
 };
@@ -385,14 +385,14 @@ CommandMessage = function(syntax) {
     DicomMessage.call(this, syntax);
     this.type = C.DATA_TYPE_COMMAND;
     this.priority = C.PRIORITY_MEDIUM;
-    this.dataSetPresent = true;     
+    this.dataSetPresent = true;
 };
 
 util.inherits(CommandMessage, DicomMessage);
 
 CommandMessage.prototype.getFields = function() {
     return this.command(CommandMessage.super_.prototype.getFields.call(this));
-};  
+};
 
 CommandResponse = function(syntax) {
     DicomMessage.call(this, syntax);
@@ -518,17 +518,17 @@ CMoveRQ = function(syntax, destination) {
     CommandMessage.call(this, syntax);
     this.commandType = 0x21;
     this.contextUID = C.SOP_STUDY_ROOT_MOVE;
-    this.setDestination(destination || '');  
+    this.setDestination(destination || '');
 };
 
 util.inherits(CMoveRQ, CommandMessage);
 
 CMoveRQ.prototype.setStore = function(cstr) {
     this.store = cstr;
-};  
+};
 
 CMoveRQ.prototype.setDestination = function(dest) {
-    this.setElement(0x00000600, dest);    
+    this.setElement(0x00000600, dest);
 };
 
 CGetRQ = function(syntax) {
@@ -547,7 +547,7 @@ CGetRQ.prototype.setStore = function(cstr) {
 CStoreRQ = function(syntax) {
     CommandMessage.call(this, syntax);
     this.commandType = 0x01;
-    this.contextUID = C.SOP_STUDY_ROOT_GET;  
+    this.contextUID = C.SOP_STUDY_ROOT_GET;
 };
 
 util.inherits(CStoreRQ, CommandMessage);
@@ -583,7 +583,7 @@ util.inherits(CStoreRSP, CommandResponse);
 
 CStoreRSP.prototype.setAffectedSOPInstanceUID = function(uid) {
     this.setElement(0x00001000, uid);
-};  
+};
 
 CStoreRSP.prototype.getAffectedSOPInstanceUID = function(uid) {
     return this.getValue(0x00001000);

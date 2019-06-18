@@ -13,8 +13,8 @@ package org.openmrs.module.radiology.report.template;
  * Represents a rule which can be checked during validation.
  */
 public interface ValidationRule<T> {
-    
-    
+
+
     /**
      * Checks given subject and populates validation results.
      *

@@ -44,48 +44,48 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Tests {@link RadiologyOrderServiceImpl}
  */
 public class RadiologyOrderServiceImplComponentTest extends BaseModuleContextSensitiveTest {
-    
-    
+
+
     private static final String TEST_DATASET =
             "org/openmrs/module/radiology/include/RadiologyOrderServiceComponentTestDataset.xml";
-    
+
     private static final int PATIENT_ID_WITH_ONLY_ONE_NON_RADIOLOGY_ORDER = 70011;
-    
+
     private static final String RADIOLOGY_ORDER_PROVIDER_UUID = "c2299800-cca9-11e0-9572-0800200c9a66";
-    
+
     @Autowired
     private PatientService patientService;
-    
+
     @Autowired
     private EncounterService encounterService;
-    
+
     @Autowired
     private ProviderService providerService;
-    
+
     @Autowired
     private OrderService orderService;
-    
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     private HibernateRadiologyOrderDAO radiologyOrderDAO = new HibernateRadiologyOrderDAO();
-    
+
     private RadiologyOrderServiceImpl radiologyOrderServiceImpl = null;
-    
+
     @Autowired
     private RadiologyStudyService radiologyStudyService;
-    
+
     @Autowired
     private RadiologyProperties radiologyProperties;
-    
+
     private Method saveRadiologyOrderEncounterMethod = null;
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     @Before
     public void setUp() throws Exception {
-        
+
         if (radiologyOrderServiceImpl == null) {
             radiologyOrderServiceImpl = new RadiologyOrderServiceImpl();
             radiologyOrderDAO.setSessionFactory(sessionFactory);
@@ -95,14 +95,14 @@ public class RadiologyOrderServiceImplComponentTest extends BaseModuleContextSen
             radiologyOrderServiceImpl.setEncounterService(encounterService);
             radiologyOrderServiceImpl.setRadiologyProperties(radiologyProperties);
         }
-        
+
         saveRadiologyOrderEncounterMethod = RadiologyOrderServiceImpl.class.getDeclaredMethod("saveRadiologyOrderEncounter",
             new Class[] { Patient.class, Provider.class, Date.class });
         saveRadiologyOrderEncounterMethod.setAccessible(true);
-        
+
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
      * @see RadiologyOrderServiceImpl#saveRadiologyOrderEncounter(Patient,Provider,Date)
      * @verifies create radiology order encounter
@@ -113,15 +113,15 @@ public class RadiologyOrderServiceImplComponentTest extends BaseModuleContextSen
         Patient patient = patientService.getPatient(PATIENT_ID_WITH_ONLY_ONE_NON_RADIOLOGY_ORDER);
         Provider provider = providerService.getProviderByUuid(RADIOLOGY_ORDER_PROVIDER_UUID);
         Date encounterDatetime = new GregorianCalendar(2010, Calendar.OCTOBER, 10).getTime();
-        
+
         EncounterSearchCriteriaBuilder encounterSearchCriteria = new EncounterSearchCriteriaBuilder().setPatient(patient);
         List<Encounter> matchingEncounters =
                 encounterService.getEncounters(encounterSearchCriteria.createEncounterSearchCriteria());
         assertThat(matchingEncounters, is(empty()));
-        
+
         Encounter encounter = (Encounter) saveRadiologyOrderEncounterMethod.invoke(radiologyOrderServiceImpl,
             new Object[] { patient, provider, encounterDatetime });
-        
+
         assertNotNull(encounter);
         encounterSearchCriteria = new EncounterSearchCriteriaBuilder().setPatient(patient)
                 .setProviders(Arrays.asList(provider))

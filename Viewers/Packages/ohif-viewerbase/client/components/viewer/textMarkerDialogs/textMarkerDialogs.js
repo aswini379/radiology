@@ -35,7 +35,7 @@ Template.textMarkerDialogs.events({
         const stack = cornerstoneTools.getToolState(element, 'stack');
         if (stack && stack.data.length && stack.data[0].imageIds.length) {
             const imageIds = stack.data[0].imageIds;
-            
+
             // Clear the tool data for each image in the stack
             imageIds.forEach( imageId => {
                 if(toolState.hasOwnProperty(imageId)) {

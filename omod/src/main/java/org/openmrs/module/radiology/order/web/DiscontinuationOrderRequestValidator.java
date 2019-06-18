@@ -21,11 +21,11 @@ import org.springframework.validation.Validator;
  */
 @Component
 public class DiscontinuationOrderRequestValidator implements Validator {
-    
-    
+
+
     /** Log for this class and subclasses */
     protected final Log log = LogFactory.getLog(getClass());
-    
+
     /**
      * Determines if the command object being submitted is a valid type
      *
@@ -37,7 +37,7 @@ public class DiscontinuationOrderRequestValidator implements Validator {
     public boolean supports(Class clazz) {
         return DiscontinuationOrderRequest.class.equals(clazz);
     }
-    
+
     /**
      * Checks the form object for any inconsistencies/errors
      *

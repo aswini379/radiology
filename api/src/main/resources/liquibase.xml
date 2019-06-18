@@ -15,7 +15,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<!-- See http://www.liquibase.org/manual/home#available_database_refactorings 
+	<!-- See http://www.liquibase.org/manual/home#available_database_refactorings
 		for a list of supported elements and attributes -->
 
 	<changeSet id="radiology-1" author="cortex">

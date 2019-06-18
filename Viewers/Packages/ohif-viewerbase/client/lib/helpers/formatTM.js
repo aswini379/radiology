@@ -10,7 +10,7 @@ const formatTM = (context, options) => {
         return;
     }
 
-    // DICOM Time is stored as HHmmss.SSS, where: 
+    // DICOM Time is stored as HHmmss.SSS, where:
     //      HH 24 hour time:
     //      m mm    0..59   Minutes
     //      s ss    0..59   Seconds

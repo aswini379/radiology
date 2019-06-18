@@ -27,7 +27,7 @@ and `InstanceMetadata`. Inside OHIF Viewerbase package, every access to Study, S
 metadata is achieved by the interface exposed by these three classes. By inheriting from them and
 overriding or extending their methods, different applications with different data models can adapt
 even the most peculiar data structures to the uniform interface defined by those classes. Together
-these classes define a flexible and extensible data manipulation layer leaving routines and 
+these classes define a flexible and extensible data manipulation layer leaving routines and
 algorithms that depend on that data untouched.
 
 ## Design Decisions & "*Protected*" Members
@@ -41,7 +41,7 @@ compatibility issues.
 
 As an example, the initial implementation of the `StudyMetadata` class defined the attribute `_studyInstanceUID`
 and the method `getStudyInstanceUID`. This implies that whenever the *StudyInstanceUID* of a given study needs
-to be retrieved the `getStudyInstanceUID` method should be called instead of directly accessing the 
+to be retrieved the `getStudyInstanceUID` method should be called instead of directly accessing the
 attribute `_studyInstanceUID` (which might not even be populated since `getStudyInstanceUID` can be possiblity
 overriden by a subclass to satisfy specific implementation needs, leaving the attribute `_studyInstanceUID` unused).
 
@@ -56,7 +56,7 @@ let otherStudyUID = anotherStudy._studyInstanceUID; // BAD... :-(
 Another important topic is the preference of *methods* over *attributes* on the public API. This design
 decision was made to ensure extensibility and flexibility (methods are extensible while standalone
 attributes are not, and can be adapted – through overrides, for example – to support even the most
-peculiar data models) even though the overhead a few additional function calls may incur. 
+peculiar data models) even though the overhead a few additional function calls may incur.
 
 ## Abstract Classes
 

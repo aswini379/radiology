@@ -23,7 +23,7 @@ Tag = function(value) {
 };
 
 Tag.prototype.toString = function() {
-    return '(' + paddingLeft('0000', this.group().toString(16)) + ',' + 
+    return '(' + paddingLeft('0000', this.group().toString(16)) + ',' +
            paddingLeft('0000', this.element().toString(16)) + ')';
 };
 
@@ -48,7 +48,7 @@ tagFromNumbers = function(group, element) {
 };
 
 function readTag(stream) {
-    var group = stream.read(C.TYPE_UINT16), 
+    var group = stream.read(C.TYPE_UINT16),
         element = stream.read(C.TYPE_UINT16);
 
     return tagFromNumbers(group, element);
@@ -69,7 +69,7 @@ parseElements = function(stream, syntax) {
 
 ValueRepresentation = function(type) {
     this.type = type;
-    this.multi = false;  
+    this.multi = false;
 };
 
 ValueRepresentation.prototype.read = function(stream, length, syntax) {
@@ -99,7 +99,7 @@ ValueRepresentation.prototype.readNullPaddedString = function(stream, length) {
     if (stream.read(C.TYPE_UINT8) !== 0) {
         stream.increment(-1);
         str += stream.read(C.TYPE_ASCII, 1);
-    }    
+    }
 
     return str;
 };
@@ -115,7 +115,7 @@ ValueRepresentation.prototype.getFields = function(fields) {
             if (typeof field.value === 'string')
               length += field.value.length;
         });
-        valid = length <= check; 
+        valid = length <= check;
     } else if (this.maxLength) {
         var check = this.maxLength,
      length = fieldsLength(fields);
@@ -151,7 +151,7 @@ util.inherits(ApplicationEntity, ValueRepresentation);
 
 ApplicationEntity.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_ASCII, length).trim();
-};  
+};
 
 ApplicationEntity.prototype.getFields = function(value) {
     return ApplicationEntity.super_.prototype.getFields.call(this, [new FilledField(value, 16)]);
@@ -160,14 +160,14 @@ ApplicationEntity.prototype.getFields = function(value) {
 CodeString = function() {
     ValueRepresentation.call(this, 'CS');
     this.maxLength = 16;
-    this.padByte = '20'; 
+    this.padByte = '20';
 };
 
 util.inherits(CodeString, ValueRepresentation);
 
 CodeString.prototype.readBytes = function(stream, length) {
     var str = this.readNullPaddedString(stream, length);
-    return str.trim();    
+    return str.trim();
 };
 
 CodeString.prototype.getFields = function(value) {
@@ -197,7 +197,7 @@ AgeString.prototype.getFields = function(value) {
             str = paddingLeft('000' + value.years) + 'Y';
         } else {
             throw 'Invalid age string';
-        }    
+        }
     }
 
     return AgeString.super_.prototype.getFields.call(this, [new StringField(str)]);
@@ -238,8 +238,8 @@ util.inherits(DateValue, ValueRepresentation);
 DateValue.prototype.readBytes = function(stream, length) {
     var datestr = stream.read(C.TYPE_ASCII, length);
 
-    var year = parseInt(datestr.substring(0, 4)), 
-        month = parseInt(datestr.substring(4, 6)), 
+    var year = parseInt(datestr.substring(0, 4)),
+        month = parseInt(datestr.substring(4, 6)),
         day = parseInt(datestr.substring(6, 8));
 
     return datestr;//new Date(year, month, day);
@@ -334,7 +334,7 @@ util.inherits(FloatingPointDouble, ValueRepresentation);
 
 FloatingPointDouble.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_DOUBLE);
-};  
+};
 
 FloatingPointDouble.prototype.getFields = function(value) {
     return FloatingPointDouble.super_.prototype.getFields.call(this, [new DoubleField(value)]);
@@ -368,7 +368,7 @@ util.inherits(LongString, ValueRepresentation);
 LongString.prototype.readBytes = function(stream, length) {
     var str = this.readNullPaddedString(stream, length);
     return str.trim();
-};  
+};
 
 LongString.prototype.getFields = function(value) {
     return LongString.super_.prototype.getFields.call(this, [new StringField(value ? value : '')]);
@@ -385,7 +385,7 @@ util.inherits(LongText, ValueRepresentation);
 LongText.prototype.readBytes = function(stream, length) {
     var str = this.readNullPaddedString(stream, length);
     return rtrim(str);
-};  
+};
 
 LongText.prototype.getFields = function(value) {
     return LongText.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -420,12 +420,12 @@ PersonName.prototype.getFields = function(value) {
         str = value;
     } else if (value) {
         var fName = value.family || '',
-     gName = value.given || '', 
+     gName = value.given || '',
             middle = value.middle || '',
      prefix = value.prefix || '',
      suffix = value.suffix || '';
 
-        str = [fName, gName, middle, prefix, suffix].join('^');      
+        str = [fName, gName, middle, prefix, suffix].join('^');
     } else str = '';
 
     return PersonName.super_.prototype.getFields.call(this, [new StringField(str)]);
@@ -442,7 +442,7 @@ util.inherits(ShortString, ValueRepresentation);
 ShortString.prototype.readBytes = function(stream, length) {
     var str = this.readNullPaddedString(stream, length);
     return str.trim();
-};  
+};
 
 ShortString.prototype.getFields = function(value) {
     return ShortString.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -565,12 +565,12 @@ SequenceOfItems.prototype.getFields = function(value, syntax) {
             fields.push(new UInt16Field(0xfffe));
             fields.push(new UInt16Field(0xe00d));
             fields.push(new UInt32Field(0x00000000));
-        });    
+        });
     }
 
     fields.push(new UInt16Field(0xfffe));
     fields.push(new UInt16Field(0xe0dd));
-    fields.push(new UInt32Field(0x00000000));    
+    fields.push(new UInt32Field(0x00000000));
 
     return SequenceOfItems.super_.prototype.getFields.call(this, fields);
 };
@@ -620,7 +620,7 @@ util.inherits(TimeValue, ValueRepresentation);
 
 TimeValue.prototype.readBytes = function(stream, length) {
     return rtrim(stream.read(C.TYPE_ASCII, length));
-};  
+};
 
 TimeValue.prototype.getFields = function(date) {
     var dateStr = '';
@@ -628,7 +628,7 @@ TimeValue.prototype.getFields = function(date) {
         var hour = paddingLeft('00', date.getHours()),
             minute = paddingLeft('00', date.getMinutes()),
      second = paddingLeft('00', date.getSeconds()),
-            millisecond = paddingLeft('000', date.getMilliseconds());    
+            millisecond = paddingLeft('000', date.getMilliseconds());
         dateStr = hour + minute + second + '.' + millisecond;
     }
 
@@ -646,7 +646,7 @@ util.inherits(UnlimitedCharacters, ValueRepresentation);
 
 UnlimitedCharacters.prototype.readBytes = function(stream, length) {
     return rtrim(stream.read(C.TYPE_ASCII, length));
-};  
+};
 
 UnlimitedCharacters.prototype.getFields = function(value) {
     return UnlimitedCharacters.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -662,7 +662,7 @@ util.inherits(UnlimitedText, ValueRepresentation);
 
 UnlimitedText.prototype.readBytes = function(stream, length) {
     return this.readNullPaddedString(stream, length);
-};  
+};
 
 UnlimitedText.prototype.getFields = function(value) {
     return UnlimitedText.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -698,7 +698,7 @@ util.inherits(UnsignedLong, ValueRepresentation);
 
 UnsignedLong.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_UINT32);
-};  
+};
 
 UnsignedLong.prototype.getFields = function(value) {
     return UnsignedLong.super_.prototype.getFields.call(this, [new UInt32Field(value)]);
@@ -714,7 +714,7 @@ util.inherits(UniqueIdentifier, ValueRepresentation);
 
 UniqueIdentifier.prototype.readBytes = function(stream, length) {
     return this.readNullPaddedString(stream, length);
-};   
+};
 
 UniqueIdentifier.prototype.getFields = function(value) {
     return UniqueIdentifier.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -746,7 +746,7 @@ util.inherits(UnknownValue, ValueRepresentation);
 
 UnknownValue.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_ASCII, length);
-};  
+};
 
 UnknownValue.prototype.getFields = function(value) {
     return UnknownValue.super_.prototype.getFields.call(this, [new StringField(value)]);
@@ -762,11 +762,11 @@ util.inherits(OtherWordString, ValueRepresentation);
 
 OtherWordString.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_ASCII, length);
-};  
+};
 
 OtherWordString.prototype.getFields = function(value) {
     return OtherWordString.super_.prototype.getFields.call(this, [new StringField(value)]);
-}; 
+};
 
 OtherByteString = function() {
     ValueRepresentation.call(this, 'OB');
@@ -778,11 +778,11 @@ util.inherits(OtherByteString, ValueRepresentation);
 
 OtherByteString.prototype.readBytes = function(stream, length) {
     return stream.read(C.TYPE_HEX, length);
-};  
+};
 
 OtherByteString.prototype.getFields = function(value) {
     return OtherByteString.super_.prototype.getFields.call(this, [new HexField(value)]);
-}; 
+};
 
 elementByType = function(type, value, syntax) {
     var elem = null,
@@ -871,7 +871,7 @@ readElements = function(stream, syntax) {
     var oldEndian = stream.endian;
     stream.setEndian(this.endian);
 
-    var group = stream.read(C.TYPE_UINT16), 
+    var group = stream.read(C.TYPE_UINT16),
         element = stream.read(C.TYPE_UINT16),
         tag = new Tag((group << 16) | element),
         length = stream.read(C.TYPE_UINT32);
@@ -891,7 +891,7 @@ newElementWithSyntax = function(syntax) {
     return elem;
 };
 
-var explicitVRList = ['OB', 'OW', 'OF', 'SQ', 'UC', 'UR', 'UT', 'UN'], 
+var explicitVRList = ['OB', 'OW', 'OF', 'SQ', 'UC', 'UR', 'UT', 'UN'],
     binaryVRs = ['FL', 'FD', 'SL', 'SS', 'UL', 'US'];
 
 DataElement = function(tag, vr, vm, value, vvr, syntax, options) {
@@ -954,7 +954,7 @@ DataElement.prototype.readBytes = function(stream) {
     var oldEndian = stream.endian;
     stream.setEndian(this.endian);
 
-    var group = stream.read(C.TYPE_UINT16), 
+    var group = stream.read(C.TYPE_UINT16),
         element = stream.read(C.TYPE_UINT16),
         tag = tagFromNumbers(group, element);
 
@@ -976,7 +976,7 @@ DataElement.prototype.readBytes = function(stream) {
           } else if (tag.isPixelDataTag()) {
             vr = 'OW';
           } else {
-            vr = 'UN';  
+            vr = 'UN';
           }
         } else {
             vr = edata.vr;
@@ -1025,10 +1025,10 @@ DataElement.prototype.write = function(stream) {
 };
 
 DataElement.prototype.getFields = function() {
-    var fields = [new UInt16Field(this.tag.group()), new UInt16Field(this.tag.element())], 
+    var fields = [new UInt16Field(this.tag.group()), new UInt16Field(this.tag.element())],
         valueFields = this.vr.getFields(this.value, this.syntax),
    valueLength = fieldsLength(valueFields),
-   vrType = this.vr.type;    
+   vrType = this.vr.type;
 
     if (vrType === 'SQ') {
         valueLength = 0xffffffff;
@@ -1041,7 +1041,7 @@ DataElement.prototype.getFields = function() {
             fields.push(new StringField(vrType), new ReservedField(2), new UInt32Field(valueLength));
         } else {
             fields.push(new StringField(vrType), new UInt16Field(valueLength));
-        } 
+        }
     }
 
     fields = fields.concat(valueFields);

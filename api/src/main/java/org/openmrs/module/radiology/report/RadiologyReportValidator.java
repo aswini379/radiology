@@ -23,10 +23,10 @@ import org.springframework.validation.Validator;
 @Component
 @Handler(supports = { RadiologyReport.class })
 public class RadiologyReportValidator implements Validator {
-    
-    
+
+
     protected final Log log = LogFactory.getLog(RadiologyReportValidator.class);
-    
+
     /**
      * Determines if the command object being submitted is a valid type
      *
@@ -38,7 +38,7 @@ public class RadiologyReportValidator implements Validator {
     public boolean supports(Class clazz) {
         return RadiologyReport.class.isAssignableFrom(clazz);
     }
-    
+
     /**
      * Checks the form object for any inconsistencies/errors
      *

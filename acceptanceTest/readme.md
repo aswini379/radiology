@@ -2,7 +2,7 @@
 These are the acceptance tests for the OpenMRS Radiology Module.
 
 # General
-The acceptance tests require certain test-data which will be inserted into the MySQL database of Openmrs. 
+The acceptance tests require certain test-data which will be inserted into the MySQL database of Openmrs.
 
 Therefore the acceptance tests need to have access to the openmrs database.
 

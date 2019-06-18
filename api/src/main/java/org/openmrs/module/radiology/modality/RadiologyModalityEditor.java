@@ -20,14 +20,14 @@ import java.beans.PropertyEditorSupport;
  * Allows for serializing/deserializing a RadiologyModality object to a string so that Spring knows how to pass
  * a RadiologyModality back and forth through an html form or other medium
  * <br/>
- * 
+ *
  * @see RadiologyModality
  */
 public class RadiologyModalityEditor extends PropertyEditorSupport {
-    
-    
+
+
     private final Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * @should set value to radiology modality whos id matches given text
      * @should set value to radiology modality whos uuid matches given text
@@ -54,7 +54,7 @@ public class RadiologyModalityEditor extends PropertyEditorSupport {
             setValue(null);
         }
     }
-    
+
     /**
      * @should return empty string if value does not contain a radiology modality
      * @should return radiology modality id if value does contain a radiology modality

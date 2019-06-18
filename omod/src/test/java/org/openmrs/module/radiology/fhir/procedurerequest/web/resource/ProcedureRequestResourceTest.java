@@ -42,31 +42,31 @@ import static org.mockito.Mockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Context.class, RestUtil.class })
 public class ProcedureRequestResourceTest {
-    
-    
+
+
     private static final String PROCEDURE_REQUEST_UUID = "067a85fc-1316-45a3-848d-69ba192e64c4";
-    
+
     private static final String PROCEDURE_REQUEST_IDENTIFIER = "12345";
-    
+
     @Mock
     ProcedureRequestService procedureRequestService;
-    
+
     @Mock
     ProcedureRequestResource procedureRequestResource = new ProcedureRequestResource();
-    
+
     ProcedureRequest procedureRequest = new ProcedureRequest();
-    
+
     @Before
     public void setUp() throws Exception {
         procedureRequest.setUuid(PROCEDURE_REQUEST_UUID);
         procedureRequest.setIdentifier(PROCEDURE_REQUEST_IDENTIFIER);
-        
+
         PowerMockito.mockStatic(RestUtil.class);
         PowerMockito.mockStatic(Context.class);
         when(Context.getService(ProcedureRequestService.class)).thenReturn(procedureRequestService);
         when(procedureRequestService.getProcedureRequestByUuid(PROCEDURE_REQUEST_UUID)).thenReturn(procedureRequest);
     }
-    
+
     /**
      * @see ProcedureRequestResource#getRepresentationDescription(Representation)
      * @verifies return default representation given instance of defaultrepresentation
@@ -75,14 +75,14 @@ public class ProcedureRequestResourceTest {
     public void getRepresentationDescription_shouldReturnDefaultRepresentationGivenInstanceOfDefaultrepresentation()
             throws Exception {
         DefaultRepresentation defaultRepresentation = new DefaultRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 procedureRequestResource.getRepresentationDescription(defaultRepresentation);
         assertThat(resourceDescription.getProperties()
                 .keySet(),
             contains("uuid", "display"));
     }
-    
+
     /**
      * @see ProcedureRequestResource#getRepresentationDescription(Representation)
      * @verifies return full representation given instance of FullRepresentation
@@ -91,16 +91,16 @@ public class ProcedureRequestResourceTest {
     public void getRepresentationDescription_shouldReturn_shouldReturnFullRepresentationGivenInstanceOfFullrepresentation()
             throws Exception {
         FullRepresentation fullRepresentation = new FullRepresentation();
-        
+
         DelegatingResourceDescription resourceDescription =
                 procedureRequestResource.getRepresentationDescription(fullRepresentation);
         assertThat(resourceDescription.getProperties()
                 .keySet(),
             contains("uuid", "identifier", "status", "intent", "priority", "doNotPerform", "category", "code", "subject",
                 "context", "authoredOn", "requester", "reasonCode", "note", "display"));
-        
+
     }
-    
+
     /**
      * @see ProcedureRequestResource#getRepresentationDescription(Representation)
      * @verifies return null for representation other then default or full
@@ -108,11 +108,11 @@ public class ProcedureRequestResourceTest {
     @Test
     public void getRepresentationDescription_shouldReturnNullForRepresentationOtherThenDefaultOrFull() throws Exception {
         CustomRepresentation customRepresentation = new CustomRepresentation("some");
-        
+
         assertThat(procedureRequestResource.getRepresentationDescription(customRepresentation), is(nullValue()));
-        
+
     }
-    
+
     /**
      * @see ProcedureRequestResource#getDisplayString(ProcedureRequest)
      * @verifies return Identifier of Given ProcedureRequest
@@ -121,7 +121,7 @@ public class ProcedureRequestResourceTest {
     public void getDisplayString_shouldReturnIdentifierOfGivenProcedureRequest() throws Exception {
         assertThat(procedureRequestResource.getDisplayString(procedureRequest), is(PROCEDURE_REQUEST_IDENTIFIER));
     }
-    
+
     /**
      * @see ProcedureRequestResource#getByUniqueId(String)
      * @verifies return ProcedureRequest given uuid
@@ -130,7 +130,7 @@ public class ProcedureRequestResourceTest {
     public void getByUniqueId_shouldReturnProcedureRequestGivenUuid() throws Exception {
         assertNotNull(procedureRequestResource.getByUniqueId(PROCEDURE_REQUEST_UUID));
     }
-    
+
     /**
      * @see ProcedureRequestResource#newDelegate()
      */
@@ -140,7 +140,7 @@ public class ProcedureRequestResourceTest {
         assertNotNull(procedureRequest);
         assertThat(procedureRequest, instanceOf(ProcedureRequest.class));
     }
-    
+
     /**
      * @see ProcedureRequestResource#save(ProcedureRequest)
      */
@@ -149,7 +149,7 @@ public class ProcedureRequestResourceTest {
         procedureRequestResource.save(procedureRequest);
         verify(procedureRequestService).addProcedureRequest(procedureRequest);
     }
-    
+
     /**
      * @see ProcedureRequestResource#delete(ProcedureRequest, String, RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
@@ -159,7 +159,7 @@ public class ProcedureRequestResourceTest {
         RequestContext context = new RequestContext();
         procedureRequestResource.delete(procedureRequest, "Not a Request", context);
     }
-    
+
     /**
      * @see ProcedureRequestResource#purge(ProcedureRequest, RequestContext)
      * @verifies throw ResourceDoesNotSupportOperationException
@@ -169,7 +169,7 @@ public class ProcedureRequestResourceTest {
         RequestContext context = new RequestContext();
         procedureRequestResource.purge(procedureRequest, context);
     }
-    
+
     /**
      * @see ProcedureRequestResource#getResourceVersion()
      * @verifies return supported resource version

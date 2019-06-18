@@ -25,14 +25,14 @@ import org.springframework.validation.Validator;
 @Component
 @Handler(supports = { RadiologyModality.class })
 public class RadiologyModalityValidator implements Validator {
-    
-    
+
+
     protected final Log log = LogFactory.getLog(RadiologyModalityValidator.class);
-    
+
     static int MAX_LENGTH_AE_TITLE = 16;
-    
+
     static int MAX_LENGTH_NAME = 255;
-    
+
     /**
      * Determines if the command object being submitted is a valid type.
      *
@@ -44,7 +44,7 @@ public class RadiologyModalityValidator implements Validator {
     public boolean supports(Class clazz) {
         return RadiologyModality.class.isAssignableFrom(clazz);
     }
-    
+
     /**
      * Checks the form object for any inconsistencies/errors.
      *

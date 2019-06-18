@@ -26,11 +26,11 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.servlet.ModelAndView;
 
 public class RadiologyDashboardReportsTabControllerTest {
-    
-    
+
+
     private RadiologyDashboardReportsTabController radiologyDashboardReportsTabController =
             new RadiologyDashboardReportsTabController();
-    
+
     /**
      * @see RadiologyDashboardReportsTabController#getRadiologyReportsTab(HttpServletRequest)
      * @verifies return model and view of the radiology reports tab page and set tab session attribute to radiology reports
@@ -40,19 +40,19 @@ public class RadiologyDashboardReportsTabControllerTest {
     public void
             getRadiologyReportsTab_shouldReturnModelAndViewOfTheRadiologyReportsTabPageAndSetTabSessionAttributeToRadiologyReportsTabPage()
                     throws Exception {
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         ModelAndView modelAndView = radiologyDashboardReportsTabController.getRadiologyReportsTab(mockRequest);
-        
+
         assertNotNull(modelAndView);
         assertThat(modelAndView.getViewName(), is(RadiologyDashboardReportsTabController.RADIOLOGY_REPORTS_TAB_VIEW));
         assertThat((String) mockSession.getAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE),
             is(RadiologyDashboardReportsTabController.RADIOLOGY_REPORTS_TAB_REQUEST_MAPPING));
     }
-    
+
     /**
      * @see RadiologyDashboardReportsTabController#getReportStatusList()
      * @verifies return a map containing all report status values and an entry to select all report statuses
@@ -60,9 +60,9 @@ public class RadiologyDashboardReportsTabControllerTest {
     @Test
     public void getReportStatusList_shouldReturnAMapContainingAllReportStatusValuesAndAnEntryToSelectAllReportStatuses()
             throws Exception {
-        
+
         Map<String, String> reportStatuses = radiologyDashboardReportsTabController.getReportStatusList();
-        
+
         assertThat(reportStatuses, hasEntry("", "selectStatus"));
         for (RadiologyReportStatus reportStatus : RadiologyReportStatus.values()) {
             assertThat(reportStatuses, hasEntry(reportStatus.name(), reportStatus.name()));

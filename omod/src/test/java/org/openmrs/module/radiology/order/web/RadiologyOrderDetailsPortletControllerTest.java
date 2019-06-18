@@ -36,23 +36,23 @@ import org.springframework.mock.web.MockHttpSession;
  * Tests {@link RadiologyOrderDetailsPortletController}.
  */
 public class RadiologyOrderDetailsPortletControllerTest extends BaseContextMockTest {
-    
-    
+
+
     private static final String RADIOLOGY_ORDER_UUID = "44f24d7e-ebbd-4500-bfba-1db19561ca04";
-    
+
     private static final String DICOM_VIEWER_URL =
             "http://localhost:8081/weasis-pacs-connector/viewer?studyUID=1.2.826.0.1.3680043.8.2186.1.1";
-    
+
     @Mock
     private RadiologyOrderService radiologyOrderService;
-    
+
     @Mock
     private DicomWebViewer dicomWebViewer;
-    
+
     @InjectMocks
     private RadiologyOrderDetailsPortletController radiologyOrderDetailsPortletController =
             new RadiologyOrderDetailsPortletController();
-    
+
     /**
      * @see RadiologyOrderDetailsPortletController#populateModel(HttpServletRequest,Map)
      * @verifies populate model with radiology order if given order uuid model entry matches a radiology order and dicom viewer url if radiology order is completed
@@ -61,30 +61,30 @@ public class RadiologyOrderDetailsPortletControllerTest extends BaseContextMockT
     public void
             populateModel_shouldPopulateModelWithRadiologyOrderIfGivenOrderUuidModelEntryMatchesARadiologyOrderAndDicomViewerUrlIfRadiologyOrderIsCompleted()
                     throws Exception {
-        
+
         RadiologyOrder mockRadiologyOrder = RadiologyTestData.getMockRadiologyOrder1();
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         when(radiologyOrderService.getRadiologyOrderByUuid(RADIOLOGY_ORDER_UUID)).thenReturn(mockRadiologyOrder);
         when(dicomWebViewer.getDicomViewerUrl(mockRadiologyOrder.getStudy())).thenReturn(DICOM_VIEWER_URL);
-        
+
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("orderUuid", RADIOLOGY_ORDER_UUID);
-        
+
         radiologyOrderDetailsPortletController.populateModel(mockRequest, model);
-        
+
         assertThat(model, hasKey("radiologyOrder"));
         RadiologyOrder radiologyOrder = (RadiologyOrder) model.get("radiologyOrder");
         assertThat(radiologyOrder, is(mockRadiologyOrder));
-        
+
         assertThat(model, hasKey("dicomViewerUrl"));
         String dicomViewerUrl = (String) model.get("dicomViewerUrl");
         assertThat(dicomViewerUrl, is(DICOM_VIEWER_URL));
     }
-    
+
     /**
      * @see RadiologyOrderDetailsPortletController#populateModel(HttpServletRequest,Map)
      * @verifies populate model with radiology order if given order uuid model entry matches a radiology order and no dicom viewer url if radiology order is not completed
@@ -93,30 +93,30 @@ public class RadiologyOrderDetailsPortletControllerTest extends BaseContextMockT
     public void
             populateModel_shouldPopulateModelWithRadiologyOrderIfGivenOrderUuidModelEntryMatchesARadiologyOrderAndNoDicomViewerUrlIfRadiologyOrderIsNotCompleted()
                     throws Exception {
-        
+
         RadiologyOrder mockRadiologyOrder = RadiologyTestData.getMockRadiologyOrder1();
         mockRadiologyOrder.getStudy()
                 .setPerformedStatus(PerformedProcedureStepStatus.IN_PROGRESS);
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         when(radiologyOrderService.getRadiologyOrderByUuid(RADIOLOGY_ORDER_UUID)).thenReturn(mockRadiologyOrder);
         when(dicomWebViewer.getDicomViewerUrl(mockRadiologyOrder.getStudy())).thenReturn(DICOM_VIEWER_URL);
-        
+
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("orderUuid", RADIOLOGY_ORDER_UUID);
-        
+
         radiologyOrderDetailsPortletController.populateModel(mockRequest, model);
-        
+
         assertThat(model, hasKey("radiologyOrder"));
         RadiologyOrder radiologyOrder = (RadiologyOrder) model.get("radiologyOrder");
         assertThat(radiologyOrder, is(mockRadiologyOrder));
-        
+
         assertThat(model, not(hasKey("dicomViewerUrl")));
     }
-    
+
     /**
      * @see RadiologyOrderDetailsPortletController#populateModel(HttpServletRequest,Map)
      * @verifies not populate model with radiology order and dicom viewer url if no radiology order was found
@@ -124,22 +124,22 @@ public class RadiologyOrderDetailsPortletControllerTest extends BaseContextMockT
     @Test
     public void populateModel_shouldNotPopulateModelWithRadiologyOrderAndDicomViewerUrlIfNoRadiologyOrderWasFound()
             throws Exception {
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         when(radiologyOrderService.getRadiologyOrderByUuid("wrong_uuid")).thenReturn(null);
-        
+
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("orderUuid", "wrong_uuid");
-        
+
         radiologyOrderDetailsPortletController.populateModel(mockRequest, model);
-        
+
         assertThat(model, not(hasKey("radiologyOrder")));
         assertThat(model, not(hasKey("dicomViewerUrl")));
     }
-    
+
     /**
      * @see RadiologyOrderDetailsPortletController#populateModel(HttpServletRequest,Map)
      * @verifies not populate model with radiology order and dicom viewer url if model has no entry for order uuid
@@ -147,15 +147,15 @@ public class RadiologyOrderDetailsPortletControllerTest extends BaseContextMockT
     @Test
     public void populateModel_shouldNotPopulateModelWithRadiologyOrderAndDicomViewerUrlIfModelHasNoEntryForOrderUuid()
             throws Exception {
-        
+
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         MockHttpSession mockSession = new MockHttpSession();
         mockRequest.setSession(mockSession);
-        
+
         Map<String, Object> model = new HashMap<String, Object>();
-        
+
         radiologyOrderDetailsPortletController.populateModel(mockRequest, model);
-        
+
         assertThat(model, not(hasKey("radiologyOrder")));
         assertThat(model, not(hasKey("dicomViewerUrl")));
     }

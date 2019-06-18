@@ -31,47 +31,47 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(RadiologyModalityFormController.RADIOLOGY_MODALITY_FORM_REQUEST_MAPPING)
 public class RadiologyModalityFormController {
-    
-    
+
+
     public static final String RADIOLOGY_MODALITY_FORM_REQUEST_MAPPING = "/module/radiology/radiologyModality.form";
-    
+
     static final String RADIOLOGY_MODALITY_FORM_VIEW = "/module/radiology/modalities/radiologyModalityForm";
-    
+
     @Autowired
     private RadiologyModalityService radiologyModalityService;
-    
+
     @Autowired
     private RadiologyModalityValidator radiologyModalityValidator;
-    
+
     /**
      * Handles requests for a new {@code RadiologyModality}.
-     * 
+     *
      * @return model and view containing new radiology modality
      * @should populate model and view with new radiology modality
      */
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView getRadiologyModality() {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_MODALITY_FORM_VIEW);
         modelAndView.addObject(new RadiologyModality());
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for getting existing {@code RadiologyModality's}.
-     * 
+     *
      * @param radiologyModality the existing radiology modality which should be returned
      * @return model and view containing radiology modality
      * @should populate model and view with given radiology modality
      */
     @RequestMapping(method = RequestMethod.GET, params = "modalityId")
     protected ModelAndView getRadiologyModality(@RequestParam("modalityId") RadiologyModality radiologyModality) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_MODALITY_FORM_VIEW);
         modelAndView.addObject(radiologyModality);
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for saving a new {@code RadiologyModality}.
      *
@@ -88,15 +88,15 @@ public class RadiologyModalityFormController {
     @RequestMapping(method = RequestMethod.POST, params = "saveRadiologyModality")
     protected ModelAndView saveRadiologyModality(HttpServletRequest request,
             @ModelAttribute RadiologyModality radiologyModality, BindingResult resultRadiologyModality) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_MODALITY_FORM_VIEW);
-        
+
         radiologyModalityValidator.validate(radiologyModality, resultRadiologyModality);
         if (resultRadiologyModality.hasErrors()) {
             modelAndView.addObject(radiologyModality);
             return modelAndView;
         }
-        
+
         try {
             radiologyModalityService.saveRadiologyModality(radiologyModality);
             request.getSession()
@@ -109,11 +109,11 @@ public class RadiologyModalityFormController {
             request.getSession()
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, apiException.getMessage());
         }
-        
+
         modelAndView.addObject(radiologyModality);
         return modelAndView;
     }
-    
+
     /**
      * Handles requests for retiring a {@code RadiologyModality}.
      *
@@ -130,15 +130,15 @@ public class RadiologyModalityFormController {
     @RequestMapping(method = RequestMethod.POST, params = "retireRadiologyModality")
     protected ModelAndView retireRadiologyModality(HttpServletRequest request,
             @ModelAttribute RadiologyModality radiologyModality, BindingResult resultRadiologyModality) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_MODALITY_FORM_VIEW);
-        
+
         radiologyModalityValidator.validate(radiologyModality, resultRadiologyModality);
         if (resultRadiologyModality.hasErrors()) {
             modelAndView.addObject(radiologyModality);
             return modelAndView;
         }
-        
+
         try {
             radiologyModalityService.retireRadiologyModality(radiologyModality, radiologyModality.getRetireReason());
             request.getSession()
@@ -151,7 +151,7 @@ public class RadiologyModalityFormController {
             request.getSession()
                     .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, apiException.getMessage());
         }
-        
+
         modelAndView.addObject(radiologyModality);
         return modelAndView;
     }

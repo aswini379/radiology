@@ -15,43 +15,43 @@ import org.openmrs.module.radiology.order.RadiologyOrder;
 
 /**
  * {@code RadiologyReport} related database methods.
- * 
+ *
  * @see org.openmrs.module.radiology.report.RadiologyReportService
  * @see org.openmrs.module.radiology.report.RadiologyReport
  */
 interface RadiologyReportDAO {
-    
-    
+
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#saveRadiologyReportDraft(RadiologyReport)
      */
     RadiologyReport saveRadiologyReport(RadiologyReport radiologyReport);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReport(Integer)
      */
     RadiologyReport getRadiologyReport(Integer reportId);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReportByUuid(String)
      */
     RadiologyReport getRadiologyReportByUuid(String radiologyReportUuid);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder)
      */
     boolean hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder radiologyOrder);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder)
      */
     boolean hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder radiologyOrder);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getActiveRadiologyReportByRadiologyOrder(RadiologyOrder)
      */
     RadiologyReport getActiveRadiologyReportByRadiologyOrder(RadiologyOrder radiologyOrder);
-    
+
     /**
      * @see org.openmrs.module.radiology.report.RadiologyReportService#getRadiologyReports(RadiologyReportSearchCriteria)
      */

@@ -33,65 +33,65 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class ProcedureRequestControllerTest extends MainResourceControllerTest {
-    
-    
+
+
     private final String TEST_DATASET = "ProcedureRequestControllerTestDataset.xml";
-    
+
     private final String EXISTING_PROCEDUR_REQUEST_NOTE = "none";
-    
+
     @Before
     public void before() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     @Override
     public String getURI() {
         return "procedurerequest";
     }
-    
+
     @Override
     public String getUuid() {
         return "f689a577-eb63-4e6b-9941-13c7880f5590";
     }
-    
+
     @Override
     public long getAllCount() {
         return 1;
     }
-    
+
     /**
      * @throws Exception
      */
     @Test
     public void getProcedureRequest_shouldGetADefaultRepresentationOfAProcedureRequest() throws Exception {
-        
+
         MockHttpServletRequest req = request(RequestMethod.GET, getURI() + "/" + getUuid());
         SimpleObject result = deserialize(handle(req));
-        
+
         assertNotNull(result);
         Util.log("ProcedureRequest retrieved (default)", result);
         Assert.assertEquals(getUuid(), PropertyUtils.getProperty(result, "uuid"));
     }
-    
+
     /**
      * @throws Exception
      */
     @Test
     public void getUser_shouldGetAFullRepresentationOfAPatient() throws Exception {
-        
+
         MockHttpServletRequest req = request(RequestMethod.GET, getURI() + "/" + getUuid());
         req.addParameter(RestConstants.REQUEST_PROPERTY_FOR_REPRESENTATION, RestConstants.REPRESENTATION_FULL);
-        
+
         SimpleObject result = deserialize(handle(req));
         Util.log("ProcedureRequest retrieved (full)", result);
-        
+
         assertNotNull(result);
         assertEquals(getUuid(), PropertyUtils.getProperty(result, "uuid"));
-        
+
         assertNotNull(PropertyUtils.getProperty(result, "note"));
         assertEquals(EXISTING_PROCEDUR_REQUEST_NOTE, PropertyUtils.getProperty(result, "note"));
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.v1_0.controller.MainResourceControllerTest#shouldGetAll()
      */
@@ -100,11 +100,11 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
     public void shouldGetAll() throws Exception {
         super.shouldGetAll();
     }
-    
+
     @Test
     public void createProcedureRequest_shouldCreateNewProcedureRequest() throws Exception {
         SimpleObject request = new SimpleObject();
-        
+
         request.add("identifier", new Date().toString());
         request.add("doNotPerform", false);
         request.add("requester", "53f7a3ee-39e8-487d-ac02-3888ef2a6d62");
@@ -112,17 +112,17 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
         request.add("priority", "ROUTINE");
         request.add("intent", "ORDER");
         request.add("status", "COMPLETED");
-        
+
         String json = new ObjectMapper().writeValueAsString(request);
-        
+
         MockHttpServletRequest req = request(RequestMethod.POST, getURI());
         req.setContent(json.getBytes());
-        
+
         SimpleObject newRequest = deserialize(handle(req));
-        
+
         Util.log("Created Request", newRequest);
         assertNotNull(PropertyUtils.getProperty(newRequest, "uuid"));
-        
+
         ProcedureRequest savedRequest = Context.getService(ProcedureRequestService.class)
                 .getProcedureRequestByUuid(newRequest.get("uuid"));
         assertNotNull(savedRequest);
@@ -132,7 +132,7 @@ public class ProcedureRequestControllerTest extends MainResourceControllerTest {
         assertNotNull(savedRequest.getStatus());
         assertNotNull(savedRequest.getSubject());
         assertNotNull(savedRequest.getRequester());
-        
+
         assertThat(savedRequest.getRequester()
                 .getUuid(),
             is("53f7a3ee-39e8-487d-ac02-3888ef2a6d62"));

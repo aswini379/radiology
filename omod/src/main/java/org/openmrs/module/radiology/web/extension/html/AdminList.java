@@ -17,26 +17,26 @@ import org.openmrs.module.web.extension.AdministrationSectionExt;
 import static org.openmrs.module.radiology.order.web.RadiologyDashboardOrdersTabController.RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING;
 
 public class AdminList extends AdministrationSectionExt {
-    
-    
+
+
     @Override
     public Extension.MEDIA_TYPE getMediaType() {
         return Extension.MEDIA_TYPE.html;
     }
-    
+
     @Override
     public String getTitle() {
         return "radiology.title";
     }
-    
+
     @Override
     public Map<String, String> getLinks() {
-        
+
         final Map<String, String> map = new HashMap<String, String>();
-        
+
         map.put(RADIOLOGY_ORDERS_TAB_REQUEST_MAPPING, "radiology.administrationSection.links.dashboard");
-        
+
         return map;
     }
-    
+
 }

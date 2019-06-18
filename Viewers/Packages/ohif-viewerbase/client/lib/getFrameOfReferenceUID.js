@@ -1,7 +1,7 @@
 /**
  * Helper function to quickly obtain the frameOfReferenceUID
  * for a given element from the enabled image's metadata.
- * 
+ *
  * If no image, imagePlane, or frameOfReferenceUID is available,
  * the function will return undefined.
  *
@@ -15,7 +15,7 @@ export function getFrameOfReferenceUID(element) {
     } catch(error) {
         return;
     }
-    
+
     if (!enabledElement || !enabledElement.image) {
         return;
     }

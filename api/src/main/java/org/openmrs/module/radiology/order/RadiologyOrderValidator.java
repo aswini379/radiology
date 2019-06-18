@@ -27,11 +27,11 @@ import org.springframework.validation.Validator;
 @Handler(supports = { RadiologyOrder.class })
 @Component
 public class RadiologyOrderValidator implements Validator {
-    
-    
+
+
     /** Log for this class and subclasses */
     protected final Log log = LogFactory.getLog(getClass());
-    
+
     /**
      * Determines if the command object being submitted is a valid type
      *
@@ -42,7 +42,7 @@ public class RadiologyOrderValidator implements Validator {
     public boolean supports(Class clazz) {
         return RadiologyOrder.class.isAssignableFrom(clazz);
     }
-    
+
     /**
      * Checks the form object for any inconsistencies/errors
      *
@@ -80,7 +80,7 @@ public class RadiologyOrderValidator implements Validator {
             validateScheduledDate(radiologyOrder, errors);
         }
     }
-    
+
     private void validateDateActivated(Order order, Errors errors) {
         final Date dateActivated = order.getDateActivated();
         if (dateActivated != null) {
@@ -105,7 +105,7 @@ public class RadiologyOrderValidator implements Validator {
             }
         }
     }
-    
+
     private void validateScheduledDate(Order order, Errors errors) {
         final boolean isUrgencyOnScheduledDate = order.getUrgency() != null && order.getUrgency()
                 .equals(Order.Urgency.ON_SCHEDULED_DATE);

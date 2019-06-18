@@ -20,18 +20,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MrrtReportTemplateResourceComponentTest
         extends BaseDelegatingResourceTest<MrrtReportTemplateResource, MrrtReportTemplate> {
-    
-    
+
+
     protected static final String TEST_DATASET = "MrrtReportTemplateResourceComponentTestDataset.xml";
-    
+
     @Autowired
     MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getDisplayProperty()
      */
@@ -39,7 +39,7 @@ public class MrrtReportTemplateResourceComponentTest
     public String getDisplayProperty() {
         return "org/radrep/0001";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getUuidProperty()
      */
@@ -47,7 +47,7 @@ public class MrrtReportTemplateResourceComponentTest
     public String getUuidProperty() {
         return "aa551445-def0-4f93-9047-95f0a9afbdce";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#newObject()
      */
@@ -55,7 +55,7 @@ public class MrrtReportTemplateResourceComponentTest
     public MrrtReportTemplate newObject() {
         return mrrtReportTemplateService.getMrrtReportTemplateByUuid(getUuidProperty());
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateDefaultRepresentation()
      */
@@ -74,7 +74,7 @@ public class MrrtReportTemplateResourceComponentTest
         assertPropPresent("terms");
         assertPropPresent("display");
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateFullRepresentation()
      */

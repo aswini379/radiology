@@ -61,7 +61,7 @@ public class DbSetupConfiguration {
   public IDatabaseConnection getDatabaseConnection() {
     return databaseConnection;
   }
-  
+
   public FlatXmlDataSet getDataSet(String fileName) throws DataSetException {
     return new FlatXmlDataSet(new FlatXmlProducer(new InputSource(getClass().getResourceAsStream(fileName))));
   }

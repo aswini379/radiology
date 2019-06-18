@@ -30,49 +30,49 @@ import static org.junit.Assert.assertThat;
  */
 public class RadiologyModalityResourceComponentTest
         extends BaseDelegatingResourceTest<RadiologyModalityResource, RadiologyModality> {
-    
-    
+
+
     protected static final String TEST_DATASET = "RadiologyModalityResourceComponentTestDataset.xml";
-    
+
     private static final int TOTAL_MODALITIES = 4;
-    
+
     private static final int TOTAL_MODALITIES_NON_RETIRED = 3;
-    
+
     @Autowired
     RadiologyModalityService radiologyModalityService;
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getDisplayProperty()
      */
     @Override
     public String getDisplayProperty() {
-        
+
         return "CT01";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#getUuidProperty()
      */
     @Override
     public String getUuidProperty() {
-        
+
         return "015f85fc-1316-45a3-848d-69ba192e64c4";
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#newObject()
      */
     @Override
     public RadiologyModality newObject() {
-        
+
         return radiologyModalityService.getRadiologyModalityByUuid(getUuidProperty());
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateDefaultRepresentation()
      */
@@ -85,7 +85,7 @@ public class RadiologyModalityResourceComponentTest
         assertPropPresent("description");
         assertPropPresent("retired");
     }
-    
+
     /**
      * @see BaseDelegatingResourceTest#validateFullRepresentation()
      */
@@ -99,37 +99,37 @@ public class RadiologyModalityResourceComponentTest
         assertPropPresent("retired");
         assertPropPresent("auditInfo");
     }
-    
+
     /**
      * @verifies return radiology modalities including retired ones if include all is true
      * @see RadiologyModalityResource#doGetAll(RequestContext)
      */
     @Test
     public void doGetAll_shouldReturnRadiologyModalitiesIncludingRetiredOnesIfIncludeAllIsTrue() throws Exception {
-        
+
         RadiologyModalityResource radiologyModalityResource = getResource();
-        
+
         RequestContext context = new RequestContext();
         context.setIncludeAll(true);
         List<Object> modalities = radiologyModalityResource.getAll(context)
                 .get("results");
-        
+
         assertThat(modalities.size(), is(TOTAL_MODALITIES));
     }
-    
+
     /**
      * @verifies return radiology modalities excluding retired ones if include all is false
      * @see RadiologyModalityResource#doGetAll(RequestContext)
      */
     @Test
     public void doGetAll_shouldReturnRadiologyModalitiesExcludingRetiredOnesIfIncludeAllIsFalse() throws Exception {
-        
+
         RadiologyModalityResource radiologyModalityResource = getResource();
-        
+
         RequestContext context = new RequestContext();
         List<Object> modalities = (List) radiologyModalityResource.getAll(context)
                 .get("results");
-        
+
         assertThat(modalities.size(), is(TOTAL_MODALITIES_NON_RETIRED));
         for (Object modality : modalities) {
             assertThat(PropertyUtils.getProperty(modality, "retired"), is(false));

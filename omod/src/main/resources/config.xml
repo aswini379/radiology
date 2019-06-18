@@ -57,7 +57,7 @@
             <point>org.openmrs.gutter.tools</point>
             <class>org.openmrs.module.radiology.web.extension.html.RadiologyViewerExt</class>
         </extension>
-         
+
 
 	<!-- /Extensions -->
 
@@ -221,7 +221,7 @@
 	</mappingFiles>
 
 	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name> -->
-	<!-- <servlet> <servlet-name>viewer.jnlp</servlet-name> <servlet-class>org.weasis.servlet.Weasis_Launcher</servlet-class> 
-		</servlet> <servlet> <servlet-name>wadoRequest</servlet-name> <servlet-class>com.hxti.xebra.com.wado.WADORequestServlet</servlet-class> 
+	<!-- <servlet> <servlet-name>viewer.jnlp</servlet-name> <servlet-class>org.weasis.servlet.Weasis_Launcher</servlet-class>
+		</servlet> <servlet> <servlet-name>wadoRequest</servlet-name> <servlet-class>com.hxti.xebra.com.wado.WADORequestServlet</servlet-class>
 		</servlet> -->
 </module>

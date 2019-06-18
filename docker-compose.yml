@@ -6,7 +6,7 @@ services:
     restart: always
     env_file: ./docker/.env.mysql
     volumes:
-      - ./docker//db/:/docker-entrypoint-initdb.d/
+      - ./docker/db/:/docker-entrypoint-initdb.d/
       - mysql_data:/var/lib/mysql
   lh-toolkit:
     build:
@@ -26,7 +26,7 @@ services:
       - '8042:8042'
     restart: unless-stopped
     volumes:
-      - ./docker/orthanc/orthanc-db/:/var/lib/orthanc/db/
+      - orthanc_db:/var/lib/orthanc/db/
       - ./docker/orthanc/orthanc.json:/etc/orthanc/orthanc.json:ro
     depends_on:
       postgres:

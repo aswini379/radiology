@@ -27,22 +27,22 @@ import java.util.Map;
 @Controller
 @RequestMapping(RadiologyDashboardModalitiesTabController.RADIOLOGY_MODALITES_TAB_REQUEST_MAPPING)
 public class RadiologyDashboardModalitiesTabController {
-    
-    
+
+
     public static final String RADIOLOGY_MODALITES_TAB_REQUEST_MAPPING =
             "/module/radiology/radiologyDashboardModalitiesTab.htm";
-    
+
     static final String RADIOLOGY_MODALITIES_TAB_VIEW = "/module/radiology/radiologyDashboardModalitiesTab";
-    
+
     /**
      * Handles get requests for radiology modalities tab page.
-     * 
+     *
      * @return model and view of the radiology modalities tab page
      * @should return model and view of the radiology modalities tab page and set tab session attribute to radiology modalities tab page
      */
     @RequestMapping(method = RequestMethod.GET)
     protected ModelAndView getRadiologyModalitiesTab(HttpServletRequest request) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(RADIOLOGY_MODALITIES_TAB_VIEW);
         request.getSession()
                 .setAttribute(RadiologyWebConstants.RADIOLOGY_DASHBOARD_TAB_SESSION_ATTRIBUTE,

@@ -25,26 +25,26 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Tests {@link RadiologyReportEditor}.
  */
 public class RadiologyReportEditorComponentTest extends BaseModuleContextSensitiveTest {
-    
-    
+
+
     private static final String TEST_DATASET =
             "org/openmrs/module/radiology/include/RadiologyReportServiceComponentTestDataset.xml";
-    
+
     private static final String EXISTING_RADIOLOGY_REPORT_UUID = "e699d90d-e230-4762-8747-d2d0059394b0";
-    
+
     private static final String NON_EXISTING_RADIOLOGY_REPORT_UUID = "637d5011-49f5-4ce8-b4ce-47b37ff2cda2";
-    
+
     @Autowired
     private RadiologyReportService radiologyReportService;
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
     * @see RadiologyReportEditor#setAsText(String)
     * @verifies set value to radiology report whos id matches given text
@@ -56,7 +56,7 @@ public class RadiologyReportEditorComponentTest extends BaseModuleContextSensiti
         assertThat(editor.getValue(), is(notNullValue()));
         assertThat((RadiologyReport) editor.getValue(), is(radiologyReportService.getRadiologyReport(1)));
     }
-    
+
     /**
     * @see RadiologyReportEditor#setAsText(String)
     * @verifies set value to radiology report whos uuid matches given text
@@ -69,7 +69,7 @@ public class RadiologyReportEditorComponentTest extends BaseModuleContextSensiti
         assertThat((RadiologyReport) editor.getValue(),
             is(radiologyReportService.getRadiologyReportByUuid(EXISTING_RADIOLOGY_REPORT_UUID)));
     }
-    
+
     /**
     * @see RadiologyReportEditor#setAsText(String)
     * @verifies throw illegal argument exception for radiology report not found
@@ -81,7 +81,7 @@ public class RadiologyReportEditorComponentTest extends BaseModuleContextSensiti
         expectedException.expectMessage("RadiologyReport not found: ");
         editor.setAsText(NON_EXISTING_RADIOLOGY_REPORT_UUID);
     }
-    
+
     /**
     * @see RadiologyReportEditor#setAsText(String)
     * @verifies return null for empty text
@@ -92,7 +92,7 @@ public class RadiologyReportEditorComponentTest extends BaseModuleContextSensiti
         editor.setAsText("");
         assertThat(editor.getValue(), is(nullValue()));
     }
-    
+
     /**
     * @see RadiologyReportEditor#getAsText()
     * @verifies return empty string if value does not contain a radiology report
@@ -103,7 +103,7 @@ public class RadiologyReportEditorComponentTest extends BaseModuleContextSensiti
         editor.setAsText("");
         assertThat(editor.getAsText(), is(""));
     }
-    
+
     /**
     * @see RadiologyReportEditor#getAsText()
     * @verifies return radiology report id if value does contain a radiology report

@@ -28,14 +28,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("**/radiologyOrderDetails.portlet")
 public class RadiologyOrderDetailsPortletController extends PortletController {
-    
-    
+
+
     @Autowired
     private DicomWebViewer dicomWebViewer;
-    
+
     @Autowired
     private RadiologyOrderService radiologyOrderService;
-    
+
     /**
      * @see org.openmrs.web.controller.PortletController#populateModel(javax.servlet.http.HttpServletRequest,
      *      java.util.Map)
@@ -48,7 +48,7 @@ public class RadiologyOrderDetailsPortletController extends PortletController {
      */
     @Override
     protected void populateModel(HttpServletRequest request, Map<String, Object> model) {
-        
+
         if (model.containsKey("radiologyOrder")) {
             return;
         }

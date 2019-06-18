@@ -30,8 +30,8 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_0.RestCons
 @Resource(name = RestConstants.VERSION_1 + "/procedurerequest", supportedClass = ProcedureRequest.class,
         supportedOpenmrsVersions = { "2.*.*" })
 public class ProcedureRequestResource extends DataDelegatingCrudResource<ProcedureRequest> {
-    
-    
+
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.webservices.rest.web.representation.Representation)
      * @should return default representation given instance of DefaultRepresentation
@@ -40,19 +40,19 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
      */
     @Override
     public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
-        
+
         if (rep instanceof DefaultRepresentation) {
             final DelegatingResourceDescription description = new DelegatingResourceDescription();
-            
+
             description.addProperty("uuid");
             description.addProperty("display");
             description.addSelfLink();
             description.addLink("full", ".?v=" + RestConstants.REPRESENTATION_FULL);
             return description;
-            
+
         } else if (rep instanceof FullRepresentation) {
             final DelegatingResourceDescription description = new DelegatingResourceDescription();
-            
+
             description.addProperty("uuid");
             description.addProperty("identifier");
             description.addProperty("status");
@@ -70,11 +70,11 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
             description.addProperty("display");
             description.addSelfLink();
             return description;
-            
+
         }
         return null;
     }
-    
+
     /**
      * Display string for {@link ProcedureRequest}
      *
@@ -86,7 +86,7 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
     public String getDisplayString(ProcedureRequest procedureRequest) {
         return procedureRequest.getIdentifier();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getByUniqueId(java.lang.String)
      * @should return ProcedureRequest given it's Uuid
@@ -96,7 +96,7 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
         return Context.getService(ProcedureRequestService.class)
                 .getProcedureRequestByUuid(uuid);
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#newDelegate()
      */
@@ -104,11 +104,11 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
     public ProcedureRequest newDelegate() {
         return new ProcedureRequest();
     }
-    
+
     @Override
     public DelegatingResourceDescription getCreatableProperties() {
         final DelegatingResourceDescription description = new DelegatingResourceDescription();
-        
+
         description.addRequiredProperty("priority");
         description.addRequiredProperty("intent");
         description.addRequiredProperty("status");
@@ -120,10 +120,10 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
         description.addProperty("reasonCode");
         description.addProperty("code");
         description.addProperty("category");
-        
+
         return description;
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceHandler#save(java.lang.Object)
      */
@@ -132,7 +132,7 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
         return Context.getService(ProcedureRequestService.class)
                 .addProcedureRequest(procedureRequest);
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#delete(java.lang.Object,
      *      java.lang.String, org.openmrs.module.webservices.rest.web.RequestContext)
@@ -143,7 +143,7 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
             throws ResourceDoesNotSupportOperationException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#purge(java.lang.Object,
      *      org.openmrs.module.webservices.rest.web.RequestContext)
@@ -154,7 +154,7 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
             throws ResourceDoesNotSupportOperationException {
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getResourceVersion()
      */
@@ -162,5 +162,5 @@ public class ProcedureRequestResource extends DataDelegatingCrudResource<Procedu
     public String getResourceVersion() {
         return RestConstants2_0.RESOURCE_VERSION;
     }
-    
+
 }

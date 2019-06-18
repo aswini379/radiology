@@ -48,7 +48,7 @@ imageSet.sortBy((a, b) => {
 Each SOP instance in this example is an instance of **OHIFInstanceMetadata** object, which is a specialization of **InstanceMetadata**. To read more about the **Metadata API** click [here](metadata/).
 
 # The Layout Manager object
-Objects of this class are responsible for creating, organizing and maintaining (manage) viewport rendering. It creates a grid, positioning viewports accordingly to it's configuration keeping all viewports data (in **viewportData** property) for easy access from other components. It support many layout configurations and some of them were fully tested: 1x1, 1x2, 1x3, 2x1, 2x2, 2x3, 3x1, 3x2, 3x3. Other configurations may work as well. 
+Objects of this class are responsible for creating, organizing and maintaining (manage) viewport rendering. It creates a grid, positioning viewports accordingly to it's configuration keeping all viewports data (in **viewportData** property) for easy access from other components. It support many layout configurations and some of them were fully tested: 1x1, 1x2, 1x3, 2x1, 2x2, 2x3, 3x1, 3x2, 3x3. Other configurations may work as well.
 Finally it provides some useful functions to move through viewports and zoom it.
 
 ## Usage

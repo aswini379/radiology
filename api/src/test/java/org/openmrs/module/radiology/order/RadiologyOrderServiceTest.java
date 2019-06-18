@@ -23,23 +23,23 @@ import static org.mockito.Mockito.when;
  * Tests {@link RadiologyOrderService}
  */
 public class RadiologyOrderServiceTest extends BaseContextMockTest {
-    
-    
+
+
     private static final int EXISTING_RADIOLOGY_ORDER_ID = 2001;
-    
+
     private static final String DISCONTINUE_REASON = "Wrong Procedure";
-    
+
     private RadiologyOrderService radiologyOrderService = new RadiologyOrderServiceImpl();
-    
+
     @Mock
     private RadiologyOrder radiologyOrder;
-    
+
     @Mock
     private Provider orderer;
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     /**
      * @see RadiologyOrderService#placeRadiologyOrder(RadiologyOrder)
      * @verifies throw illegal argument exception given null
@@ -50,7 +50,7 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
         expectedException.expectMessage("radiologyOrder cannot be null");
         radiologyOrderService.placeRadiologyOrder(null);
     }
-    
+
     /**
      * @see RadiologyOrderService#placeRadiologyOrder(RadiologyOrder)
      * @verifies throw illegal argument exception if given radiology order has no study
@@ -58,12 +58,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
     @Test
     public void placeRadiologyOrder_shouldThrowIllegalArgumentExceptionIfGivenRadiologyOrderHasNoStudy() {
         when(radiologyOrder.getOrderId()).thenReturn(null);
-        
+
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("radiologyOrder.study cannot be null");
         radiologyOrderService.placeRadiologyOrder(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyOrderService#placeRadiologyOrder(RadiologyOrder)
      * @verifies throw api exception on saving an existing radiology order
@@ -71,12 +71,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
     @Test
     public void placeRadiologyOrder_shouldThrowApiExceptionOnSavingAnExistingRadiologyOrder() {
         when(radiologyOrder.getOrderId()).thenReturn(EXISTING_RADIOLOGY_ORDER_ID);
-        
+
         expectedException.expect(APIException.class);
         expectedException.expectMessage("Order.cannot.edit.existing");
         radiologyOrderService.placeRadiologyOrder(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
      * @verifies throw illegal argument exception if given radiology order is null
@@ -87,7 +87,7 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
         expectedException.expectMessage("radiologyOrder cannot be null");
         radiologyOrderService.discontinueRadiologyOrder(null, orderer, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
      * @verifies throw illegal argument exception if given radiology order with orderId null
@@ -96,12 +96,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
     public void discontinueRadiologyOrder_shouldThrowIllegalArgumentExceptionIfGivenRadiologyOrderWithOrderIdNull()
             throws Exception {
         when(radiologyOrder.getOrderId()).thenReturn(null);
-        
+
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("radiologyOrder.orderId cannot be null, can only discontinue existing order");
         radiologyOrderService.discontinueRadiologyOrder(radiologyOrder, orderer, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
      * @verifies throw illegal argument exception if given orderer is null
@@ -112,7 +112,7 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
         expectedException.expectMessage("orderer cannot be null");
         radiologyOrderService.discontinueRadiologyOrder(radiologyOrder, null, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder,Provider,String)
      * @verifies throw api exception if given radiology order is discontinued
@@ -122,12 +122,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
             throws Exception {
         when(radiologyOrder.isDiscontinuedRightNow()).thenReturn(true);
         when(radiologyOrder.getOrderer()).thenReturn(orderer);
-        
+
         expectedException.expect(APIException.class);
         expectedException.expectMessage("RadiologyOrder.cannot.discontinue.discontinued");
         radiologyOrderService.discontinueRadiologyOrder(radiologyOrder, orderer, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
      * @verifies throw api exception if given radiology order is in progress
@@ -137,12 +137,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
             throws Exception {
         when(radiologyOrder.getOrderer()).thenReturn(orderer);
         when(radiologyOrder.isInProgress()).thenReturn(true);
-        
+
         expectedException.expect(APIException.class);
         expectedException.expectMessage("RadiologyOrder.cannot.discontinue.inProgressOrcompleted");
         radiologyOrderService.discontinueRadiologyOrder(radiologyOrder, orderer, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#discontinueRadiologyOrder(RadiologyOrder, Provider, String)
      * @verifies throw api exception if given radiology order is completed
@@ -152,12 +152,12 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
             throws Exception {
         when(radiologyOrder.getOrderer()).thenReturn(orderer);
         when(radiologyOrder.isCompleted()).thenReturn(true);
-        
+
         expectedException.expect(APIException.class);
         expectedException.expectMessage("RadiologyOrder.cannot.discontinue.inProgressOrcompleted");
         radiologyOrderService.discontinueRadiologyOrder(radiologyOrder, orderer, DISCONTINUE_REASON);
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrder(Integer)
      * @verifies throw illegal argument exception if given null
@@ -168,7 +168,7 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
         expectedException.expectMessage("orderId cannot be null");
         radiologyOrderService.getRadiologyOrder(null);
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrderByUuid(String)
      * @verifies throw illegal argument exception if given null
@@ -179,7 +179,7 @@ public class RadiologyOrderServiceTest extends BaseContextMockTest {
         expectedException.expectMessage("uuid cannot be null");
         radiologyOrderService.getRadiologyOrderByUuid(null);
     }
-    
+
     /**
      * @see RadiologyOrderService#getRadiologyOrders(RadiologyOrderSearchCriteria)
      * @verifies throw illegal argument exception if given null

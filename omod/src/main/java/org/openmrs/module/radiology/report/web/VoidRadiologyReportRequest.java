@@ -13,24 +13,24 @@ package org.openmrs.module.radiology.report.web;
  * Used as {@code ModelAttribute} when voiding a {@code RadiologyReport}.
  */
 final class VoidRadiologyReportRequest {
-    
-    
+
+
     /**
      * Reason for voiding the {@code RadiologyReport}.
      */
     String voidReason;
-    
+
     /**
      * Create a new instance of {@code VoidRadiologyReportRequest}.
      */
     protected VoidRadiologyReportRequest() {
         // shall only be used within this package
     }
-    
+
     public String getVoidReason() {
         return voidReason;
     }
-    
+
     public void setVoidReason(String voidReason) {
         this.voidReason = voidReason;
     }

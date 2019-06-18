@@ -25,26 +25,26 @@ import static org.junit.Assert.assertThat;
  * Tests {@link MrrtReportTemplateEditor}.
  */
 public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSensitiveTest {
-    
-    
+
+
     private static final String TEST_DATASET =
             "org/openmrs/module/radiology/include/MrrtReportTemplateServiceComponentTestDataset.xml";
-    
+
     private static final String EXISTING_MRRT_TEMPLATE_UUID = "aa551445-def0-4f93-9047-95f0a9afbdce";
-    
+
     private static final String NON_EXISTING_MRRT_TEMPLATE_UUID = "637d5011-49f5-4ce8-b4ce-47b37ff2cda2";
-    
+
     @Autowired
     private MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    
+
     @Before
     public void setUp() throws Exception {
         executeDataSet(TEST_DATASET);
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#setAsText(String)
     * @verifies set value to mrrt report template whos id matches given text
@@ -56,7 +56,7 @@ public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSens
         assertThat(editor.getValue(), is(notNullValue()));
         assertThat((MrrtReportTemplate) editor.getValue(), is(mrrtReportTemplateService.getMrrtReportTemplate(1)));
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#setAsText(String)
     * @verifies set value to mrrt report template whos uuid matches given text
@@ -69,7 +69,7 @@ public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSens
         assertThat((MrrtReportTemplate) editor.getValue(),
             is(mrrtReportTemplateService.getMrrtReportTemplateByUuid(EXISTING_MRRT_TEMPLATE_UUID)));
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#setAsText(String)
     * @verifies throw illegal argument exception for mrrt report template not found
@@ -81,7 +81,7 @@ public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSens
         expectedException.expectMessage("MrrtReportTemplate not found: ");
         editor.setAsText(NON_EXISTING_MRRT_TEMPLATE_UUID);
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#setAsText(String)
     * @verifies return null for empty text
@@ -92,7 +92,7 @@ public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSens
         editor.setAsText("");
         assertThat(editor.getValue(), is(nullValue()));
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#getAsText()
     * @verifies return empty string if value does not contain a mrrt report template
@@ -103,7 +103,7 @@ public class MrrtReportTemplateEditorComponentTest extends BaseModuleContextSens
         editor.setAsText("");
         assertThat(editor.getAsText(), is(""));
     }
-    
+
     /**
     * @see MrrtReportTemplateEditor#getAsText()
     * @verifies return mrrt report template id if value does contain a mrrt report template

@@ -69,7 +69,7 @@
   <test_order order_id="2002"/>
   <radiology_order order_id="2002" />
   <radiology_study study_id="2" study_instance_uid="1.2.826.0.1.3680043.8.2186.1.2" order_id="2002" performed_status="IN_PROGRESS" creator="1" date_created="2015-02-02 12:26:35.0" uuid="d1307f3e-a02a-4f1d-91cf-f9537c5cc93f"/>
- 
+
   <!-- patient with one voided and one non voided radiology order -->
   <encounter encounter_id="2005" encounter_type="1001" patient_id="70023" location_id="1" form_id="1" encounter_datetime="2015-02-03 13:17:15.0" creator="1" date_created="2015-02-03 13:17:15.0" voided="false" uuid="4e0e172b-510e-4d35-b705-4b363540fc62"/>
   <patient patient_id="70023" creator="1" date_created="2016-01-01 00:00:00.0" voided="false"/>
@@ -84,11 +84,11 @@
   <orders order_id="2006" order_number="2006" order_type_id="5" order_action="NEW" care_setting="1" encounter_id="2005" urgency="STAT"  orderer="2" concept_id="178" accession_number="5" instructions="MR Left Knee" date_activated="2015-02-02 12:26:35.0" creator="1" date_created="2015-02-02 12:26:35.0" voided="false" patient_id="70023" uuid="cf8c1b34-9060-4190-8831-3b8038556bad"/>
   <test_order order_id="2006"/>
   <radiology_order order_id="2006" />
-  
+
   <orders order_id="2007" order_number="2007" order_type_id="5" order_action="NEW" care_setting="1" encounter_id="2005" urgency="STAT"  orderer="1" concept_id="178" accession_number="6" instructions="MR Left Knee" date_activated="2015-02-02 12:26:35.0" creator="1" date_created="2015-02-02 12:26:35.0" voided="false" patient_id="70023" uuid="7fc7bd5c-69d3-40ec-884a-48bbf08f377f"/>
   <test_order order_id="2007"/>
   <radiology_order order_id="2007" />
-  
+
     <!-- patient with three radiology orders of each urgency -->
   <encounter encounter_id="2006" encounter_type="1001" patient_id="70024" location_id="1" form_id="1" encounter_datetime="2015-02-03 13:17:15.0" creator="1" date_created="2015-02-03 13:17:15.0" voided="false" uuid="cfba8b5a-e536-4710-a3c4-d6135a3ed2d8"/>
 

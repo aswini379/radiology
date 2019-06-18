@@ -15,11 +15,11 @@ import java.io.IOException;
  * A parser that is responsible for parsing mrrt report templates and extract metadata.
  */
 public interface MrrtReportTemplateFileParser {
-    
-    
+
+
     /**
      * Parse an mrrt template and extract metadata into a {@code MrrtReportTemplate}.
-     * 
+     *
      * @param mrrtTemplate the mrrt template to parse
      * @return the mrrt report template
      * @throws IOException if one is thrown during validation

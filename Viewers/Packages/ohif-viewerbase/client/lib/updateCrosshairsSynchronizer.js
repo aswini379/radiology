@@ -4,12 +4,12 @@ import { crosshairsSynchronizers } from './crosshairsSynchronizers';
 
 /**
  * This function is used to maintain the updateImageSynchronizers
- * that are using in the Crosshair tool. The function creates 
+ * that are using in the Crosshair tool. The function creates
  * (and destroys any currently existing) a new synchronizer for the given
  * frame of reference. It then searches for other viewports that share the same
  * frame of reference, and adds those to the synchronizer. These viewports
  * will now function together when the Crosshair tool is used.
- * 
+ *
  * @param currentFrameOfReferenceUID
  */
  export function updateCrosshairsSynchronizer(currentFrameOfReferenceUID) {
@@ -24,7 +24,7 @@ import { crosshairsSynchronizers } from './crosshairsSynchronizers';
         crosshairsSynchronizers.synchronizers[currentFrameOfReferenceUID] = new cornerstoneTools.Synchronizer("CornerstoneNewImage", cornerstoneTools.updateImageSynchronizer);
         synchronizer = crosshairsSynchronizers.synchronizers[currentFrameOfReferenceUID];
     }
-    
+
     // Add all elements that stem from the same frame of reference
     $('.imageViewerViewport').each((index, element) => {
         const frameOfReferenceUID = getFrameOfReferenceUID(element);

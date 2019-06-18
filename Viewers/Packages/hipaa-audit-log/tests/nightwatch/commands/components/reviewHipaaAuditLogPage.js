@@ -5,5 +5,5 @@ exports.command = function() {
     .verify.elementPresent("#hipaaLogPage")
     .verify.elementPresent("#hipaaAuditLog")
 
-  return this; 
+  return this;
 };

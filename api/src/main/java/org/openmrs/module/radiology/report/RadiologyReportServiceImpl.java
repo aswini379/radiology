@@ -31,23 +31,23 @@ import static org.openmrs.module.radiology.RadiologyConstants.GP_RADIOLOGY_CARE_
 
 @Transactional(readOnly = true)
 class RadiologyReportServiceImpl extends BaseOpenmrsService implements RadiologyReportService {
-    
-    
+
+
     private static final Log log = LogFactory.getLog(RadiologyReportServiceImpl.class);
-    
+
     private RadiologyReportDAO radiologyReportDAO;
-    
+
     public void setRadiologyReportDAO(RadiologyReportDAO radiologyReportDAO) {
         this.radiologyReportDAO = radiologyReportDAO;
     }
-    
+
     /**
      * @see RadiologyReportService#createRadiologyReport(RadiologyOrder)
      */
     @Override
     @Transactional
     public synchronized RadiologyReport createRadiologyReport(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
@@ -63,7 +63,7 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         final RadiologyReport radiologyReport = new RadiologyReport(radiologyOrder);
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
     }
-    
+
     /**
      * @see RadiologyReportService#createOrderlessRadiologyReport(Patient)
      */
@@ -99,14 +99,14 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         final RadiologyReport radiologyReport = new RadiologyReport(radiologyOrder);
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
     }
-    
+
     /**
      * @see RadiologyReportService#saveRadiologyReportDraft(RadiologyReport)
      */
     @Override
     @Transactional
     public synchronized RadiologyReport saveRadiologyReportDraft(RadiologyReport radiologyReport) {
-        
+
         if (radiologyReport == null) {
             throw new IllegalArgumentException("radiologyReport cannot be null");
         }
@@ -124,14 +124,14 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         }
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
     }
-    
+
     /**
      * @see RadiologyReportService#voidRadiologyReport(RadiologyReport, String)
      */
     @Override
     @Transactional
     public RadiologyReport voidRadiologyReport(RadiologyReport radiologyReport, String voidReason) {
-        
+
         if (radiologyReport == null) {
             throw new IllegalArgumentException("radiologyReport cannot be null");
         }
@@ -146,14 +146,14 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         }
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
     }
-    
+
     /**
      * @see RadiologyReportService#saveRadiologyReport(RadiologyReport)
      */
     @Override
     @Transactional
     public synchronized RadiologyReport saveRadiologyReport(RadiologyReport radiologyReport) {
-        
+
         if (radiologyReport == null) {
             throw new IllegalArgumentException("radiologyReport cannot be null");
         }
@@ -173,61 +173,61 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         radiologyReport.setStatus(RadiologyReportStatus.COMPLETED);
         return radiologyReportDAO.saveRadiologyReport(radiologyReport);
     }
-    
+
     /**
      * @see RadiologyReportService#getRadiologyReport(Integer)
      */
     @Override
     public RadiologyReport getRadiologyReport(Integer reportId) {
-        
+
         if (reportId == null) {
             throw new IllegalArgumentException("reportId cannot be null");
         }
         return radiologyReportDAO.getRadiologyReport(reportId);
     }
-    
+
     /**
      * @see RadiologyReportService#getRadiologyReportByUuid(String)
      */
     @Override
     public RadiologyReport getRadiologyReportByUuid(String radiologyReportUuid) {
-        
+
         if (radiologyReportUuid == null) {
             throw new IllegalArgumentException("radiologyReportUuid cannot be null");
         }
         return radiologyReportDAO.getRadiologyReportByUuid(radiologyReportUuid);
     }
-    
+
     /**
      * @see RadiologyReportService#hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder)
      */
     @Override
     public boolean hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
         return radiologyReportDAO.hasRadiologyOrderClaimedRadiologyReport(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyReportService#hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder)
      */
     @Override
     public boolean hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
         return radiologyReportDAO.hasRadiologyOrderCompletedRadiologyReport(radiologyOrder);
     }
-    
+
     /**
      * @see RadiologyReportService#getActiveRadiologyReportByRadiologyOrder(RadiologyOrder)
      */
     @Override
     public RadiologyReport getActiveRadiologyReportByRadiologyOrder(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder == null) {
             throw new IllegalArgumentException("radiologyOrder cannot be null");
         }
@@ -239,13 +239,13 @@ class RadiologyReportServiceImpl extends BaseOpenmrsService implements Radiology
         }
         return null;
     }
-    
+
     /**
      * @see RadiologyReportService#getRadiologyReports(RadiologyReportSearchCriteria)
      */
     @Override
     public List<RadiologyReport> getRadiologyReports(RadiologyReportSearchCriteria radiologyReportSearchCriteria) {
-        
+
         if (radiologyReportSearchCriteria == null) {
             throw new IllegalArgumentException("radiologyReportSearchCriteria cannot be null");
         }

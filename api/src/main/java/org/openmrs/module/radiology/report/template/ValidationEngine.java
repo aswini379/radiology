@@ -17,8 +17,8 @@ package org.openmrs.module.radiology.report.template;
  * @see ValidationResult
  */
 public interface ValidationEngine<T> {
-    
-    
+
+
     /**
      * Validates a subject collecting the errors in validation result.
      *

@@ -35,27 +35,27 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RadiologyProperties {
-    
-    
+
+
     @Autowired
     @Qualifier("adminService")
     private AdministrationService administrationService;
-    
+
     @Autowired
     private OrderService orderService;
-    
+
     @Autowired
     private ConceptService conceptService;
-    
+
     @Autowired
     private EncounterService encounterService;
-    
+
     @Autowired
     private VisitService visitService;
-    
+
     /**
      * Return DICOM UID component used to identify the org root.
-     * 
+     *
      * @return dicom uid org root
      * @throws IllegalStateException if global property for dicom uid org root cannot be found
      * @should return dicom uid org root
@@ -64,10 +64,10 @@ public class RadiologyProperties {
     public String getDicomUIDOrgRoot() {
         return getGlobalProperty(RadiologyConstants.GP_DICOM_UID_ORG_ROOT, true);
     }
-    
+
     /**
      * Return DICOM web viewer address.
-     * 
+     *
      * @return DICOM web viewer address
      * @throws IllegalStateException if global property for dicom web viewer address cannot be found
      * @should return dicom web viewer address
@@ -77,10 +77,10 @@ public class RadiologyProperties {
     public String getDicomWebViewerAddress() {
         return getGlobalProperty(RadiologyConstants.GP_DICOM_WEB_VIEWER_ADDRESS, true);
     }
-    
+
     /**
      * Return DICOM web viewer port.
-     * 
+     *
      * @return DICOM web viewer port
      * @throws IllegalStateException if global property for dicom web viewer port cannot be found
      * @should return dicom web viewer port
@@ -90,10 +90,10 @@ public class RadiologyProperties {
     public String getDicomWebViewerPort() {
         return getGlobalProperty(RadiologyConstants.GP_DICOM_WEB_VIEWER_PORT, true);
     }
-    
+
     /**
      * Return DICOM web viewer base url.
-     * 
+     *
      * @return DICOM web viewer base url
      * @throws IllegalStateException if global property for dicom web viewer base url cannot be
      *         found
@@ -104,20 +104,20 @@ public class RadiologyProperties {
     public String getDicomWebViewerBaseUrl() {
         return getGlobalProperty(RadiologyConstants.GP_DICOM_WEB_VIEWER_BASE_URL, true);
     }
-    
+
     /**
      * Return DICOM web viewer local server name.
-     * 
+     *
      * @return DICOM web viewer local server name
      * @should return dicom web viewer local server name
      */
     public String getDicomWebViewerLocalServerName() {
         return getGlobalProperty(RadiologyConstants.GP_DICOM_WEB_VIEWER_LOCAL_SERVER_NAME, false);
     }
-    
+
     /**
      * Get CareSetting for RadiologyOrder's
-     * 
+     *
      * @return CareSetting for radiology orders
      * @should return radiology care setting
      * @should throw illegal state exception if global property for radiology care setting cannot be
@@ -133,10 +133,10 @@ public class RadiologyProperties {
         }
         return result;
     }
-    
+
     /**
      * Test order type for radiology order
-     * 
+     *
      * @return test order type for radiology order
      * @should return order type for radiology test orders
      * @should throw illegal state exception for non existing radiology test order type
@@ -144,10 +144,10 @@ public class RadiologyProperties {
     public OrderType getRadiologyTestOrderType() {
         return orderService.getOrderTypeByUuid(getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE, true));
     }
-    
+
     /**
      * Get EncounterType for RadiologyOrder's
-     * 
+     *
      * @return EncounterType for radiology orders
      * @should return encounter type for radiology orders
      * @should throw illegal state exception for non existing radiology encounter type
@@ -156,10 +156,10 @@ public class RadiologyProperties {
         return encounterService
                 .getEncounterTypeByUuid(getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, true));
     }
-    
+
     /**
      * Get EncounterRole for the ordering provider
-     * 
+     *
      * @return EncounterRole for ordering provider
      * @should return encounter role for ordering provider
      * @should throw illegal state exception for non existing ordering provider encounter role
@@ -168,10 +168,10 @@ public class RadiologyProperties {
         return encounterService.getEncounterRoleByUuid(
             getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_ORDERING_PROVIDER_ENCOUNTER_ROLE, true));
     }
-    
+
     /**
      * Get VisitType for RadiologyOrder's
-     * 
+     *
      * @return visitType for radiology orders
      * @should return visit type for radiology orders
      * @should throw illegal state exception for non existing radiology visit type
@@ -179,7 +179,7 @@ public class RadiologyProperties {
     public VisitType getRadiologyVisitType() {
         return visitService.getVisitTypeByUuid(getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_VISIT_TYPE, true));
     }
-    
+
     /**
      * Gets the names of the concept classes for the UUIDs from the config
      *
@@ -200,16 +200,16 @@ public class RadiologyProperties {
      *         in global property radiology concept classes
      */
     public String getRadiologyConceptClassNames() {
-        
+
         String radiologyConceptClassUuidSetting = getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_CONCEPT_CLASSES, true);
         radiologyConceptClassUuidSetting = radiologyConceptClassUuidSetting.replace(" ", "");
         if (!radiologyConceptClassUuidSetting.matches("^[0-9a-fA-f,-]+$")) {
             throw new IllegalStateException("Property " + RadiologyConstants.GP_RADIOLOGY_CONCEPT_CLASSES
                     + " needs to be a comma separated list of concept class UUIDs (allowed characters [a-z][A-Z][0-9][,][-][ ])");
         }
-        
+
         final String[] radiologyConceptClassUuids = radiologyConceptClassUuidSetting.split(",");
-        
+
         String result = "";
         for (final String radiologyConceptClassUuid : radiologyConceptClassUuids) {
             final ConceptClass fetchedConceptClass = conceptService.getConceptClassByUuid(radiologyConceptClassUuid);
@@ -223,7 +223,7 @@ public class RadiologyProperties {
         result = result.substring(0, result.length() - 1);
         return result;
     }
-    
+
     /**
      * Gets the names of the concept classes for the UUIDs from the global property radiologyOrderReasonConceptClasses
      *
@@ -244,7 +244,7 @@ public class RadiologyProperties {
      *         radiology order reason concept classes
      */
     public String getRadiologyOrderReasonConceptClassNames() {
-        
+
         String radiologyReasonConceptClassUuidSetting =
                 getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_ORDER_REASON_CONCEPT_CLASSES, false);
         if (StringUtils.isBlank(radiologyReasonConceptClassUuidSetting)) {
@@ -254,14 +254,14 @@ public class RadiologyProperties {
             }
             return diagnosisConceptClass.getName();
         }
-        
+
         radiologyReasonConceptClassUuidSetting = radiologyReasonConceptClassUuidSetting.replace(" ", "");
         if (!radiologyReasonConceptClassUuidSetting.matches("^[0-9a-fA-f,-]*$")) {
             throw new IllegalStateException("Property " + RadiologyConstants.GP_RADIOLOGY_ORDER_REASON_CONCEPT_CLASSES
                     + " needs to be a comma separated list of concept class UUIDs (allowed characters [a-z][A-Z][0-9][,][-][ ])");
         }
         final String[] radiologyReasonConceptClassUuids = radiologyReasonConceptClassUuidSetting.split(",");
-        
+
         String result = "";
         for (final String radiologyReasonConceptClassUuid : radiologyReasonConceptClassUuids) {
             final ConceptClass fetchedConceptClass = conceptService.getConceptClassByUuid(radiologyReasonConceptClassUuid);
@@ -275,10 +275,10 @@ public class RadiologyProperties {
         result = result.substring(0, result.length() - 1);
         return result;
     }
-    
+
     /**
      * Gets a global property by its name.
-     * 
+     *
      * @param globalPropertyName the name of the requested global property
      * @param required indicates if the global property must be configured
      * @return value of global property for given name
@@ -294,10 +294,10 @@ public class RadiologyProperties {
         }
         return result;
     }
-    
+
     /**
      * Gets folder to store {@code MRRT} templates.
-     * 
+     *
      * @return templates folder
      * @throws IllegalStateException if global property cannot be found
      * @should create a directory under the openmrs application data directory if GP value is relative
@@ -305,9 +305,9 @@ public class RadiologyProperties {
      * @should throw illegal state exception if global property cannot be found
      */
     public File getReportTemplateHome() {
-        
+
         Path templatesPath = Paths.get(getGlobalProperty(RadiologyConstants.GP_MRRT_REPORT_TEMPLATE_DIR, true));
-        
+
         if (!templatesPath.isAbsolute()) {
             templatesPath = Paths.get(OpenmrsUtil.getApplicationDataDirectory(), templatesPath.toString());
         }
@@ -316,7 +316,7 @@ public class RadiologyProperties {
             templatesPath.toFile()
                     .mkdirs();
         }
-        
+
         return templatesPath.toFile();
     }
 }

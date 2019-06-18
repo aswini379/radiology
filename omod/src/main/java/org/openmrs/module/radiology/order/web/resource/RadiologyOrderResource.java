@@ -30,8 +30,8 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_0.RestCons
 @Resource(name = RestConstants.VERSION_1 + "/radiologyorder", supportedClass = RadiologyOrder.class,
         supportedOpenmrsVersions = { "2.*.*" })
 public class RadiologyOrderResource extends DataDelegatingCrudResource<RadiologyOrder> {
-    
-    
+
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.webservices.rest.web.representation.Representation)
      * @should return default representation given instance of defaultrepresentation
@@ -94,31 +94,31 @@ public class RadiologyOrderResource extends DataDelegatingCrudResource<Radiology
             return null;
         }
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getResourceVersion()
      * @should return supported resource version
      */
     @Override
     public String getResourceVersion() {
-        
+
         return RestConstants2_0.RESOURCE_VERSION;
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#getByUniqueId(java.lang.String)
      * @should return radiology order given its uuid
      */
     @Override
     public RadiologyOrder getByUniqueId(String uniqueId) {
-        
+
         return Context.getService(RadiologyOrderService.class)
                 .getRadiologyOrderByUuid(uniqueId);
     }
-    
+
     /**
      * Get the display string for a {@link RadiologyOrder}.
-     * 
+     *
      * @param radiologyOrder the radiology order of which the display string shall be returned
      * @return the accession number and the concept name of given radiology order
      * @should return accession number and concept name of given radiology order
@@ -126,7 +126,7 @@ public class RadiologyOrderResource extends DataDelegatingCrudResource<Radiology
      */
     @PropertyGetter("display")
     public String getDisplayString(RadiologyOrder radiologyOrder) {
-        
+
         if (radiologyOrder.getConcept() == null) {
             return radiologyOrder.getAccessionNumber() + " - " + "[No Concept]";
         } else {
@@ -135,27 +135,27 @@ public class RadiologyOrderResource extends DataDelegatingCrudResource<Radiology
                     .getName();
         }
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#newDelegate()
      * @should throw ResourceDoesNotSupportOperationException
      */
     @Override
     public RadiologyOrder newDelegate() throws ResourceDoesNotSupportOperationException {
-        
+
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceHandler#save(java.lang.Object)
      * @should throw ResourceDoesNotSupportOperationException
      */
     @Override
     public RadiologyOrder save(RadiologyOrder delegate) throws ResourceDoesNotSupportOperationException {
-        
+
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#delete(java.lang.Object,
      *      java.lang.String, org.openmrs.module.webservices.rest.web.RequestContext)
@@ -164,10 +164,10 @@ public class RadiologyOrderResource extends DataDelegatingCrudResource<Radiology
     @Override
     protected void delete(RadiologyOrder delegate, String reason, RequestContext context)
             throws ResourceDoesNotSupportOperationException {
-        
+
         throw new ResourceDoesNotSupportOperationException();
     }
-    
+
     /**
      * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#purge(java.lang.Object,
      *      org.openmrs.module.webservices.rest.web.RequestContext)
@@ -175,7 +175,7 @@ public class RadiologyOrderResource extends DataDelegatingCrudResource<Radiology
      */
     @Override
     public void purge(RadiologyOrder delegate, RequestContext context) throws ResourceDoesNotSupportOperationException {
-        
+
         throw new ResourceDoesNotSupportOperationException();
     }
 }

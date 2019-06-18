@@ -29,18 +29,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(MrrtReportTemplateFormController.MRRT_REPORT_TEMPLATE_FORM_REQUEST_MAPPING)
 public class MrrtReportTemplateFormController {
-    
-    
+
+
     protected static final String MRRT_REPORT_TEMPLATE_FORM_REQUEST_MAPPING = "/module/radiology/mrrtReportTemplate.form";
-    
+
     static final String MRRT_REPORT_TEMPLATE_FORM_VIEW = "/module/radiology/reports/templates/mrrtReportTemplateForm";
-    
+
     @Autowired
     private MrrtReportTemplateService mrrtReportTemplateService;
-    
+
     /**
      * Handles request for view an {@code MrrtReportTemplate}.
-     * 
+     *
      * @param request
      *            the the HttpServletRequest to view MrrtReportTemplates
      * @param mrrtReportTemplate
@@ -52,9 +52,9 @@ public class MrrtReportTemplateFormController {
     @RequestMapping(method = RequestMethod.GET, params = "templateId")
     public ModelAndView displayMrrtReportTemplate(HttpServletRequest request,
             @RequestParam("templateId") MrrtReportTemplate mrrtReportTemplate) {
-        
+
         final ModelAndView modelAndView = new ModelAndView(MRRT_REPORT_TEMPLATE_FORM_VIEW);
-        
+
         try {
             modelAndView.addObject("templateBody",
                 mrrtReportTemplateService.getMrrtReportTemplateHtmlBody(mrrtReportTemplate));

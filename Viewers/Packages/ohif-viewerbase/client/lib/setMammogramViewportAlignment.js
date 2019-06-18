@@ -20,7 +20,7 @@ const setMammogramViewportAlignment = (series, enabledElement, imageId) => {
     const right = left + enabledElement.canvas.width;
 
     const metadataProvider = OHIF.viewer.metadataProvider;
-    
+
     let laterality = instance.laterality;
     let position;
 

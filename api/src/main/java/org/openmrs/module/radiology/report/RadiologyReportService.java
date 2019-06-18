@@ -37,8 +37,8 @@ import org.openmrs.module.radiology.order.RadiologyOrder;
  * @see org.openmrs.module.radiology.report.RadiologyReport
  */
 public interface RadiologyReportService extends OpenmrsService {
-    
-    
+
+
     /**
      * Saves a new {@code RadiologyReport} to the database and sets its status to claimed.
      *
@@ -56,7 +56,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_REPORTS)
     public RadiologyReport createRadiologyReport(RadiologyOrder radiologyOrder);
-    
+
     /**
      * Saves a new {@code RadiologyReport} to the database for the patient without existing order.
      *
@@ -74,7 +74,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.ADD_RADIOLOGY_REPORTS)
     public RadiologyReport createOrderlessRadiologyReport(Patient patient);
-    
+
     /**
      * Saves an existing {@code RadiologyReport} which is in a draft state to the database.
      * <p>
@@ -96,7 +96,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.EDIT_RADIOLOGY_REPORTS)
     public RadiologyReport saveRadiologyReportDraft(RadiologyReport radiologyReport);
-    
+
     /**
      * Marks a {@code RadiologyReport} as voided.
      *
@@ -115,7 +115,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.DELETE_RADIOLOGY_REPORTS)
     public RadiologyReport voidRadiologyReport(RadiologyReport radiologyReport, String voidReason);
-    
+
     /**
      * Saves an existing {@code RadiologyReport} and and sets its status to completed.
      *
@@ -138,7 +138,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.EDIT_RADIOLOGY_REPORTS)
     public RadiologyReport saveRadiologyReport(RadiologyReport radiologyReport);
-    
+
     /**
      * Get the {@code RadiologyReport} by its {@code reportId}.
      *
@@ -151,7 +151,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_REPORTS)
     public RadiologyReport getRadiologyReport(Integer reportId);
-    
+
     /**
      * Get the {@code RadiologyReport} by its {@code UUID}.
      *
@@ -164,7 +164,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_REPORTS)
     public RadiologyReport getRadiologyReportByUuid(String uuid);
-    
+
     /**
      * Check if a {@code RadiologyOrder} has a claimed {@code RadiologyReport}.
      *
@@ -177,7 +177,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_REPORTS)
     public boolean hasRadiologyOrderClaimedRadiologyReport(RadiologyOrder radiologyOrder);
-    
+
     /**
      * Check if a {@code RadiologyOrder} has a completed {@code RadiologyReport}.
      *
@@ -190,7 +190,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_REPORTS)
     public boolean hasRadiologyOrderCompletedRadiologyReport(RadiologyOrder radiologyOrder);
-    
+
     /**
      * Get the active (can be a non-voided draft or completed) {@code RadiologyReport} for a {@code RadiologyOrder}.
      *
@@ -204,7 +204,7 @@ public interface RadiologyReportService extends OpenmrsService {
      */
     @Authorized(RadiologyPrivileges.GET_RADIOLOGY_REPORTS)
     public RadiologyReport getActiveRadiologyReportByRadiologyOrder(RadiologyOrder radiologyOrder);
-    
+
     /**
      * Get all {@code RadiologyReport's} matching a variety of (nullable) criteria.
      * Each extra value for a parameter that is provided acts as an "and" and will reduce the number of results returned

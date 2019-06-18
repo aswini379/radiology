@@ -13,12 +13,12 @@ package org.openmrs.module.radiology.order;
  * Generate new unique accession numbers.
  */
 public interface AccessionNumberGenerator {
-    
-    
+
+
     /**
      * Generates a new accession number. Note that this method is invoked in a non thread-safe way,
      * therefore implementations need to be thread safe.
-     * 
+     *
      * @return the new accession number
      * @should always return a unique accession number when called multiple times
      */
